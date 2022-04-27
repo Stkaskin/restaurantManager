@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">restaurantManager</string>
+    <string name="personSub1">restaurantManager</string>
 </resources>
