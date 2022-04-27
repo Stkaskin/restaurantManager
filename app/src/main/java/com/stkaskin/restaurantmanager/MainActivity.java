@@ -15,10 +15,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ArrayList liste=Dataeleman.getArrayListElemanlar();
         TextView v=findViewById(R.id.textView);
-        v.setText("");
-        for (String item:Dataeleman.getArrayListElemanlar()) {
-            v.append(item);
-        }
+        Garson garson=new Garson();
+        garson.ad="Ali";
+        garson.yas="21";
+
+      //  v.setText(garson.Add());
+
+
 
     }
 }
