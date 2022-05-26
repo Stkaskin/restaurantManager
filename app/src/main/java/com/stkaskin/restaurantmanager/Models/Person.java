@@ -1,21 +1,37 @@
 package com.stkaskin.restaurantmanager.Models;
 
-public class Person {
-    int id;
-    String name;
-    public Person(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+import com.stkaskin.restaurantmanager.FireCloud.IFirebase;
 
-    public Person() {
-    }
-    public int getId() {
+public class Person implements IFirebase {    String id;
+    int displayRank;
+    String imageid;
+    String name;
+    int status;
+    String type;
+    PersonType personType;
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
+    }
+
+    public int getDisplayRank() {
+        return displayRank;
+    }
+
+    public void setDisplayRank(int displayRank) {
+        this.displayRank = displayRank;
+    }
+
+    public String getImageid() {
+        return imageid;
+    }
+
+    public void setImageid(String imageid) {
+        this.imageid = imageid;
     }
 
     public String getName() {
@@ -26,5 +42,32 @@ public class Person {
         this.name = name;
     }
 
+    public int getStatus() {
+        return status;
+    }
 
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public PersonType getPersonType() {
+        return personType;
+    }
+
+    public void setPersonType(PersonType personType) {
+        this.personType = personType;
+    }
+
+    @Override
+    public String TableName() {
+        return "Person";
+    }
 }

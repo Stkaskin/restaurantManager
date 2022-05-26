@@ -2,12 +2,9 @@ package com.stkaskin.restaurantmanager.Models;
 
 import com.stkaskin.restaurantmanager.FireCloud.IFirebase;
 
-public class Table implements IFirebase {
+public class Extra implements IFirebase {
     String id;
-    int displayRank;
     String name;
-    int status;
-
 
     public String getId() {
         return id;
@@ -15,14 +12,6 @@ public class Table implements IFirebase {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public int getDisplayRank() {
-        return displayRank;
-    }
-
-    public void setDisplayRank(int displayRank) {
-        this.displayRank = displayRank;
     }
 
     public String getName() {
@@ -33,16 +22,18 @@ public class Table implements IFirebase {
         this.name = name;
     }
 
-    public int getStatus() {
-        return status;
+    public int getType() {
+        return type;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setType(int type) {
+        this.type = type;
     }
+
+    int type;
 
     @Override
     public String TableName() {
-        return "Table";
+        return "Extra";
     }
 }

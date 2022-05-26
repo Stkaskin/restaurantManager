@@ -4,14 +4,11 @@ import com.stkaskin.restaurantmanager.FireCloud.IFirebase;
 
 import java.util.ArrayList;
 
-public class Category implements IFirebase
-{    String id;
-
-
-    int displayRank;
-    String imageid;
+public class SpecialExtraList implements IFirebase {    String id;
+    String displayRank;
     String name;
     int status;
+    ArrayList<ExtraDetail> extraDetails;
 
     public String getId() {
         return id;
@@ -20,20 +17,13 @@ public class Category implements IFirebase
     public void setId(String id) {
         this.id = id;
     }
-    public int getDisplayRank() {
+
+    public String getDisplayRank() {
         return displayRank;
     }
 
-    public void setDisplayRank(int displayRank) {
+    public void setDisplayRank(String displayRank) {
         this.displayRank = displayRank;
-    }
-
-    public String getImageid() {
-        return imageid;
-    }
-
-    public void setImageid(String imageid) {
-        this.imageid = imageid;
     }
 
     public String getName() {
@@ -52,18 +42,16 @@ public class Category implements IFirebase
         this.status = status;
     }
 
+    public ArrayList<ExtraDetail> getExtraDetails() {
+        return extraDetails;
+    }
+
+    public void setExtraDetails(ArrayList<ExtraDetail> extraDetails) {
+        this.extraDetails = extraDetails;
+    }
+
     @Override
     public String TableName() {
-        return "Category";
+        return "SpecialExtraList";
     }
-
-    /*public ArrayList<Product> getProductList() {
-        return productList;
-    }
-
-    public void setProductList(ArrayList<Product> productList) {
-        this.productList = productList;
-    }
-
-    ArrayList<Product> productList;*/
 }

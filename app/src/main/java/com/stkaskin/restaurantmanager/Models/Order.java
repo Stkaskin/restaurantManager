@@ -1,73 +1,101 @@
 package com.stkaskin.restaurantmanager.Models;
-public class Order {
-    int id;
-    int personId;
-    int productId;
-    int tableId;
-    Product product;
-    Person person;
+
+import com.stkaskin.restaurantmanager.FireCloud.IFirebase;
+
+import java.util.ArrayList;
+
+public class Order implements IFirebase {
+    String cheffId;
+    String datetime;
+    String id;
+    String note;
+    int status;
+    String tableId;
+    int total;
+    String waiterId;
+    Person waiter;
+    Person Cheff;
     Table table;
+    ArrayList<OrderDetail> orderDetailList;
 
-    public Order() {
+    public String getCheffId() {
+        return cheffId;
     }
 
-    public Order(int id, int personId, int productId, int tableId, Product product, Person person, Table table) {
-        this.id = id;
-        this.personId = personId;
-        this.productId = productId;
-        this.tableId = tableId;
-        this.product = product;
-        this.person = person;
-        this.table = table;
+    public void setCheffId(String cheffId) {
+        this.cheffId = cheffId;
     }
 
-    public int getId() {
+    public String getDatetime() {
+        return datetime;
+    }
+
+    public void setDatetime(String datetime) {
+        this.datetime = datetime;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public int getPersonId() {
-        return personId;
+    public String getNote() {
+        return note;
     }
 
-    public void setPersonId(int personId) {
-        this.personId = personId;
+    public void setNote(String note) {
+        this.note = note;
     }
 
-    public int getProductId() {
-        return productId;
+    public int getStatus() {
+        return status;
     }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
-    public int getTableId() {
-
+    public String getTableId() {
         return tableId;
     }
 
-    public void setTableId(int tableId) {
+    public void setTableId(String tableId) {
         this.tableId = tableId;
     }
 
-    public Product getProduct() {
-        return product;
+    public int getTotal() {
+        return total;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setTotal(int total) {
+        this.total = total;
     }
 
-    public Person getPerson() {
-        return person;
+    public String getWaiterId() {
+        return waiterId;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setWaiterId(String waiterId) {
+        this.waiterId = waiterId;
+    }
+
+    public Person getWaiter() {
+        return waiter;
+    }
+
+    public void setWaiter(Person waiter) {
+        this.waiter = waiter;
+    }
+
+    public Person getCheff() {
+        return Cheff;
+    }
+
+    public void setCheff(Person cheff) {
+        Cheff = cheff;
     }
 
     public Table getTable() {
@@ -76,5 +104,18 @@ public class Order {
 
     public void setTable(Table table) {
         this.table = table;
+    }
+
+    public ArrayList<OrderDetail> getOrderDetailList() {
+        return orderDetailList;
+    }
+
+    public void setOrderDetailList(ArrayList<OrderDetail> orderDetailList) {
+        this.orderDetailList = orderDetailList;
+    }
+
+    @Override
+    public String TableName() {
+        return "Order";
     }
 }
