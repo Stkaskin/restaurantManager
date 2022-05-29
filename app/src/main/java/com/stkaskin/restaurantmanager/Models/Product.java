@@ -10,8 +10,6 @@ public class Product implements IFirebase {    String id;
     String imageid;
     String name;
     int status;
-    Category category;
-    SpecialExtraList specialExtraList;
 
     public String getId() {
         return id;
@@ -77,21 +75,6 @@ public class Product implements IFirebase {    String id;
         this.status = status;
     }
 
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public SpecialExtraList getSpecialExtraList() {
-        return specialExtraList;
-    }
-
-    public void setSpecialExtraList(SpecialExtraList specialExtraList) {
-        this.specialExtraList = specialExtraList;
-    }
 
     @Override
     public String TableName() {

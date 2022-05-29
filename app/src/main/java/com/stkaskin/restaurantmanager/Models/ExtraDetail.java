@@ -10,8 +10,7 @@ public class ExtraDetail implements IFirebase {
     String imageId;
     String specialExtraListId;
     int status;
-    Extra extra;
-    SpecialExtraList specialExtraList;
+
 
     public String getId() {
         return id;
@@ -69,21 +68,7 @@ public class ExtraDetail implements IFirebase {
         this.status = status;
     }
 
-    public Extra getExtra() {
-        return extra;
-    }
 
-    public void setExtra(Extra extra) {
-        this.extra = extra;
-    }
-
-    public SpecialExtraList getSpecialExtraList() {
-        return specialExtraList;
-    }
-
-    public void setSpecialExtraList(SpecialExtraList specialExtraList) {
-        this.specialExtraList = specialExtraList;
-    }
 
     @Override
     public String TableName() {

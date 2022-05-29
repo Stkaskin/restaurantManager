@@ -10,6 +10,39 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RestaurantManager">
         <activity
+            android:name=".Views.Extra.ExtraAdd"
+            android:exported="true" />
+        <activity
+            android:name=".Views.Category.CategoryAdd"
+            android:exported="true" />
+        <activity
+            android:name=".Views.Product.Product_Add"
+            android:exported="true" />
+        <activity
+            android:name=".Views.Table.TableDelete"
+            android:exported="true" />
+        <activity
+            android:name=".Views.Table.TableUpdate"
+            android:exported="true" />
+        <activity
+            android:name=".Views.Table.TableAdd"
+            android:exported="true" />
+        <activity
+            android:name=".Views.Table.TableList"
+            android:exported="true" />
+        <activity
+            android:name=".Views.Person.PersonList"
+            android:exported="true" />
+        <activity
+            android:name=".Views.Person.PersonUpdate"
+            android:exported="true" />
+        <activity
+            android:name=".Views.Person.PersonDelete"
+            android:exported="true" />
+        <activity
+            android:name=".Views.Person.PersonAdd"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

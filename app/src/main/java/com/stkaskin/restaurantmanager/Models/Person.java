@@ -8,7 +8,7 @@ public class Person implements IFirebase {    String id;
     String name;
     int status;
     String type;
-    PersonType personType;
+
 
     public String getId() {
         return id;
@@ -58,13 +58,7 @@ public class Person implements IFirebase {    String id;
         this.type = type;
     }
 
-    public PersonType getPersonType() {
-        return personType;
-    }
 
-    public void setPersonType(PersonType personType) {
-        this.personType = personType;
-    }
 
     @Override
     public String TableName() {
