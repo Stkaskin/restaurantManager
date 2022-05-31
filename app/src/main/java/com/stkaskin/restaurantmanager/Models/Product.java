@@ -6,6 +6,7 @@ public class Product implements IFirebase {    String id;
     String categoryId;
     String description;
     int displayRank;
+    //spinner
     String extraSpeacialListId;
     String imageid;
     String name;
