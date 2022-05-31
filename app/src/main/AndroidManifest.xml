@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RestaurantManager">
         <activity
+            android:name=".Views.Login"
+            android:exported="false" />
+        <activity
             android:name=".Views.Extra.ExtraAdd"
             android:exported="true" />
         <activity

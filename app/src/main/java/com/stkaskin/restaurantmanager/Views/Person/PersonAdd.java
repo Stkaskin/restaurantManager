@@ -3,9 +3,11 @@ package com.stkaskin.restaurantmanager.Views.Person;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,11 +18,18 @@ import com.stkaskin.restaurantmanager.R;
 
 public class PersonAdd extends AppCompatActivity  {
 
+    Spinner spinnerStatu;
+    ArrayAdapter<String> adapterStatu;
+    String[] status = {"Select","Admin","Chef","Waiter"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person_add);
+        spinnerStatu = findViewById(R.id.spinnerStatu);
+        adapterStatu = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,status);
+        adapterStatu.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerStatu.setAdapter(adapterStatu);
 
     }
     public void Add(View view)
