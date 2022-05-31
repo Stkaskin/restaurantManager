@@ -5,6 +5,7 @@ import com.stkaskin.restaurantmanager.FireCloud.IFirebase;
 import java.util.ArrayList;
 
 public class PersonType implements IFirebase {    String id;
+    //spinner
     String SpecialPersonTypeListid;
     boolean CategoryAdd;
     boolean CategoryDelete;
@@ -18,14 +19,13 @@ public class PersonType implements IFirebase {    String id;
     boolean ProductAdd;
     boolean ProductDelete;
     boolean ProductUpdate;
-
     boolean TableAdd;
     boolean TableDelete;
     boolean TableUpdate;
     boolean TypeAdd;
     boolean TypeDelete;
     boolean TypeUpdate;
-    ArrayList<Person> personList;
+
 
     public String getId() {
         return id;
@@ -187,13 +187,7 @@ public class PersonType implements IFirebase {    String id;
         TypeUpdate = typeUpdate;
     }
 
-    public ArrayList<Person> getPersonList() {
-        return personList;
-    }
 
-    public void setPersonList(ArrayList<Person> personList) {
-        this.personList = personList;
-    }
 
     @Override
     public String TableName() {

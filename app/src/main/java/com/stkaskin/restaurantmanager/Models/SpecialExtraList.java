@@ -8,7 +8,7 @@ public class SpecialExtraList implements IFirebase {    String id;
     String displayRank;
     String name;
     int status;
-    ArrayList<ExtraDetail> extraDetails;
+
 
     public String getId() {
         return id;
@@ -42,13 +42,8 @@ public class SpecialExtraList implements IFirebase {    String id;
         this.status = status;
     }
 
-    public ArrayList<ExtraDetail> getExtraDetails() {
-        return extraDetails;
-    }
 
-    public void setExtraDetails(ArrayList<ExtraDetail> extraDetails) {
-        this.extraDetails = extraDetails;
-    }
+
 
     @Override
     public String TableName() {

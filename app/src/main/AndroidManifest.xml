@@ -10,6 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RestaurantManager">
         <activity
+            android:name=".Views.Order.OrderContents"
+            android:exported="false" />
+        <activity
+            android:name=".Views.Order.OrderCategoryList"
+            android:exported="false" />
+        <activity
+            android:name=".Views.Order.OrderProductsList"
+            android:exported="false" />
+        <activity
+            android:name=".Views.Order.Order"
+            android:exported="false" />
+        <activity
             android:name=".Views.Login"
             android:exported="false" />
         <activity

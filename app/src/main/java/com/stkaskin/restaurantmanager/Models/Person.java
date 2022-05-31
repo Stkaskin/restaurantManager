@@ -7,6 +7,8 @@ public class Person implements IFirebase {    String id;
     String imageid;
     String name;
     int status;
+
+    //spinner
     String type;
 
 
