@@ -8,6 +8,7 @@ import com.stkaskin.restaurantmanager.FireCloud.FirebaseService;
 import com.stkaskin.restaurantmanager.Models.Table;
 import com.stkaskin.restaurantmanager.Views.Category.CategoryAdd;
 import com.stkaskin.restaurantmanager.Views.Login;
+import com.stkaskin.restaurantmanager.Views.Order.OrderCategoryList;
 import com.stkaskin.restaurantmanager.Views.Person.PersonAdd;
 import com.stkaskin.restaurantmanager.Views.Person.PersonList;
 import com.stkaskin.restaurantmanager.Views.Product.Product_Add;
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         table.setId("79JdwyQ9WCWwRI7pY23N");
         FirebaseService.ReadData(table);
         // endregion Basladi
-        Intent i = new Intent(getApplicationContext(), PersonAdd.class);
+        Intent i = new Intent(getApplicationContext(), OrderCategoryList.class);
         startActivity(i);
         //ArrayList<Table> Tables= FirebaseService.ReadData(new Table());
         //     Object obj=  FirebaseService.SearchCustom(new Table(),FirebaseService.QueryCustom(new Table()).whereEqualTo("name","S-30"));
