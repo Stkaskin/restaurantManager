@@ -30,7 +30,7 @@ public class CategoryAdd extends AppCompatActivity {
         category.setDisplayRank(1);
         category.setStatus(1);
         category.setImageid("");
-        String id = FirebaseService.AddData(category);
+        String id = FirebaseService.Add(category);
         Toast.makeText(this, "Eklendi : " + id, Toast.LENGTH_SHORT).show();
     }
 

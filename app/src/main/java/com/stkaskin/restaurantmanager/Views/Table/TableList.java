@@ -34,7 +34,7 @@ public class TableList extends AppCompatActivity implements View.OnClickListener
         table.setDisplayRank(0);
 
         // FirebaseService.UpdateData(table);
-        ArrayList<Table> table_temp = FirebaseService.ReadDatas(new Table());
+        ArrayList<Table> table_temp = FirebaseService.Get(Table.class);
         ArrayList<Table> tables = new ArrayList<>();
         for (int c = 0; c < table_temp.size(); c++) {
             int tut = 0;

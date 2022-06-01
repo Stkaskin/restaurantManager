@@ -45,7 +45,7 @@ public class PersonAdd extends AppCompatActivity  {
         //specialpersontypelist e gidilecek ve seçilenin typeid si çekilecek
         person.setType("B5cIFcOFjonE0FQUidVx");
         person.setImageid("");
-        String id = FirebaseService.AddData(person);
+        String id = FirebaseService.Add(person);
         Toast.makeText(this, "Eklendi : " + id, Toast.LENGTH_SHORT).show();
     }
 
