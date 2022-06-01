@@ -30,7 +30,7 @@ public class ExtraAdd extends AppCompatActivity {
         extra.setName(name_temp);
         //sayısal olarak tpye
         extra.setType(5);
-        String id = FirebaseService.AddData(extra);
+        String id = FirebaseService.Add(extra);
         ExtraDetail detail =new ExtraDetail();
 
         detail.setName(name_temp);
@@ -40,7 +40,7 @@ public class ExtraAdd extends AppCompatActivity {
         //hangi kategori altında görülecek
         detail.setSpecialExtraListId("GZnfnP3PN2XGfkpbgQD1");
         detail.setImageId("");
-        String id2 = FirebaseService.AddData(detail);
+        String id2 = FirebaseService.Add(detail);
         Toast.makeText(this, "Eklendi : " + id+ "  ve "+id2, Toast.LENGTH_SHORT).show();
     }
 

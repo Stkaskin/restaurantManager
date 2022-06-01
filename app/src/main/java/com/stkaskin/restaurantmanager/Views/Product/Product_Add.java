@@ -91,7 +91,7 @@ public class Product_Add extends AppCompatActivity {
         //product.setImageid("");
 
 
-        String id = FirebaseService.AddData(product);
+        String id = FirebaseService.Add(product);
         Toast.makeText(this, "Eklendi : " + id, Toast.LENGTH_SHORT).show();
     }
 }

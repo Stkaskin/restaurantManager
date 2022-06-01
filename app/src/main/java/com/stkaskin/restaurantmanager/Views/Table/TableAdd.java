@@ -30,7 +30,7 @@ public class TableAdd extends AppCompatActivity {
         table.setName(name_temp);
         table.setDisplayRank(1);
         table.setStatus(1);
-        String id = FirebaseService.AddData(table);
+        String id = FirebaseService.Add(table);
         Toast.makeText(this, "Eklendi : " + id, Toast.LENGTH_SHORT).show();
 
     }
