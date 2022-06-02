@@ -4,16 +4,9 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.PackageManagerCompat;
 
-import android.Manifest;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -26,12 +19,11 @@ import com.stkaskin.restaurantmanager.FireCloud.FirebaseService;
 import com.stkaskin.restaurantmanager.Models.Product;
 import com.stkaskin.restaurantmanager.R;
 
-import java.security.Permission;
-
 public class Product_Add extends AppCompatActivity {
-    Spinner spinnerCategory;
-    ArrayAdapter<String> adapterCategory;
-    String[] Category = {"Select", "Main", "Drinks", "Soups"}; //veri tabanından gelicek
+    Spinner spinnerCategory, spinnerDurum;
+    ArrayAdapter<String> adapterCategory, adapterDurum;
+    String[] Category = {"Select", "Main", "Drinks", "Soups"};
+    String[] Durum = {"var", "yok"};//veri tabanından gelicek
     ImageView imageView;
     int izinVerildi=1, izinReddedildi =0;
     ActivityResultLauncher<String> launcher;
@@ -42,11 +34,17 @@ public class Product_Add extends AppCompatActivity {
         setContentView(R.layout.activity_product_add);
         spinnerCategory = findViewById(R.id.spinnerCategory);
         imageView = findViewById(R.id.imageViewFotoEkle);
+        spinnerDurum = findViewById(R.id.spinnerDurumProduct);
 
 
         adapterCategory = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Category);
+        adapterDurum = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Durum);
         adapterCategory.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterDurum.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCategory.setAdapter(adapterCategory);
+        spinnerDurum.setAdapter(adapterDurum);
+
+        //galeriden foto alma
         launcher = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
             @Override
             public void onActivityResult(Uri result) {
@@ -57,6 +55,7 @@ public class Product_Add extends AppCompatActivity {
 
     }
 
+    //galeriden foto alma
     public void resimSec(View view) {
 
         imageView.setOnClickListener( view1 -> launcher.launch("image/*"));

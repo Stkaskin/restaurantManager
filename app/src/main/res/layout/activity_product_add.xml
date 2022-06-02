@@ -21,6 +21,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_productadd_name" />
 
+    <Spinner
+        android:id="@+id/spinnerDurumProduct"
+        android:layout_width="283dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="64dp"
+        android:background="@drawable/edittext_background"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_productadd_detail" />
+
     <ImageView
         android:id="@+id/imageView8"
         android:layout_width="wrap_content"
@@ -43,7 +56,6 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:text="Add Product"
         android:textSize="40dp"
         android:textStyle="bold|italic"
@@ -102,16 +114,14 @@
 
     <ImageView
         android:id="@+id/imageViewFotoEkle"
-        android:layout_width="0dp"
+        android:layout_width="155dp"
         android:layout_height="150dp"
-        android:layout_marginStart="128dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="128dp"
         android:onClick="resimSec"
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_productadd_detail"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerDurumProduct"
         app:srcCompat="@drawable/foto_ekle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

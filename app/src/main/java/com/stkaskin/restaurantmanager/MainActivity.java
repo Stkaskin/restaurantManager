@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.stkaskin.restaurantmanager.FireCloud.FirebaseService;
 import com.stkaskin.restaurantmanager.Models.Extra;
 import com.stkaskin.restaurantmanager.Models.Table;
-import com.stkaskin.restaurantmanager.Views.Order.OrderCategoryList;
-import com.stkaskin.restaurantmanager.Views.Order.OrderCategoryProductsList;
+import com.stkaskin.restaurantmanager.Views.Category.CategoryAdd;
+import com.stkaskin.restaurantmanager.Views.Extra.ExtraAdd;
 import com.stkaskin.restaurantmanager.Views.Order.OrderProductsList;
+import com.stkaskin.restaurantmanager.Views.Person.PersonAdd;
+import com.stkaskin.restaurantmanager.Views.Product.Product_Add;
+import com.stkaskin.restaurantmanager.Views.Table.TableAdd;
 import com.stkaskin.restaurantmanager.Views.Table.TableList;
 
 import java.lang.reflect.InvocationTargetException;
@@ -21,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //Veritabanı bağlantısı başlatılıyor region Basladi
         //ArrayList<Table> tables = FirebaseService.Get(Table.class);
-        Intent intent=new Intent(this, OrderCategoryProductsList.class );
+        Intent intent=new Intent(this, TableAdd.class );
      //   intent.putExtra("operation",1);
         startActivity(intent);
    //     Object obj = FirebaseService.Get(Table.class);
