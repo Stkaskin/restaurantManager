@@ -59,11 +59,11 @@ public class Order implements IFirebase {
     }
 
     public String getTableId() {
-        return tableId;
+        return tableId.trim();
     }
 
     public void setTableId(String tableId) {
-        this.tableId = tableId;
+        this.tableId = tableId.trim();
     }
 
     public int getTotal() {

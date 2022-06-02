@@ -3,16 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Askin/AndroidStudioProjects/restaurantManager/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.20833333333333334" />
+        <entry key="..\:/Users/Askin/AndroidStudioProjects/restaurantManager/app/src/main/res/drawable/ic_launcher_background.xml" value="0.20833333333333334" />
         <entry key="..\:/Users/Askin/AndroidStudioProjects/restaurantManager/app/src/main/res/layout/activity_category_add.xml" value="0.22" />
         <entry key="..\:/Users/Askin/AndroidStudioProjects/restaurantManager/app/src/main/res/layout/activity_extra_add.xml" value="0.33" />
+        <entry key="..\:/Users/Askin/AndroidStudioProjects/restaurantManager/app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="..\:/Users/Askin/AndroidStudioProjects/restaurantManager/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/Askin/AndroidStudioProjects/restaurantManager/app/src/main/res/layout/activity_main2.xml" value="0.1" />
+        <entry key="..\:/Users/Askin/AndroidStudioProjects/restaurantManager/app/src/main/res/layout/activity_order_products_list.xml" value="0.22" />
         <entry key="..\:/Users/Askin/AndroidStudioProjects/restaurantManager/app/src/main/res/layout/activity_person_add.xml" value="0.25" />
         <entry key="..\:/Users/Askin/AndroidStudioProjects/restaurantManager/app/src/main/res/layout/activity_person_list.xml" value="0.18568840579710144" />
         <entry key="..\:/Users/Askin/AndroidStudioProjects/restaurantManager/app/src/main/res/layout/activity_person_update.xml" value="0.1" />
         <entry key="..\:/Users/Askin/AndroidStudioProjects/restaurantManager/app/src/main/res/layout/activity_product_add.xml" value="0.2669826224328594" />
         <entry key="..\:/Users/Askin/AndroidStudioProjects/restaurantManager/app/src/main/res/layout/activity_table_add.xml" value="0.25" />
-        <entry key="..\:/Users/Askin/AndroidStudioProjects/restaurantManager/app/src/main/res/layout/activity_table_delete.xml" value="0.1" />
+        <entry key="..\:/Users/Askin/AndroidStudioProjects/restaurantManager/app/src/main/res/layout/activity_table_delete.xml" value="0.22" />
         <entry key="..\:/Users/Askin/AndroidStudioProjects/restaurantManager/app/src/main/res/layout/activity_table_list.xml" value="0.17753623188405798" />
         <entry key="..\:/Users/Casper/StudioProjects/restaurantManagerV2/app/src/main/res/layout/activity_order_category_list.xml" value="0.16824324324324325" />
         <entry key="..\:/Users/Casper/StudioProjects/restaurantManagerV2/app/src/main/res/layout/activity_order_contents.xml" value="0.14412568306010928" />

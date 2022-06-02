@@ -5,7 +5,7 @@ import com.stkaskin.restaurantmanager.FireCloud.IFirebase;
 import java.util.ArrayList;
 
 public class Category implements IFirebase
-{    String id;
+{     String id;
 
 
     int displayRank;
