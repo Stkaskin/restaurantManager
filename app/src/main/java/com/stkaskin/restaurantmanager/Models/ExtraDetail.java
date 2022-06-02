@@ -7,8 +7,11 @@ public class ExtraDetail implements IFirebase {
     String id;
     String name;
     int displayRank;
+    //--
     String extraId;
+    //--
     String imageId;
+    //--
     String specialExtraListId;
     int status;
 

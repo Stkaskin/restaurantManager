@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         //Veritabanı bağlantısı başlatılıyor region Basladi
         //ArrayList<Table> tables = FirebaseService.Get(Table.class);
         Intent intent=new Intent(this, OrderCategoryProductsList.class );
-     //   intent.putExtra("operation",1);
+        intent.putExtra("operation",1);
         startActivity(intent);
    //     Object obj = FirebaseService.Get(Table.class);
 
