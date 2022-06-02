@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:background="#FFFFFF"
     android:onClick="Add"
+    android:orientation="horizontal"
     tools:context=".Views.Category.CategoryAdd">
 
     <ImageView
@@ -32,6 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Add Categories"
+        android:textColor="#615B5B"
         android:textSize="30dp"
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,27 +45,70 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="64dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="64dp"
         android:background="@drawable/edittext_background"
         android:ems="10"
-        android:hint="Category"
+        android:hint="Category Name"
         android:inputType="textPersonName"
         android:textAlignment="center"
+        android:textColor="#130F0F"
+        android:textColorHint="#201515"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <Button
         android:id="@+id/btnCategoryAdd"
-        android:layout_width="0dp"
+        android:layout_width="155dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="128dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="128dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/btn_background"
         android:text="Save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewFotoEkleCategory" />
+
+    <ImageView
+        android:id="@+id/imageViewFotoEkleCategory"
+        android:layout_width="155dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="16dp"
+        android:onClick="resimSecCategory"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerDurumCategory"
+        app:srcCompat="@drawable/foto_ekle" />
+
+    <EditText
+        android:id="@+id/editTextDisplayRank"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="64dp"
+        android:background="@drawable/edittext_background"
+        android:ems="10"
+        android:hint="Display Rank"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textColor="#171111"
+        android:textColorHint="#1B1414"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_categoryadd_name" />
+
+    <Spinner
+        android:id="@+id/spinnerDurumCategory"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="64dp"
+        android:background="@drawable/edittext_background"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextDisplayRank" />
 </androidx.constraintlayout.widget.ConstraintLayout>
