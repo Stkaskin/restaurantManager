@@ -24,9 +24,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //Veritabanı bağlantısı başlatılıyor region Basladi
         //ArrayList<Table> tables = FirebaseService.Get(Table.class);
-        Intent intent=new Intent(this, TableAdd.class );
-     //   intent.putExtra("operation",1);
-        startActivity(intent);
+
    //     Object obj = FirebaseService.Get(Table.class);
 
     }
