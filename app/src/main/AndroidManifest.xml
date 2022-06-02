@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.NoActionBar">
         <activity
+            android:name=".Views.Order.OrderCategoryProductsList"
+            android:exported="true" />
+        <activity
             android:name=".Views.Order.OrderContents"
             android:exported="false" />
         <activity
