@@ -3,6 +3,7 @@ package com.stkaskin.restaurantmanager.Models;
 import com.stkaskin.restaurantmanager.FireCloud.IFirebase;
 
 public class ExtraDetail implements IFirebase {
+  //eklenecek
     String id;
     String name;
     int displayRank;

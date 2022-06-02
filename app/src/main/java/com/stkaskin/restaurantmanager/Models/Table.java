@@ -7,8 +7,6 @@ public class Table implements IFirebase {
     int displayRank;
     String name;
     int status;
-
-
     public String getId() {
         return id;
     }

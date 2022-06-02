@@ -1,8 +1,9 @@
 package com.stkaskin.restaurantmanager.Views.Table;
 
-import android.graphics.Color;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -12,43 +13,59 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.stkaskin.restaurantmanager.FireCloud.FirebaseService;
 import com.stkaskin.restaurantmanager.Models.Table;
 import com.stkaskin.restaurantmanager.R;
+import com.stkaskin.restaurantmanager.Views.Order.OrderProductsList;
 
 import java.util.ArrayList;
 
 public class TableList extends AppCompatActivity implements View.OnClickListener {
     ArrayList<Table> tableArrayList = new ArrayList<>();
     LinearLayout layoutBack;
+    int opertation = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_table_list);
+        this.opertation = getIntent().getIntExtra("operation", 0);
         //  üst tarafa yetkisi varsa uzun basıldıgında
         //  silme ve güncelleme komutları olacak
         //üst tarafa + buttonu eklenecek yetkililer için
         layoutBack = findViewById(R.id.linearLayoutTables);
         LinearLayout row = new LinearLayout(this);
-        Button button ;
-        Table table = new Table();
-        table.setId("2FvjcVr4wwHi57Te0nbd");
-        table.setDisplayRank(0);
-
-        // FirebaseService.UpdateData(table);
-        ArrayList<Table> table_temp = FirebaseService.Get(Table.class);
-        ArrayList<Table> tables = new ArrayList<>();
-        for (int c = 0; c < table_temp.size(); c++) {
-            int tut = 0;
-            for (int i = 0; i < table_temp.size(); i++) {
-                if (table_temp.get(i).getDisplayRank() < table_temp.get(tut).getDisplayRank())
-                    tut = i;
-            }
-
-            tables.add(table_temp.get(tut));
-            table_temp.remove(tut);
-            c--;
-
-
+        Button button;
+        //yetkisi varsa
+        if (opertation == 1) {
+            layoutBack = getAddButton(layoutBack);
         }
+        ArrayList<Table> table_temp = FirebaseService.Get(Table.class);
+        ArrayList<Table> tables = Sort(table_temp);
+        layoutBack = GetTableDynamic(layoutBack, tables);
+    }
+
+    private LinearLayout getAddButton(LinearLayout layoutBack) {
+        LinearLayout row = new LinearLayout(this);
+        Button button = new Button(this);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                120,
+                120
+        );
+
+        params.setMargins(900, 20, 20, 20);
+
+        button.setBackgroundResource(R.drawable.plusbutton);
+
+
+        row.setLayoutParams(params);
+        row.addView(button);
+
+        layoutBack.addView(row);
+        return layoutBack;
+    }
+
+    private LinearLayout GetTableDynamic(LinearLayout layoutBack, ArrayList<Table> tables) {
+        Button button = new Button(this);
+        LinearLayout row = new LinearLayout(this);
         for (int i = 0; i < tables.size(); i++) {
 
             if (i % 3 == 0) {
@@ -68,15 +85,15 @@ public class TableList extends AppCompatActivity implements View.OnClickListener
             params.width = 350;
             params.height = 350;
             button.setId(i);
-            button.setTag(i);
+            button.setTag(tables.get(i));
 
             button.setLayoutParams(params);
             if (tables.get(i).getStatus() == 0)
-                button.setBackgroundColor(Color.GREEN);
+                button.setBackgroundResource(R.drawable.greentable);
             else if (tables.get(i).getStatus() == 1)
-                button.setBackgroundColor(Color.RED);
+                button.setBackgroundResource(R.drawable.redtable);
             else
-                button.setBackgroundColor(Color.YELLOW);
+                button.setBackgroundResource(R.drawable.yellowtable);
 
 
             button.setOnClickListener(TableList.this);
@@ -85,25 +102,43 @@ public class TableList extends AppCompatActivity implements View.OnClickListener
 
 
         }
-
-
+        return layoutBack;
     }
 
     @Override
     public void onClick(View v) {
-
-      //  Button button =findViewById((int) v.getTag());
-        Table table = tableArrayList.get((int) v.getTag());
+        Table table = (Table) v.getTag();
         String mesaj = table.getName();
-        if (table.getStatus()==0)
-            mesaj+=" boş";
+        if (table.getStatus() == 0) {
+            mesaj += " Sipariş Oluşturma.";
 
-       else if (table.getStatus()==1)
-            mesaj+=" dolu";
-       else
-           mesaj+=" masa hazırlanıyor";
-        Toast.makeText(this, mesaj, Toast.LENGTH_SHORT).show();
+        }
 
+        else if (table.getStatus() == 1)
+            mesaj += " Sipariş Güncelleme";
+        else
+            mesaj += " Masa Hazırlık Aşamasında";
+        Toast.makeText(this, mesaj +" \nid="+table.getId(), Toast.LENGTH_SHORT).show();
+
+        Intent m=new Intent(this, OrderProductsList.class);
+        m.putExtra("operation",1);
+        m.putExtra("idTable",table.getId());
+        startActivity(m);
     }
 
+    //generic algoritma olacak
+    private ArrayList<Table> Sort(ArrayList<Table> table_temp) {
+        ArrayList<Table> tables = new ArrayList<>();
+        for (int c = 0; c < table_temp.size(); c++) {
+            int tut = 0;
+            for (int i = 0; i < table_temp.size(); i++) {
+                if (table_temp.get(i).getDisplayRank() < table_temp.get(tut).getDisplayRank())
+                    tut = i;
+            }
+            tables.add(table_temp.get(tut));
+            table_temp.remove(tut);
+            c--;
+        }
+        return tables;
+    }
 }
