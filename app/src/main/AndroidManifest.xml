@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar">
         <activity
+            android:name=".Views.Order.OrderCategoryProductExtras"
+            android:exported="true" />
+        <activity
             android:name=".PersonYetki"
             android:exported="false" />
         <activity

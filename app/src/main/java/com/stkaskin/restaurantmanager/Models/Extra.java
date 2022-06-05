@@ -5,7 +5,7 @@ import com.stkaskin.restaurantmanager.FireCloud.IFirebase;
 public class Extra implements IFirebase {
     String id;
     String name;
-
+    int type;
     public String getId() {
         return id;
     }
@@ -30,7 +30,7 @@ public class Extra implements IFirebase {
         this.type = type;
     }
 
-    int type;
+
 
     @Override
     public String TableName() {

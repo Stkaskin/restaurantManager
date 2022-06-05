@@ -15,16 +15,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="81dp"
-            android:orientation="horizontal">
+            android:layout_height="124dp"
+            android:gravity="right"
+            android:orientation="horizontal"/>
 
-            <TableRow
-                android:layout_width="129dp"
-                android:layout_height="match_parent" />
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

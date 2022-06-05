@@ -7,6 +7,8 @@ import com.stkaskin.restaurantmanager.Models.Extra;
 import com.stkaskin.restaurantmanager.Models.Table;
 import com.stkaskin.restaurantmanager.Views.Category.CategoryAdd;
 import com.stkaskin.restaurantmanager.Views.Extra.ExtraAdd;
+import com.stkaskin.restaurantmanager.Views.Order.OrderCategoryProductExtras;
+import com.stkaskin.restaurantmanager.Views.Order.OrderCategoryProductsList;
 import com.stkaskin.restaurantmanager.Views.Order.OrderProductsList;
 import com.stkaskin.restaurantmanager.Views.Person.PersonAdd;
 import com.stkaskin.restaurantmanager.Views.Product.Product_Add;
@@ -22,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Intent m=new Intent(this, OrderCategoryProductExtras.class);
+        startActivity(m);
         //Veritabanı bağlantısı başlatılıyor region Basladi
         //ArrayList<Table> tables = FirebaseService.Get(Table.class);
 
