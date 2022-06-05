@@ -5,7 +5,7 @@ import com.stkaskin.restaurantmanager.FireCloud.IFirebase;
 import java.util.ArrayList;
 
 public class SpecialExtraList implements IFirebase {    String id;
-    String displayRank;
+    int displayRank;
     String name;
     int status;
 
@@ -18,11 +18,11 @@ public class SpecialExtraList implements IFirebase {    String id;
         this.id = id;
     }
 
-    public String getDisplayRank() {
+    public int getDisplayRank() {
         return displayRank;
     }
 
-    public void setDisplayRank(String displayRank) {
+    public void setDisplayRank(int displayRank) {
         this.displayRank = displayRank;
     }
 

@@ -5,7 +5,7 @@ import com.stkaskin.restaurantmanager.FireCloud.IFirebase;
 public class ExtraDetail implements IFirebase {
   //eklenecek
     String id;
-    String name;
+
     int displayRank;
     //--
     String extraId;
@@ -24,13 +24,6 @@ public class ExtraDetail implements IFirebase {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public int getDisplayRank() {
         return displayRank;

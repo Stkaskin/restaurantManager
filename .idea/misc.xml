@@ -7,6 +7,8 @@
         <entry key="..\:/Users/Askin/AndroidStudioProjects/restaurantManager/app/src/main/res/layout/activity_extra_add.xml" value="0.33" />
         <entry key="..\:/Users/Askin/AndroidStudioProjects/restaurantManager/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/Askin/AndroidStudioProjects/restaurantManager/app/src/main/res/layout/activity_main2.xml" value="0.1" />
+        <entry key="..\:/Users/Askin/AndroidStudioProjects/restaurantManager/app/src/main/res/layout/activity_order_category_product_extras.xml" value="0.33" />
+        <entry key="..\:/Users/Askin/AndroidStudioProjects/restaurantManager/app/src/main/res/layout/activity_order_category_products_list.xml" value="0.33" />
         <entry key="..\:/Users/Askin/AndroidStudioProjects/restaurantManager/app/src/main/res/layout/activity_person_add.xml" value="0.25" />
         <entry key="..\:/Users/Askin/AndroidStudioProjects/restaurantManager/app/src/main/res/layout/activity_person_list.xml" value="0.18568840579710144" />
         <entry key="..\:/Users/Askin/AndroidStudioProjects/restaurantManager/app/src/main/res/layout/activity_person_update.xml" value="0.1" />
@@ -14,6 +16,10 @@
         <entry key="..\:/Users/Askin/AndroidStudioProjects/restaurantManager/app/src/main/res/layout/activity_table_add.xml" value="0.25" />
         <entry key="..\:/Users/Askin/AndroidStudioProjects/restaurantManager/app/src/main/res/layout/activity_table_delete.xml" value="0.1" />
         <entry key="..\:/Users/Askin/AndroidStudioProjects/restaurantManager/app/src/main/res/layout/activity_table_list.xml" value="0.17753623188405798" />
+        <entry key="..\:/Users/Askin/AndroidStudioProjects/restaurantManager/app/src/main/res/layout/activity_widgets.xml" value="0.14583333333333334" />
+        <entry key="..\:/Users/Askin/AndroidStudioProjects/restaurantManager/app/src/main/res/layout/activity_widgets3.xml" value="0.25" />
+        <entry key="..\:/Users/Askin/AndroidStudioProjects/restaurantManager/app/src/main/res/layout/fragment_blank.xml" value="0.14583333333333334" />
+        <entry key="..\:/Users/Askin/AndroidStudioProjects/restaurantManager/app/src/main/res/layout/widgets.xml" value="0.14583333333333334" />
         <entry key="..\:/Users/Casper/StudioProjects/restaurantManagerV2/app/src/main/res/layout/activity_category_add.xml" value="0.2" />
         <entry key="..\:/Users/Casper/StudioProjects/restaurantManagerV2/app/src/main/res/layout/activity_extra_add.xml" value="0.14412568306010928" />
         <entry key="..\:/Users/Casper/StudioProjects/restaurantManagerV2/app/src/main/res/layout/activity_order.xml" value="0.14412568306010928" />
