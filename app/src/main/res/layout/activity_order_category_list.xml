@@ -8,17 +8,10 @@
     tools:context=".Views.Order.OrderCategoryList">
 
     <LinearLayout
+        android:id="@+id/OrderHeader_Category"
         android:layout_width="match_parent"
         android:layout_height="47dp"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/button13"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:text="Geri" />
-    </LinearLayout>
+        android:orientation="horizontal" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -33,30 +26,9 @@
     </ScrollView>
 
     <LinearLayout
+        android:id="@+id/OrderFooter_Category"
         android:layout_width="match_parent"
-        android:layout_height="46dp"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/button10"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="İPTAL" />
-
-        <Button
-            android:id="@+id/button11"
-            android:layout_width="6dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Bitir" />
-
-        <Button
-            android:id="@+id/button12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Onayla" />
-    </LinearLayout>
+        android:layout_height="82dp"
+        android:orientation="horizontal" />
 
 </LinearLayout>

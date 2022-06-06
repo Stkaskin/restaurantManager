@@ -1,5 +1,6 @@
 package com.stkaskin.restaurantmanager.Views.Order;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -13,8 +14,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.stkaskin.restaurantmanager.FireCloud.FirebaseService;
 import com.stkaskin.restaurantmanager.Models.Product;
 import com.stkaskin.restaurantmanager.R;
+import com.stkaskin.restaurantmanager.Widgets.OrderWidget;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -27,6 +30,7 @@ public class OrderCategoryProductsList extends AppCompatActivity {
         setContentView(R.layout.activity_order_category_products_list);
         LinearLayout layoutBack = findViewById(R.id.linearLayoutCategoryProducts);
         ScrollView sc = findViewById(R.id.linearLayoutCategoryProducts_scroll);
+        OrderWidget.setOrderLayout(this,findViewById(R.id.OrderHeader_Product),findViewById(R.id.OrderFooter_Product));
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
@@ -34,13 +38,12 @@ public class OrderCategoryProductsList extends AppCompatActivity {
         sc.setLayoutParams(layoutParams);
         ArrayList<Product> products = new ArrayList<>();
 
+        products= FirebaseService.Get(
+                Product.class,FirebaseService.QueryCreate(Product.class).whereEqualTo("categoryId",getIntent().getStringExtra("CategoryId"))
+        );
 
-        for (int i = 0; i < 10; i++) {
-            Product pr = new Product();
-            pr.setName("name" + i);
-            pr.setImageid(i + "");
-            pr.setDescription("alt baslik" + i);
-            pr.setStatus(0);
+        for (int i = 0; i <products.size(); i++) {
+            Product pr =products.get(i);
 
             LinearLayout rowT = new LinearLayout(this);
             rowT.setTag(pr);
@@ -93,6 +96,9 @@ public class OrderCategoryProductsList extends AppCompatActivity {
     public void OnClick(View view) {
         Product product = (Product) view.getTag();
         Toast.makeText(this, product.getName() + "", Toast.LENGTH_SHORT).show();
+        Intent intent=new Intent(this,OrderCategoryProductExtras.class);
+        intent.putExtra("ProductId",product.getId());
+        startActivity(intent);
     }
 
 
