@@ -8,6 +8,7 @@
     tools:context=".Views.Order.OrderCategoryProductExtras">
 
     <LinearLayout
+        android:id="@+id/OrderHeader_Extra"
         android:layout_width="match_parent"
         android:layout_height="42dp"
         android:orientation="horizontal">
@@ -28,6 +29,7 @@
     </ScrollView>
 
     <LinearLayout
+        android:id="@+id/OrderFooter_Extra"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"></LinearLayout>

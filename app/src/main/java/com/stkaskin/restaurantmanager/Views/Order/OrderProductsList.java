@@ -1,5 +1,6 @@
 package com.stkaskin.restaurantmanager.Views.Order;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
@@ -25,12 +26,11 @@ import com.stkaskin.restaurantmanager.Models.Table;
 import com.stkaskin.restaurantmanager.R;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class OrderProductsList extends AppCompatActivity {
     LinearLayout layoutBack;
     ArrayList<Product> products = new ArrayList<>();
-
+    Table table = new Table();
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +38,7 @@ public class OrderProductsList extends AppCompatActivity {
         setContentView(R.layout.activity_order_products_list);
         layoutBack = findViewById(R.id.linearLayoutProducts);
 
-        Product product = new Product();
+       /* Product product = new Product();
         product.setId("1");
         product.setName("sadas");
         products.add(product);
@@ -53,31 +53,31 @@ public class OrderProductsList extends AppCompatActivity {
         product = new Product();
         product.setId("4");
         product.setName("sadas");
-        products.add(product);
+        products.add(product);*/
 
         String id = getIntent().getStringExtra("idTable");
-        Table table = new Table();
+
         table = FirebaseService.Get(Table.class, id);
         ArrayList<Order> orders = new ArrayList<Order>();
         if (table.getStatus() == 1) {
 
             String tableId = table.getId().trim();
             ArrayList<OrderDetail> details = new ArrayList<>();
-            Order order_=OrderGet(tableId);
+            Order order_ = OrderGet(tableId);
             if (order_ != null) {
                 details = FirebaseService.Get(OrderDetail.class,
                         FirebaseService.QueryCreate(OrderDetail.class).whereEqualTo("orderid", order_.getId())
                 );
             }
             products = new ArrayList<>();
-            if (details!=null)
-            for (OrderDetail detail : details) {
-                Product product_ = FirebaseService.Get(Product.class, detail.getProductid().trim());
-                if (product_ != null)
-                    products.add(product_);
-            }
-            if (products.size()>0)
-                GetTableDynamic(layoutBack,products);
+            if (details != null)
+                for (OrderDetail detail : details) {
+                    Product product_ = FirebaseService.Get(Product.class, detail.getProductid().trim());
+                    if (product_ != null)
+                        products.add(product_);
+                }
+            if (products.size() > 0)
+                GetTableDynamic(layoutBack, products);
             //  products=FirebaseService.Get(Product.class);
             // GetTableDynamic(layoutBack, products);
         } else if (table.getStatus() == 2) {
@@ -93,8 +93,8 @@ public class OrderProductsList extends AppCompatActivity {
         tx.setText("Masa Durum :" + table.getStatus() + "");
         // Rezerve("1");
     }
-    private  Order OrderGet(String tableId)
-    {
+
+    private Order OrderGet(String tableId) {
         Order order_ = new Order();
         for (Order item : OrdersGet(tableId)) {
             if (item.getTableId().trim().equals(tableId.trim())) {
@@ -104,17 +104,18 @@ public class OrderProductsList extends AppCompatActivity {
         }
         return null;
     }
-    private ArrayList<Order> OrdersGet(String id)
-    {
-        ArrayList<Order> orders=new ArrayList<>();
+
+    private ArrayList<Order> OrdersGet(String id) {
+        ArrayList<Order> orders = new ArrayList<>();
         Class class_ = com.stkaskin.restaurantmanager.Models.Order.class;
         Query q = FirebaseService.QueryCreate(class_);
         q = q.whereEqualTo("status", 1);
         orders = FirebaseService.Get(class_, q);
-        if(orders==null)
+        if (orders == null)
             return new ArrayList<Order>();
         return orders;
     }
+
     private void Rezerve(String id) {
 
 
@@ -218,6 +219,12 @@ public class OrderProductsList extends AppCompatActivity {
     public void ClickMinus(@NonNull View v) {
         Product product = (Product) v.getTag();
         Toast.makeText(this, product.getId(), Toast.LENGTH_SHORT).show();
+    }
+
+    public void addNew(View view) {
+        Intent intent = new Intent(this, OrderCategoryList.class);
+        intent.putExtra("TableId",table.getId());
+        startActivity(intent);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.stkaskin.restaurantmanager.Views.Order;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -13,15 +14,16 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.color.ColorRoles;
 import com.stkaskin.restaurantmanager.FireCloud.FirebaseService;
 import com.stkaskin.restaurantmanager.Models.Extra;
 import com.stkaskin.restaurantmanager.Models.ExtraDetail;
 import com.stkaskin.restaurantmanager.Models.Model.ExtraAndDetailModel;
 import com.stkaskin.restaurantmanager.Models.Model.ExtraModel;
+import com.stkaskin.restaurantmanager.Models.Order;
 import com.stkaskin.restaurantmanager.Models.Product;
 import com.stkaskin.restaurantmanager.Models.SpecialExtraList;
 import com.stkaskin.restaurantmanager.R;
+import com.stkaskin.restaurantmanager.Widgets.OrderWidget;
 
 import java.util.ArrayList;
 
@@ -30,8 +32,8 @@ public class OrderCategoryProductExtras extends AppCompatActivity {
     Product product = new Product();
     ArrayList<ExtraModel> models = new ArrayList<>();
 
-    public void add() {
-        product = FirebaseService.Get(Product.class, "8tETf4wQw6sOdtLkVO8v");
+    public void add(String productId) {
+        product = FirebaseService.Get(Product.class, productId);
         SpecialExtraList specialExtraList = FirebaseService.Get(SpecialExtraList.class,
                 product.getExtraSpeacialListId());
         ArrayList<ExtraDetail> extraDetails = FirebaseService.Get(ExtraDetail.class,
@@ -72,8 +74,9 @@ public class OrderCategoryProductExtras extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_category_product_extras);
+        OrderWidget.setOrderLayout(this,findViewById(R.id.OrderHeader_Extra),findViewById(R.id.OrderFooter_Extra));
         LinearLayout layoutBack = findViewById(R.id.linearLayoutCategoryProductExtras);
-        add();
+        add(getIntent().getStringExtra("ProductId"));
         for (ExtraModel item : models) {
 
 
@@ -92,14 +95,19 @@ public class OrderCategoryProductExtras extends AppCompatActivity {
             LinearLayout row1 = new LinearLayout(this);
             LinearLayout row2 = new LinearLayout(this);
             for (int i = 0; i < item.getModels().size(); i++) {
-                Button button=new Button(this);
+                Button button = new Button(this);
                 //statü kontrolüne göre renk verilecek
                 button.setBackgroundColor(Color.TRANSPARENT);
                 button.setText(item.getModels().get(i).getExtra().getName());
                 button.setTag(item.getModels().get(i));
+                if (item.getModels().get(i).getDetail().getStatus() == 0)
+                    button.setBackgroundColor(Color.TRANSPARENT);
+                else
+                    button.setBackgroundColor(Color.GREEN);
+
                 button.setOnClickListener(view ->
                 {
-                    if (((ColorDrawable)view.getBackground()).getColor()==Color.TRANSPARENT)
+                    if (((ColorDrawable) view.getBackground()).getColor() == Color.TRANSPARENT)
                         view.setBackgroundColor(Color.GREEN);
                     else
                         view.setBackgroundColor(Color.TRANSPARENT);
@@ -116,7 +124,7 @@ public class OrderCategoryProductExtras extends AppCompatActivity {
             rowBorder.setBackgroundColor(Color.BLACK);
             rowBorder.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 2));
             TextView view = new TextView(this);
-            view.setText(item.getHeader()+"");
+            view.setText(item.getHeader() + "");
             LinearLayout layoutFullRow = new LinearLayout(this);
             layoutFullRow.setOrientation(LinearLayout.VERTICAL);
             layoutFullRow.addView(view);
@@ -129,5 +137,9 @@ public class OrderCategoryProductExtras extends AppCompatActivity {
             layoutBack.addView(layoutFullRow);
             layoutBack.addView(rowBorder);
         }
+
     }
+
+
+
 }
