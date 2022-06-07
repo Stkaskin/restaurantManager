@@ -4,37 +4,56 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
+    android:gravity="center"
     tools:context=".MainActivity">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:id="@+id/mainP"
+    android:layout_height="match_parent"></LinearLayout>
+    <soup.neumorphism.NeumorphButton
+        android:layout_width="135dp"
+        android:layout_height="105dp"
+        android:onClick="porcuS"
+        android:id="@+id/FloatP2"
+          app:neumorph_shapeType="flat"
+        app:neumorph_shadowColorDark="@color/teal_200"
+        app:neumorph_backgroundColor="@color/purple_200"
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="139dp"
-            android:orientation="vertical"></LinearLayout>
+        >
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="147dp"
-            android:orientation="vertical" >
+    </soup.neumorphism.NeumorphButton>
 
-            <Button
-                android:id="@+id/button7"
-                android:layout_width="187dp"
-                android:layout_height="80dp"
-                android:background="@drawable/greentable"
-                android:paddingLeft="3dp"
-                android:paddingTop="3dp"
-                android:paddingRight="4dp"
-                android:paddingBottom="5dp"></Button>
-        </LinearLayout>
+   <soup.neumorphism.NeumorphImageView
+       android:layout_width="125dp"
+       android:layout_height="112dp"
+       android:onClick="porcuS"
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"></LinearLayout>
-    </LinearLayout>
+       app:srcCompat="@drawable/bluetable"
+       ></soup.neumorphism.NeumorphImageView>
+    <soup.neumorphism.NeumorphCardView
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        app:neumorph_shapeType="flat"
+        android:onClick="porcuS"
+
+        android:id="@+id/FloatP"
+
+
+        app:neumorph_shadowColorDark="@color/teal_200"
+        app:neumorph_backgroundColor="@color/purple_200"
+        >
+        <TextView
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="asdsa"
+            ></TextView>
+    </soup.neumorphism.NeumorphCardView>
+
+
+
+
+
 </LinearLayout>

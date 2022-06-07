@@ -75,8 +75,8 @@ public class OrderManager implements IManager {
         //order id personad, masasının adı,category adı,ürünün adı
         view.setText("");
         for (Order order : get()) {
-            if (order.getId() == id)
-                view.append(order.getWaiter().getName() + " " + order.getCheff().getName() + " ");
+         //   if (order.getId() == id)
+          //      view.append(order.getWaiter().getName() + " " + order.getCheff().getName() + " ");
         }
     }
 }

@@ -22,6 +22,9 @@ import com.stkaskin.restaurantmanager.Widgets.OrderWidget;
 import java.util.ArrayList;
 import java.util.Random;
 
+import soup.neumorphism.NeumorphImageView;
+import soup.neumorphism.NeumorphTextView;
+
 public class OrderCategoryProductsList extends AppCompatActivity {
 
     @Override
@@ -47,18 +50,28 @@ public class OrderCategoryProductsList extends AppCompatActivity {
 
             LinearLayout rowT = new LinearLayout(this);
             rowT.setTag(pr);
+            /*
+     <soup.neumorphism.NeumorphFloatingActionButton
+            style="@style/Widget.Neumorph.FloatingActionButton"
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:layout_margin="24dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/plusbutton"
+     />
+ */
             rowT.setOnClickListener(this::OnClick);
             rowT.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 200));
             LinearLayout row = new LinearLayout(this);
             row.setLayoutParams(new LinearLayout.LayoutParams(800, ViewGroup.LayoutParams.MATCH_PARENT));
             row.setOrientation(LinearLayout.VERTICAL);
-            TextView tx = new TextView(this);
+            TextView tx = new NeumorphTextView(this);
             tx.setText(pr.getName());
             row.addView(tx);
-            tx = new TextView(this);
-            tx.setText(pr.getDescription());
+            tx = new NeumorphTextView(this);
+            tx.setText("description : "+pr.getDescription());
             row.addView(tx);
-            tx = new TextView(this);
+            tx = new NeumorphTextView(this);
             tx.setText(new Random().nextInt(500) + " TL");
             row.addView(tx);
 
@@ -68,7 +81,7 @@ public class OrderCategoryProductsList extends AppCompatActivity {
             row = new LinearLayout(this);
             row.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
-            ImageView view = new ImageView(this);
+            NeumorphImageView view = new NeumorphImageView(this);
             view.setImageResource(R.drawable.ana_yemek);
             view.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 200));
 

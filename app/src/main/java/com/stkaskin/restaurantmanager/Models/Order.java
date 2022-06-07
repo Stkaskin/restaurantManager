@@ -13,9 +13,16 @@ public class Order implements IFirebase {
     String tableId;
     int total;
     String waiterId;
-    Person waiter;
-    Person Cheff;
-    Table table;
+    String specialExtraListId;
+
+    public String getSpecialExtraListId() {
+        return specialExtraListId;
+    }
+
+    public void setSpecialExtraListId(String specialExtraListId) {
+        this.specialExtraListId = specialExtraListId;
+    }
+
     ArrayList<OrderDetail> orderDetailList;
 
     public String getCheffId() {
@@ -82,29 +89,6 @@ public class Order implements IFirebase {
         this.waiterId = waiterId;
     }
 
-    public Person getWaiter() {
-        return waiter;
-    }
-
-    public void setWaiter(Person waiter) {
-        this.waiter = waiter;
-    }
-
-    public Person getCheff() {
-        return Cheff;
-    }
-
-    public void setCheff(Person cheff) {
-        Cheff = cheff;
-    }
-
-    public Table getTable() {
-        return table;
-    }
-
-    public void setTable(Table table) {
-        this.table = table;
-    }
 
     public ArrayList<OrderDetail> getOrderDetailList() {
         return orderDetailList;

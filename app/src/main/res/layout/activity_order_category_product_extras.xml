@@ -18,7 +18,7 @@
     <ScrollView
         android:id="@+id/linearLayoutCategoryProductExtra_scroll"
         android:layout_width="match_parent"
-        android:layout_height="518dp"
+        android:layout_height="510dp"
         tools:ignore="SpeakableTextPresentCheck">
 
         <LinearLayout
@@ -31,7 +31,7 @@
     <LinearLayout
         android:id="@+id/OrderFooter_Extra"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="86dp"
         android:orientation="horizontal"></LinearLayout>
 
 </LinearLayout>

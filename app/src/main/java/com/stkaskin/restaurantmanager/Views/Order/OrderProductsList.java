@@ -1,15 +1,18 @@
 package com.stkaskin.restaurantmanager.Views.Order;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,10 +30,14 @@ import com.stkaskin.restaurantmanager.R;
 
 import java.util.ArrayList;
 
+import soup.neumorphism.NeumorphFloatingActionButton;
+import soup.neumorphism.NeumorphTextView;
+
 public class OrderProductsList extends AppCompatActivity {
     LinearLayout layoutBack;
     ArrayList<Product> products = new ArrayList<>();
     Table table = new Table();
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +45,7 @@ public class OrderProductsList extends AppCompatActivity {
         setContentView(R.layout.activity_order_products_list);
         layoutBack = findViewById(R.id.linearLayoutProducts);
 
-       /* Product product = new Product();
+     /*  Product product = new Product();
         product.setId("1");
         product.setName("sadas");
         products.add(product);
@@ -56,7 +63,7 @@ public class OrderProductsList extends AppCompatActivity {
         products.add(product);*/
 
         String id = getIntent().getStringExtra("idTable");
-
+        id = "6glWDzVu0uoxAYDIje9G";
         table = FirebaseService.Get(Table.class, id);
         ArrayList<Order> orders = new ArrayList<Order>();
         if (table.getStatus() == 1) {
@@ -130,8 +137,8 @@ public class OrderProductsList extends AppCompatActivity {
 
     */
     private LinearLayout GetTableDynamic(LinearLayout layoutBack, ArrayList<Product> items) {
-        TextView textView = new TextView(this);
-        LinearLayout row = new LinearLayout(this);
+        TextView textView;
+        LinearLayout row;
         for (int i = 0; i < items.size(); i++) {
 
             row = new LinearLayout(this);
@@ -140,8 +147,14 @@ public class OrderProductsList extends AppCompatActivity {
             paramsRow.setMargins(10, 10, 10, 0);
             row.setLayoutParams(paramsRow);
             layoutBack.addView(row);
-            textView = new TextView(this);
+            TableRow rowBorder = new TableRow(this);
+            rowBorder.setBackgroundColor(Color.BLACK);
+            rowBorder.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 2));
+
+            layoutBack.addView(rowBorder);
+            textView = new NeumorphTextView(this, null, R.style.Widget_Neumorph_TextView);
             textView.setText(items.get(i).getName());
+            textView.setTypeface(null, Typeface.NORMAL);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     130
@@ -176,12 +189,23 @@ public class OrderProductsList extends AppCompatActivity {
         LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(70, 70);
         params1.topMargin = 50;
         params1.setMargins(30, 30, 30, 30);
-
-        Button button = new Button(this);
+/*
+     <soup.neumorphism.NeumorphFloatingActionButton
+            style="@style/Widget.Neumorph.FloatingActionButton"
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:layout_margin="24dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/plusbutton"
+     />
+ */
+        NeumorphFloatingActionButton button = new NeumorphFloatingActionButton(this);
         button.setOnClickListener(this::ClickPlus);
-        button.setBackgroundResource(R.drawable.plusbutton);
+        button.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        button.setImageResource(R.drawable.plusbutton);
+        //button.setBackgroundResource(R.style.Widget_Neumorph.ImageButton);
 
-        button.setWidth(100);
+
         button.setTag(products.get(index));
         button.setLayoutParams(params1);
         layoutButtons.addView(button);
@@ -194,14 +218,14 @@ public class OrderProductsList extends AppCompatActivity {
         text.setInputType(InputType.TYPE_CLASS_NUMBER);
         layoutButtons.addView(text);
 
-        button = new Button(this);
+        button = new NeumorphFloatingActionButton(this);
         button.setTag(products.get(index));
         button.setOnClickListener(this::ClickMinus);
-        button.setBackgroundResource(R.drawable.minusbutton);
+        button.setImageResource(R.drawable.minusbutton);
         button.setLayoutParams(params1);
         params1.gravity = Gravity.END;
 
-        button.setGravity(Gravity.END);
+        //  button.setForegroundGravity(Gravity.END);
         layoutButtonsParams.topMargin = 20;
         layoutButtonsParams.gravity = Gravity.CENTER;
         layoutButtons.setLayoutParams(layoutButtonsParams);
@@ -223,7 +247,7 @@ public class OrderProductsList extends AppCompatActivity {
 
     public void addNew(View view) {
         Intent intent = new Intent(this, OrderCategoryList.class);
-        intent.putExtra("TableId",table.getId());
+        intent.putExtra("TableId", table.getId());
         startActivity(intent);
     }
 

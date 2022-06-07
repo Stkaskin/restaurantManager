@@ -15,7 +15,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="466dp">
+        android:layout_height="526dp">
 
         <LinearLayout
             android:id="@+id/linearLayoutCategories"
@@ -28,7 +28,7 @@
     <LinearLayout
         android:id="@+id/OrderFooter_Category"
         android:layout_width="match_parent"
-        android:layout_height="82dp"
+        android:layout_height="68dp"
         android:orientation="horizontal" />
 
 </LinearLayout>
