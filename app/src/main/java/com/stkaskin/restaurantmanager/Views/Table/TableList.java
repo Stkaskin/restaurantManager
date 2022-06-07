@@ -1,11 +1,14 @@
 package com.stkaskin.restaurantmanager.Views.Table;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +19,9 @@ import com.stkaskin.restaurantmanager.R;
 import com.stkaskin.restaurantmanager.Views.Order.OrderProductsList;
 
 import java.util.ArrayList;
+
+import soup.neumorphism.NeumorphCardView;
+import soup.neumorphism.ShapeType;
 
 public class TableList extends AppCompatActivity implements View.OnClickListener {
     ArrayList<Table> tableArrayList = new ArrayList<>();
@@ -38,7 +44,15 @@ public class TableList extends AppCompatActivity implements View.OnClickListener
         if (opertation == 1) {
             layoutBack = getAddButton(layoutBack);
         }
-        ArrayList<Table> table_temp = FirebaseService.Get(Table.class);
+        Table tbl= new Table();
+        tbl.setName("sad");
+        tbl.setId("231");
+        tbl.setDisplayRank(1);
+        tbl.setStatus(0);
+       ArrayList<Table> table_temp = FirebaseService.Get(Table.class);
+      //  ArrayList<Table> table_temp=new ArrayList<>();
+
+
         ArrayList<Table> tables = Sort(table_temp);
         layoutBack = GetTableDynamic(layoutBack, tables);
     }
@@ -64,7 +78,7 @@ public class TableList extends AppCompatActivity implements View.OnClickListener
     }
 
     private LinearLayout GetTableDynamic(LinearLayout layoutBack, ArrayList<Table> tables) {
-        Button button = new Button(this);
+        NeumorphCardView button = new NeumorphCardView(this);
         LinearLayout row = new LinearLayout(this);
         for (int i = 0; i < tables.size(); i++) {
 
@@ -74,13 +88,24 @@ public class TableList extends AppCompatActivity implements View.OnClickListener
                 layoutBack.addView(row);
             }
 
-            button = new Button(this);
-            button.setText(tables.get(i).getName());
+            button = new NeumorphCardView(this);
+            //  button.setText(tables.get(i).getName());
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
+                    LinearLayout.LayoutParams.WRAP_CONTENT,Gravity.CENTER
             );
 
+
+            button.setShapeType(ShapeType.FLAT);
+
+            TextView textView = new TextView(this);
+            textView.setText(tables.get(i).getName() + "");
+            textView.setGravity(Gravity.CENTER);
+
+
+
+
+            button.addView(textView);
             params.setMargins(5, 5, 5, 5);
             params.width = 350;
             params.height = 350;
@@ -89,11 +114,11 @@ public class TableList extends AppCompatActivity implements View.OnClickListener
 
             button.setLayoutParams(params);
             if (tables.get(i).getStatus() == 0)
-                button.setBackgroundResource(R.drawable.greentable);
+                button.setBackgroundColor(Color.GREEN);
             else if (tables.get(i).getStatus() == 1)
-                button.setBackgroundResource(R.drawable.redtable);
+                button.setBackgroundColor(Color.RED);
             else
-                button.setBackgroundResource(R.drawable.yellowtable);
+                button.setBackgroundColor(Color.YELLOW);
 
 
             button.setOnClickListener(TableList.this);
@@ -112,17 +137,15 @@ public class TableList extends AppCompatActivity implements View.OnClickListener
         if (table.getStatus() == 0) {
             mesaj += " Sipariş Oluşturma.";
 
-        }
-
-        else if (table.getStatus() == 1)
+        } else if (table.getStatus() == 1)
             mesaj += " Sipariş Güncelleme";
         else
             mesaj += " Masa Hazırlık Aşamasında";
-        Toast.makeText(this, mesaj +" \nid="+table.getId(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, mesaj + " \nid=" + table.getId(), Toast.LENGTH_SHORT).show();
 
-        Intent m=new Intent(this, OrderProductsList.class);
-        m.putExtra("operation",1);
-        m.putExtra("idTable",table.getId());
+        Intent m = new Intent(this, OrderProductsList.class);
+        m.putExtra("operation", 1);
+        m.putExtra("idTable", table.getId());
         startActivity(m);
     }
 
