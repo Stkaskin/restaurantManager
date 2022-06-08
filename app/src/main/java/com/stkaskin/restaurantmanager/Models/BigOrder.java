@@ -4,24 +4,31 @@ import com.stkaskin.restaurantmanager.FireCloud.IFirebase;
 
 import java.util.ArrayList;
 
-public class Order implements IFirebase {
+public class BigOrder implements IFirebase {
+    String id;
+
     String cheffId;
     String datetime;
-    String id;
     String note;
-    int status;
+    int status=0;
     String tableId;
-    int total;
+    int total=0;
     String waiterId;
-    String specialExtraListId;
+    ArrayList<detailOrder> orders = new ArrayList<>();
 
-    public String getSpecialExtraListId() {
-        return specialExtraListId;
+    public String getId() {
+        return id;
     }
 
-    public void setSpecialExtraListId(String specialExtraListId) {
-        this.specialExtraListId = specialExtraListId;
+    @Override
+    public String TableName() {
+        return "BigOrder";
     }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
 
 
     public String getCheffId() {
@@ -38,14 +45,6 @@ public class Order implements IFirebase {
 
     public void setDatetime(String datetime) {
         this.datetime = datetime;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getNote() {
@@ -65,11 +64,11 @@ public class Order implements IFirebase {
     }
 
     public String getTableId() {
-        return tableId.trim();
+        return tableId;
     }
 
     public void setTableId(String tableId) {
-        this.tableId = tableId.trim();
+        this.tableId = tableId;
     }
 
     public int getTotal() {
@@ -78,6 +77,7 @@ public class Order implements IFirebase {
 
     public void setTotal(int total) {
         this.total = total;
+
     }
 
     public String getWaiterId() {
@@ -88,10 +88,16 @@ public class Order implements IFirebase {
         this.waiterId = waiterId;
     }
 
+    public ArrayList<detailOrder> getOrders() {
+        return orders;
+    }
 
-
-    @Override
-    public String TableName() {
-        return "Order";
+    public void setOrders(ArrayList<detailOrder> orders) {
+        this.orders = orders;
+        int s=0;
+        for (detailOrder d:orders) {
+            s+=d.getSum();
+        }
+        this.total=s;
     }
 }

@@ -11,7 +11,6 @@ import android.widget.Toast;
 
 import com.stkaskin.restaurantmanager.FireCloud.FirebaseService;
 import com.stkaskin.restaurantmanager.Models.Extra;
-import com.stkaskin.restaurantmanager.Models.ExtraDetail;
 import com.stkaskin.restaurantmanager.R;
 
 public class ExtraAdd extends AppCompatActivity {
@@ -42,19 +41,19 @@ public class ExtraAdd extends AppCompatActivity {
         Extra extra = new Extra();
         extra.setName(name_temp);
         //sayısal olarak tpye
-        extra.setType(5);
-        String id = FirebaseService.Add(extra);
-        ExtraDetail detail =new ExtraDetail();
+       // extra.setType(5);
+      //  String id = FirebaseService.Add(extra);
+  //      ExtraDetail detail =new ExtraDetail();
 
 
-        detail.setDisplayRank(1);
+   /*     detail.setDisplayRank(1);
         detail.setStatus(1);
         detail.setExtraId(id);
         //hangi kategori altında görülecek
-        detail.setSpecialExtraListId("GZnfnP3PN2XGfkpbgQD1");
+        detail.setSpecialExtraListId("GZnfnP3PN2XGfkpbgQD1");*/
 
-        String id2 = FirebaseService.Add(detail);
-        Toast.makeText(this, "Eklendi : " + id+ "  ve "+id2, Toast.LENGTH_SHORT).show();
+//        String id2 = FirebaseService.Add(detail);
+      //  Toast.makeText(this, "Eklendi : " + id+ "  ve "+id2, Toast.LENGTH_SHORT).show();
     }
 
 }
