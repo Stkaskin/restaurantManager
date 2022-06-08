@@ -16,21 +16,23 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.firestore.Query;
 import com.stkaskin.restaurantmanager.FireCloud.FirebaseService;
+import com.stkaskin.restaurantmanager.Models.BigOrder;
 import com.stkaskin.restaurantmanager.Models.Extra;
-import com.stkaskin.restaurantmanager.Models.ExtraDetail;
-import com.stkaskin.restaurantmanager.Models.Model.ExtraAndDetailModel;
+import com.stkaskin.restaurantmanager.Models.ExtraProduct;
 import com.stkaskin.restaurantmanager.Models.Model.ExtraModel;
-import com.stkaskin.restaurantmanager.Models.Order;
-import com.stkaskin.restaurantmanager.Models.OrderDetail;
+import com.stkaskin.restaurantmanager.Models.Model.SpecialExtraModel;
 import com.stkaskin.restaurantmanager.Models.Product;
-import com.stkaskin.restaurantmanager.Models.SpecialExtraList;
+import com.stkaskin.restaurantmanager.Models.detailOrder;
+import com.stkaskin.restaurantmanager.Perdruable.Data;
 import com.stkaskin.restaurantmanager.R;
 import com.stkaskin.restaurantmanager.Widgets.OrderWidget;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class OrderCategoryProductExtras extends AppCompatActivity {
 
@@ -39,52 +41,48 @@ public class OrderCategoryProductExtras extends AppCompatActivity {
     ArrayList<Button> buttons = new ArrayList<>();
     List<ExtraModel> orijinal = new ArrayList<>();
 
+    String productid;
+    ArrayList<SpecialExtraModel> extras = new ArrayList<>();
+
     public void add(String productId) {
 
+        extras = new ArrayList<>();
         product = FirebaseService.Get(Product.class, productId);
-        SpecialExtraList specialExtraList = FirebaseService.Get(SpecialExtraList.class,
-                product.getExtraSpeacialListId());
-        ArrayList<ExtraDetail> extraDetails = FirebaseService.Get(ExtraDetail.class,
-                FirebaseService.QueryCreate(ExtraDetail.class).whereEqualTo("specialExtraListId", specialExtraList.getId())
-        );
+        Data.product = product;
+        models = new ArrayList<>();
+        ArrayList<SpecialExtraModel> mList = new ArrayList<>();
+        ExtraModel mo = new ExtraModel();
 
-        ArrayList<ExtraAndDetailModel> extraAndDetailModels = new ArrayList<>();
-        for (ExtraDetail item : extraDetails) {
+        for (int i = 0; i < product.getExtras().size(); i++) {
+            Extra ex = FirebaseService.Get(Extra.class, product.getExtras().get(i).getExtraId());
 
-            ExtraAndDetailModel ed = new ExtraAndDetailModel();
-            ed.setDetail(item);
-            ed.setExtra(FirebaseService.Get(Extra.class, item.getExtraId()));
-            extraAndDetailModels.add(ed);
+            SpecialExtraModel sM = new SpecialExtraModel();
+            sM.setExtra(ex);
+            sM.setValue(product.getExtras().get(i).isDefaultValue());
+
+            mList.add(sM);
         }
-        for (int k = 0; k < extraAndDetailModels.size(); ) {
-
-
-            int mn = extraAndDetailModels.get(0).getExtra().getType();
-            for (ExtraAndDetailModel m : extraAndDetailModels) {
-                if (mn > m.getExtra().getType())
-                    mn = m.getExtra().getType();
-            }
-            ExtraModel ms = new ExtraModel();
-
-            for (int xs = 0; xs < extraAndDetailModels.size(); xs++) {
-                if (extraAndDetailModels.get(xs).getExtra().getType() == mn) {
-                    ms.getModels().add(extraAndDetailModels.get(xs));
-                    extraAndDetailModels.remove(extraAndDetailModels.get(xs));
-                    xs--;
+        for (int d = 0; d < mList.size(); d++) {
+            mo.setHeader("" + d);
+            ArrayList<SpecialExtraModel> list = new ArrayList<>();
+            list.add(mList.get(d));
+            //0 . ile 0 haric karşılaştırma .... 1 den başlar
+            for (int i = d+1; i < mList.size(); i++) {
+                if (mList.get(d).getExtra().getType().equals(mList.get(i).getExtra().getType())) {
+                    list.add(mList.get(i));
+                    mList.remove(i);
+                    i--;
                 }
+
             }
-            ms.setHeader(mn + "");
-            models.add(ms);
+
+            mo.setExtras(list);
+            models.add(mo);
+            mList.remove(d);
+            d--;
         }
 
-        for (ExtraModel model : models) {
-            ExtraModel m = new ExtraModel();
 
-            m.setModels(model.getModels());
-            orijinal.add(m);
-
-
-        }
     }
 
     /*
@@ -114,80 +112,64 @@ public class OrderCategoryProductExtras extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void AddOrder() {
-        Order order = new Order();
-        order.setCheffId("WTRvTZA6Z6aFwZJPz9X1");
-        order.setWaiterId("LjVd7KQs6ffwDIkK8NWy");
-        order.setTableId("CV39OweT7xiQWIu80lgS");
-        order.setStatus(0);
-        order.setNote("None");
-        order.setDatetime(LocalDateTime.now() + "");
-        order.setTotal(0);
-        order.setSpecialExtraListId("");
-        String id = FirebaseService.Add(order);
-        if (id != null) {
-            OrderDetail orderDetail = new OrderDetail();
-            orderDetail.setStatus(0);
-            orderDetail.setCount(5);
-            orderDetail.setPrice(5);
-            orderDetail.setOrderid(id);
-            orderDetail.setProductid(productid);
-            orderDetail.setSum(25);
-
-            String orderDetailId = FirebaseService.Add(orderDetail);
-            ArrayList<ExtraDetail> updateDetails = new ArrayList<>();
-            boolean change = false;
-            for (ExtraModel model : orijinal) {
-                for (ExtraAndDetailModel detail : model.getModels()) {
-                    for (Button bt : buttons) {
-                        ExtraAndDetailModel m = (ExtraAndDetailModel) bt.getTag();
-                        if (m.getDetail().getId().equals(detail.getDetail().getId())) {
-
-                            change = true;
-                            break;
-                        }
-                    }
-                    if (change)
-                        break;
-                }
-                if (change)
-                    break;
-            }
-            String st = "";
-            if (change) {
-                SpecialExtraList list = new SpecialExtraList();
-                list.setDisplayRank(999);
-                list.setStatus(9);
-                list.setName("Custom");
-                st = FirebaseService.Add(list);
-                for (Button bt : buttons) {
-                    ExtraAndDetailModel m = (ExtraAndDetailModel) bt.getTag();
-                    m.getDetail().setSpecialExtraListId(st);
-                    FirebaseService.Add(m.getDetail());
-                }
-
-            } else {
-                if (buttons.size() > 0) {
-                    ExtraAndDetailModel m = (ExtraAndDetailModel) buttons.get(0).getTag();
-                    st = m.getDetail().getSpecialExtraListId();
-                }
-            }
-            //    orderDetail.setOrderid(orderDetailId);
-//            orderDetail.set
-            order.setId(id);
-            order.setSpecialExtraListId(st);
+        BigOrder order;
+        Query q = FirebaseService.QueryCreate(BigOrder.class);
+        q = q.whereEqualTo("tableId", Data.table.getId().trim());
+        boolean update = false;//add
+        ArrayList<BigOrder> orders = FirebaseService.Get(BigOrder.class, q);
+        if (orders != null && orders.size() > 0) {
+            order = orders.get(0);
+            update = true;//update
+        } else
+            order = new BigOrder();
+        order.setWaiterId("xWaiter");
+        order.setCheffId("xCheff");
+        order.setDatetime(LocalDateTime.now().toString());
+        order.setNote("description");
+        order.setTableId(Data.table.getId());
+        ArrayList<ExtraProduct> extraProducts = getDetail();
+        ArrayList<detailOrder> detailOrderArrayList = order.getOrders();
+        detailOrder detailOrder = new detailOrder();
+        detailOrder.setProductId(productid);
+        detailOrder.setPrice(new Random().nextInt(300));
+        detailOrder.setCount(new Random().nextInt(5));
+        detailOrderArrayList.add(detailOrder);
+        order.setOrders(detailOrderArrayList);
+        detailOrder.setExtras(extraProducts);
+        //product var ise count artılacak
+        if (update)
             FirebaseService.UpdateData(order);
+        else
+            FirebaseService.Add(order);
+        Data.table.setStatus(1);
 
-        }
-        Toast.makeText(this, "Sipariş Eklendi", Toast.LENGTH_SHORT).show();
+        FirebaseService.UpdateData(Data.table);
+
+        Toast.makeText(this, "Eklendi", Toast.LENGTH_SHORT).show();
         try {
-            Thread.sleep(1000);
-            finish();
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        finish();
+
+
     }
 
-    String productid;
+    private ArrayList<ExtraProduct> getDetail() {
+        ArrayList<ExtraProduct> extraProducts = new ArrayList<>();
+        for (Button button : buttons) {
+            SpecialExtraModel bt = (SpecialExtraModel) button.getTag();
+            ExtraProduct p = new ExtraProduct();
+            p.setExtraid(bt.getExtra().getId());
+            p.setSelect(bt.isValue());
+            p.setGrpName("none");
+            extraProducts.add(p);
+        }
+        return extraProducts;
+    }
+
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -217,29 +199,30 @@ public class OrderCategoryProductExtras extends AppCompatActivity {
             layoutRow.addView(rowHeader);
             LinearLayout row1 = new LinearLayout(this);
             LinearLayout row2 = new LinearLayout(this);
-            for (int i = 0; i < item.getModels().size(); i++) {
+            for (int i = 0; i < item.getExtras().size(); i++) {
                 Button button = new Button(this);
                 //statü kontrolüne göre renk verilecek
                 button.setBackgroundColor(Color.TRANSPARENT);
-                button.setText(item.getModels().get(i).getExtra().getName());
-                button.setTag(item.getModels().get(i));
-                if (item.getModels().get(i).getDetail().getStatus() == 0)
+                button.setText(item.getExtras().get(i).getExtra().getName());
+                button.setTag(item.getExtras().get(i));
+                if (!item.getExtras().get(i).isValue())
                     button.setBackgroundColor(Color.TRANSPARENT);
                 else
                     button.setBackgroundColor(Color.GREEN);
 
                 button.setOnClickListener(view ->
                 {
+                    SpecialExtraModel m = (SpecialExtraModel) view.getTag();
                     if (((ColorDrawable) view.getBackground()).getColor() == Color.TRANSPARENT) {
                         view.setBackgroundColor(Color.GREEN);
-                        ExtraAndDetailModel m = (ExtraAndDetailModel) view.getTag();
-                        m.getDetail().setStatus(1);
+
+                        m.setValue(true);
                         view.setTag(m);
                     } else {
                         view.setBackgroundColor(Color.TRANSPARENT);
-                        ExtraAndDetailModel m = (ExtraAndDetailModel) view.getTag();
-                     //   m.getDetail().setStatus();
-                        m.getDetail().setStatus(0);
+
+                        //   m.getDetail().setStatus();
+                        m.setValue(false);
                         view.setTag(m);
                     }
                 });

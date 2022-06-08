@@ -2,15 +2,26 @@ package com.stkaskin.restaurantmanager.Models;
 
 import com.stkaskin.restaurantmanager.FireCloud.IFirebase;
 
-public class Product implements IFirebase {    String id;
+import java.util.ArrayList;
+
+public class Product implements IFirebase {
+    String id;
     String categoryId;
     String description;
     int displayRank;
-    //spinner
-    String extraSpeacialListId;
     String imageid;
     String name;
     int status;
+    ArrayList<DefaultExtra> extras = new ArrayList<>();
+
+    public ArrayList<DefaultExtra> getExtras() {
+        return extras;
+    }
+
+    public void setExtras(ArrayList<DefaultExtra> extras) {
+        this.extras = extras;
+    }
+
 
     public String getId() {
         return id;
@@ -44,13 +55,7 @@ public class Product implements IFirebase {    String id;
         this.displayRank = displayRank;
     }
 
-    public String getExtraSpeacialListId() {
-        return extraSpeacialListId;
-    }
 
-    public void setExtraSpeacialListId(String extraSpeacialListId) {
-        this.extraSpeacialListId = extraSpeacialListId;
-    }
 
     public String getImageid() {
         return imageid;

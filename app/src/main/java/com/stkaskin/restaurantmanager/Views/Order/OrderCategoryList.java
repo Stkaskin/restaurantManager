@@ -26,7 +26,6 @@ public class OrderCategoryList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_category_list);
         OrderWidget.setOrderLayout(this, findViewById(R.id.OrderHeader_Category), findViewById(R.id.OrderFooter_Category));
-
         ArrayList<Category> categories = new ArrayList<>();
         categories = FirebaseService.Get(Category.class);
         LinearLayout layoutBack = findViewById(R.id.linearLayoutCategories);
