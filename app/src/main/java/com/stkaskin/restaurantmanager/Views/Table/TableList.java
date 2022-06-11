@@ -1,11 +1,11 @@
 package com.stkaskin.restaurantmanager.Views.Table;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,8 +15,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.stkaskin.restaurantmanager.FireCloud.FirebaseService;
 import com.stkaskin.restaurantmanager.Models.Table;
+import com.stkaskin.restaurantmanager.Perdruable.Page;
+import com.stkaskin.restaurantmanager.Perdruable.UpdateData;
 import com.stkaskin.restaurantmanager.R;
 import com.stkaskin.restaurantmanager.Views.Order.OrderProductsList;
+import com.stkaskin.restaurantmanager.Views.Shared.AdminPage;
 
 import java.util.ArrayList;
 
@@ -27,12 +30,16 @@ public class TableList extends AppCompatActivity implements View.OnClickListener
     ArrayList<Table> tableArrayList = new ArrayList<>();
     LinearLayout layoutBack;
     int opertation = 1;
-
+    ArrayList<Table> tables;
+    ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_table_list);
+
+        UpdateData.contextid = 1;
+        UpdateData.tableUpdate = false;
         this.opertation = getIntent().getIntExtra("operation", 0);
         //  üst tarafa yetkisi varsa uzun basıldıgında
         //  silme ve güncelleme komutları olacak
@@ -41,20 +48,19 @@ public class TableList extends AppCompatActivity implements View.OnClickListener
         LinearLayout row = new LinearLayout(this);
         Button button;
         //yetkisi varsa
-        if (opertation == 1) {
-            layoutBack = getAddButton(layoutBack);
-        }
-        Table tbl= new Table();
-        tbl.setName("sad");
-        tbl.setId("231");
-        tbl.setDisplayRank(1);
-        tbl.setStatus(0);
-       ArrayList<Table> table_temp = FirebaseService.Get(Table.class);
-      //  ArrayList<Table> table_temp=new ArrayList<>();
 
 
-        ArrayList<Table> tables = Sort(table_temp);
-        layoutBack = GetTableDynamic(layoutBack, tables);
+
+
+
+        // GetTableDynamic(tables);
+
+        ArrayList<Table> table_temp = FirebaseService.Get(Table.class);
+        //  ArrayList<Table> table_temp=new ArrayList<>();
+        tables = Sort(table_temp);
+        GetTableDynamic(tables);
+
+
     }
 
     private LinearLayout getAddButton(LinearLayout layoutBack) {
@@ -68,16 +74,28 @@ public class TableList extends AppCompatActivity implements View.OnClickListener
         params.setMargins(900, 20, 20, 20);
 
         button.setBackgroundResource(R.drawable.plusbutton);
-
+        button.setOnClickListener(
+                view -> {
+                    Intent i=new Intent(this, AdminPage.class);
+                    startActivity(i);
+                }
+        );
 
         row.setLayoutParams(params);
         row.addView(button);
-
+button.setText("ADMİN PAGE");
         layoutBack.addView(row);
+
         return layoutBack;
+
     }
 
-    private LinearLayout GetTableDynamic(LinearLayout layoutBack, ArrayList<Table> tables) {
+
+    private void GetTableDynamic(ArrayList<Table> tables) {
+
+
+        layoutBack.removeAllViews();
+        layoutBack = getAddButton(layoutBack);
         NeumorphCardView button = new NeumorphCardView(this);
         LinearLayout row = new LinearLayout(this);
         for (int i = 0; i < tables.size(); i++) {
@@ -92,7 +110,7 @@ public class TableList extends AppCompatActivity implements View.OnClickListener
             //  button.setText(tables.get(i).getName());
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT,Gravity.CENTER
+                    LinearLayout.LayoutParams.WRAP_CONTENT, Gravity.CENTER
             );
 
 
@@ -101,8 +119,6 @@ public class TableList extends AppCompatActivity implements View.OnClickListener
             TextView textView = new TextView(this);
             textView.setText(tables.get(i).getName() + "");
             textView.setGravity(Gravity.CENTER);
-
-
 
 
             button.addView(textView);
@@ -127,7 +143,8 @@ public class TableList extends AppCompatActivity implements View.OnClickListener
 
 
         }
-        return layoutBack;
+
+
     }
 
     @Override
@@ -144,9 +161,27 @@ public class TableList extends AppCompatActivity implements View.OnClickListener
         Toast.makeText(this, mesaj + " \nid=" + table.getId(), Toast.LENGTH_SHORT).show();
 
         Intent m = new Intent(this, OrderProductsList.class);
+        Page.IntentGet(m);
         m.putExtra("operation", 1);
         m.putExtra("idTable", table.getId());
-        startActivity(m);
+        startActivityForResult(m, 1);
+
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (UpdateData.tableUpdate) {
+            ArrayList<Table> table_temp = FirebaseService.Get(Table.class);
+            //  ArrayList<Table> table_temp=new ArrayList<>();
+            tables = Sort(table_temp);
+            GetTableDynamic(tables);
+            UpdateData.tableUpdate = false;
+        }
+
+
     }
 
     //generic algoritma olacak

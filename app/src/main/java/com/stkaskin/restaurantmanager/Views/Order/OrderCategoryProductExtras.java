@@ -27,7 +27,10 @@ import com.stkaskin.restaurantmanager.Models.Model.SpecialExtraModel;
 import com.stkaskin.restaurantmanager.Models.Product;
 import com.stkaskin.restaurantmanager.Models.detailOrder;
 import com.stkaskin.restaurantmanager.Perdruable.Data;
+import com.stkaskin.restaurantmanager.Perdruable.Page;
+import com.stkaskin.restaurantmanager.Perdruable.UpdateData;
 import com.stkaskin.restaurantmanager.R;
+import com.stkaskin.restaurantmanager.SharedOperation;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -81,6 +84,7 @@ public class OrderCategoryProductExtras extends AppCompatActivity {
             models.add(mo);
             mList.remove(d);
             d--;
+
         }
 
 
@@ -88,13 +92,18 @@ public class OrderCategoryProductExtras extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void AddOrder(View view) {
-        BigOrder order;
+        BigOrder order=new BigOrder();
         Query q = FirebaseService.QueryCreate(BigOrder.class);
         q = q.whereEqualTo("tableId", Data.table.getId().trim());
         boolean update = false;//add
         ArrayList<BigOrder> orders = FirebaseService.Get(BigOrder.class, q);
-        if (orders != null && orders.size() > 0) {
-            order = orders.get(0);
+        if (orders != null && orders.size() > 0 && Data.table.getStatus()!=0) {
+            for (int i = 0; i < orders.size(); i++) {
+                if (orders.get(i).getStatus()!=3) {
+                    order = orders.get(i);
+                break;
+                }
+            }
             update = true;//update
         } else
             order = new BigOrder();
@@ -118,7 +127,6 @@ public class OrderCategoryProductExtras extends AppCompatActivity {
         else
             FirebaseService.Add(order);
         Data.table.setStatus(1);
-
         FirebaseService.UpdateData(Data.table);
 
         Toast.makeText(this, "Eklendi", Toast.LENGTH_SHORT).show();
@@ -127,7 +135,8 @@ public class OrderCategoryProductExtras extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
+        UpdateData.tableProductUpdate = true;
+        UpdateData.tableUpdate = true;
         finish();
 
 
@@ -152,6 +161,7 @@ public class OrderCategoryProductExtras extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_category_product_extras);
+        Page.addActivity(this);
         //   OrderWidget.setOrderLayout(this, findViewById(R.id.OrderHeader_Extra), findViewById(R.id.OrderFooter_Extra), view -> {
         //      AddOrder();
         //     });
@@ -237,7 +247,11 @@ public class OrderCategoryProductExtras extends AppCompatActivity {
         }
     }
 
-    public void Back() {
-        finish();
+    public void Back(View view){finish();}
+    public void BackAll(View view){Page.CloseActivities();}
+
+    public void tableOperation(View view
+    ) {
+        SharedOperation.tableOperation(Data.table.getId());
     }
 }

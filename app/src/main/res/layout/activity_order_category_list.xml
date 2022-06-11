@@ -13,24 +13,11 @@
         android:layout_height="73dp"
         android:gravity="center|right"
         android:orientation="horizontal">
-        <LinearLayout
-            android:layout_width="100dp"
-            android:layout_height="match_parent">
-
-            <soup.neumorphism.NeumorphButton
-                android:layout_width="84dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="30dp"
-                android:gravity="center"
-
-                android:text="Back">
-
-            </soup.neumorphism.NeumorphButton>
-        </LinearLayout>
 
         <LinearLayout
-            android:layout_width="311dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:onClick="Back"
             android:orientation="vertical">
 
             <soup.neumorphism.NeumorphTextView
@@ -99,11 +86,23 @@
         android:orientation="horizontal">
 
         <soup.neumorphism.NeumorphButton
+            android:id="@+id/neumorphButton"
             style="@style/Widget.Neumorph.Button"
-            android:layout_width="wrap_content"
+            android:layout_width="79dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="İptal/GERİ">
+            android:onClick="Back"
+            android:text="Geri">
+
+        </soup.neumorphism.NeumorphButton>
+
+        <soup.neumorphism.NeumorphButton
+            style="@style/Widget.Neumorph.Button"
+            android:layout_width="108dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="BackAll"
+            android:text="Çık">
 
         </soup.neumorphism.NeumorphButton>
 
@@ -112,6 +111,7 @@
             android:layout_width="153dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:onClick="tableOperation"
             android:text="Masayı Kapat/AÇ">
 
         </soup.neumorphism.NeumorphButton>

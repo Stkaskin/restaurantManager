@@ -43,9 +43,6 @@
             android:name=".Views.Order.OrderCategoryProductsList"
             android:exported="true" />
         <activity
-            android:name=".Views.Order.OrderContents"
-            android:exported="false" />
-        <activity
             android:name=".Views.Order.OrderCategoryList"
             android:exported="false" />
         <activity

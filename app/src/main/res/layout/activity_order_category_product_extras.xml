@@ -13,24 +13,9 @@
         android:layout_height="73dp"
         android:gravity="center|right"
         android:orientation="horizontal">
-        <LinearLayout
-            android:layout_width="100dp"
-            android:layout_height="match_parent">
-
-            <soup.neumorphism.NeumorphButton
-                android:layout_width="84dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="30dp"
-                android:gravity="center"
-
-                android:onClick="Back"
-                android:text="Back">
-
-            </soup.neumorphism.NeumorphButton>
-        </LinearLayout>
 
         <LinearLayout
-            android:layout_width="223dp"
+            android:layout_width="320dp"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
@@ -117,7 +102,19 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:onClick="Back"
             android:text="İptal/GERİ">
+
+        </soup.neumorphism.NeumorphButton>
+
+        <soup.neumorphism.NeumorphButton
+            android:id="@+id/neumorphButton4"
+            style="@style/Widget.Neumorph.Button"
+            android:layout_width="108dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="BackAll"
+            android:text="Çık">
 
         </soup.neumorphism.NeumorphButton>
 
@@ -126,6 +123,7 @@
             android:layout_width="153dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:onClick="tableOperation"
             android:text="Masayı Kapat/AÇ">
 
         </soup.neumorphism.NeumorphButton>

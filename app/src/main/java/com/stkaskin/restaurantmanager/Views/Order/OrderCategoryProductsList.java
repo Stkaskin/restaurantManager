@@ -20,7 +20,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.squareup.picasso.Picasso;
 import com.stkaskin.restaurantmanager.FireCloud.FirebaseService;
 import com.stkaskin.restaurantmanager.Models.Product;
+import com.stkaskin.restaurantmanager.Perdruable.Data;
+
+import com.stkaskin.restaurantmanager.Perdruable.Page;
 import com.stkaskin.restaurantmanager.R;
+import com.stkaskin.restaurantmanager.SharedOperation;
 import com.stkaskin.restaurantmanager.Widgets.OrderWidget;
 
 import java.util.ArrayList;
@@ -35,6 +39,7 @@ public class OrderCategoryProductsList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_category_products_list);
+        Page.addActivity(this);
         LinearLayout layoutBack = findViewById(R.id.linearLayoutCategoryProducts);
         ScrollView sc = findViewById(R.id.linearLayoutCategoryProducts_scroll);
        // OrderWidget.setOrderLayout(this,findViewById(R.id.OrderHeader_Product),findViewById(R.id.OrderFooter_Product));
@@ -65,7 +70,7 @@ public class OrderCategoryProductsList extends AppCompatActivity {
             tx.setText("description : "+pr.getDescription());
             row.addView(tx);
             tx = new NeumorphTextView(this);
-            tx.setText(new Random().nextInt(500) + " TL");
+            tx.setText(pr.getPrice()+ " TL");
             row.addView(tx);
 
             rowT.addView(row);
@@ -110,6 +115,12 @@ public class OrderCategoryProductsList extends AppCompatActivity {
         intent.putExtra("ProductId",product.getId());
         startActivity(intent);
     }
+    public void tableOperation(View view
+    ){
+        SharedOperation.tableOperation(Data.table.getId());
+    }
+    public void Back(View view){finish();}
+    public void BackAll(View view){Page.CloseActivities();}
 
 
 }
