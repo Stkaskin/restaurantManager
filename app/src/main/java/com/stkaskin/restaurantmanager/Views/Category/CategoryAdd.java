@@ -99,7 +99,7 @@ public class CategoryAdd extends AppCompatActivity {
         }
 
 
-        StorageReference ref = FirebaseStorage.getInstance().getReference().child("images/" + id);
+        StorageReference ref = FirebaseStorage.getInstance().getReference().child("images/" + id+".png");
         UploadTask t = ref.putFile(uri);
         finish();
 
