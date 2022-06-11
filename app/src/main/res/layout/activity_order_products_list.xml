@@ -10,12 +10,27 @@
     <LinearLayout
         android:id="@+id/linearLayoutProducts2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="87dp"
         android:gravity="center|right"
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="match_parent">
+
+            <soup.neumorphism.NeumorphButton
+                android:layout_width="75dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="30dp"
+                android:gravity="center"
+
+                android:text="Back">
+
+            </soup.neumorphism.NeumorphButton>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="218dp"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
@@ -94,9 +109,9 @@
     <ScrollView
         android:id="@+id/linearLayoutProducts_Scroll"
         android:layout_width="match_parent"
-        android:layout_height="478dp"
+        android:layout_height="462dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="0dp">
 
@@ -115,27 +130,17 @@
 
         <soup.neumorphism.NeumorphButton
             style="@style/Widget.Neumorph.Button"
-            android:layout_width="wrap_content"
+            android:layout_width="186dp"
             android:layout_height="match_parent"
-            android:text="İptal/GERİ"
-            >
+            android:text="İptal/GERİ">
 
         </soup.neumorphism.NeumorphButton>
 
         <soup.neumorphism.NeumorphButton
             style="@style/Widget.Neumorph.Button"
-            android:layout_width="153dp"
-            android:text="Masayı Kapat/AÇ"
-            android:layout_height="match_parent">
-
-        </soup.neumorphism.NeumorphButton>
-
-        <soup.neumorphism.NeumorphButton
-            style="@style/Widget.Neumorph.Button"
-            android:layout_width="match_parent"
-            android:text="Siparişi Onayla/Düzenle
-"
-            android:layout_height="match_parent">
+            android:layout_width="217dp"
+            android:layout_height="match_parent"
+            android:text="Masayı Kapat/AÇ">
 
         </soup.neumorphism.NeumorphButton>
 

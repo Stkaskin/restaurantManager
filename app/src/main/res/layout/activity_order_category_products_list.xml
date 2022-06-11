@@ -13,10 +13,77 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/OrderHeader_Product"
+
             android:layout_width="match_parent"
-            android:layout_height="58dp"
-            android:orientation="horizontal" />
+            android:layout_height="73dp"
+            android:gravity="center|right"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="100dp"
+                android:layout_height="match_parent">
+
+                <soup.neumorphism.NeumorphButton
+                    android:layout_width="84dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="30dp"
+                    android:gravity="center"
+
+                    android:text="Back">
+
+                </soup.neumorphism.NeumorphButton>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="311dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <soup.neumorphism.NeumorphTextView
+
+                    style="@style/Widget.Neumorph.TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginVertical="0dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="48dp"
+                    android:text="Neumorphism"
+                    android:textColor="@color/cardview_dark_background"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <soup.neumorphism.NeumorphTextView
+
+                    style="@style/Widget.Neumorph.TextView"
+                    android:layout_width="289dp"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginVertical="0dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="48dp"
+                    android:text="Neumorphism"
+                    android:textColor="@color/cardview_dark_background"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <soup.neumorphism.NeumorphTextView
+
+                    style="@style/Widget.Neumorph.TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginVertical="0dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="48dp"
+                    android:text="Neumorphism"
+                    android:textColor="@color/cardview_dark_background"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <ScrollView
             android:id="@+id/linearLayoutCategoryProducts_scroll"
@@ -34,8 +101,28 @@
         <LinearLayout
             android:id="@+id/OrderFooter_Product"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal" />
+            android:layout_height="123dp"
+            android:orientation="horizontal">
+
+            <soup.neumorphism.NeumorphButton
+                style="@style/Widget.Neumorph.Button"
+                android:layout_width="190dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="İptal/GERİ">
+
+            </soup.neumorphism.NeumorphButton>
+
+            <soup.neumorphism.NeumorphButton
+                style="@style/Widget.Neumorph.Button"
+                android:layout_width="247dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Masayı Kapat/AÇ">
+
+            </soup.neumorphism.NeumorphButton>
+
+        </LinearLayout>
 
     </LinearLayout>
 </LinearLayout>

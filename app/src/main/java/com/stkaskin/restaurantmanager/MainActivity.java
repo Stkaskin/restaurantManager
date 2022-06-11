@@ -12,6 +12,7 @@ import com.stkaskin.restaurantmanager.Interface.IIntent;
 
 import com.stkaskin.restaurantmanager.Perdruable.Page;
 import com.stkaskin.restaurantmanager.Views.Shared.AdminPage;
+import com.stkaskin.restaurantmanager.Views.Table.TableList;
 
 
 import soup.neumorphism.NeumorphImageButton;
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements IIntent {
       //  FakeOperation.addProduct();
      //   FakeOperation.addProduct();
 
-        Intent m = Page.IntentGet(new Intent(this, AdminPage.class));
+        Intent m = Page.IntentGet(new Intent(this, TableList.class));
         ///* for OrderproductList */m.putExtra("idTable", "6glWDzVu0uoxAYDIje9G");
         startActivity(m);
         LinearLayout layout = findViewById(R.id.mainP);
