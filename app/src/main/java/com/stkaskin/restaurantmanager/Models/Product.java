@@ -8,11 +8,21 @@ public class Product implements IFirebase {
     String id;
     String categoryId;
     String description;
-    int displayRank;
+    int displayRank = 999;
     String imageid;
     String name;
-    int status;
+    int status = 0;
+    int price = 0;
     ArrayList<DefaultExtra> extras = new ArrayList<>();
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
 
     public ArrayList<DefaultExtra> getExtras() {
         return extras;
@@ -54,7 +64,6 @@ public class Product implements IFirebase {
     public void setDisplayRank(int displayRank) {
         this.displayRank = displayRank;
     }
-
 
 
     public String getImageid() {

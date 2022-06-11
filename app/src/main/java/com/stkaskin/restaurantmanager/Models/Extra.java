@@ -5,7 +5,7 @@ import com.stkaskin.restaurantmanager.FireCloud.IFirebase;
 public class Extra implements IFirebase {
     String id;
     String name;
-    String type;
+    int type;
 
     public String getId() {
         return id;
@@ -23,12 +23,12 @@ public class Extra implements IFirebase {
         this.name = name;
     }
 
-    public String getType() {
-        return type+"";
+    public int getType() {
+        return type;
     }
 
-    public void setType(String type) {
-        this.type = type+"";
+    public void setType(int type) {
+        this.type = type;
     }
 
 
