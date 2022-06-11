@@ -2,6 +2,7 @@ package com.stkaskin.restaurantmanager.Views.Order;
 
 import android.content.Intent;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -10,6 +11,9 @@ import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.storage.FirebaseStorage;
+import com.squareup.picasso.Picasso;
 import com.stkaskin.restaurantmanager.FireCloud.FirebaseService;
 import com.stkaskin.restaurantmanager.Models.Category;
 import com.stkaskin.restaurantmanager.R;
@@ -25,7 +29,7 @@ public class OrderCategoryList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_category_list);
-        OrderWidget.setOrderLayout(this, findViewById(R.id.OrderHeader_Category), findViewById(R.id.OrderFooter_Category));
+      //  OrderWidget.setOrderLayout(this, findViewById(R.id.OrderHeader_Category), findViewById(R.id.OrderFooter_Category));
         ArrayList<Category> categories = new ArrayList<>();
         categories = FirebaseService.Get(Category.class);
         LinearLayout layoutBack = findViewById(R.id.linearLayoutCategories);
@@ -41,10 +45,15 @@ public class OrderCategoryList extends AppCompatActivity {
             params.setMargins(40, 40, 40, 0);
 
             NeumorphImageButton view = new NeumorphImageButton(this,null,R.style.Widget_Neumorph_ImageButton);
-            view.setImageResource(R.drawable.ana_yemek);
+      //      view.setImageResource(R.drawable.ana_yemek);
             view.setLayoutParams(params);
             view.setScaleType(ImageView.ScaleType.FIT_XY);
             view.setTag(categories.get(i));
+            Task<Uri> t = FirebaseStorage.getInstance().getReference().child("images/"
+                    + categories.get(i).getId()).getDownloadUrl();
+            t.addOnSuccessListener(runnable ->
+            {    Picasso.get().load(t.getResult()).into(view);
+            });
             view.setOnClickListener(view1 ->
             {
                 Category c = (Category) view1.getTag();
@@ -56,5 +65,6 @@ public class OrderCategoryList extends AppCompatActivity {
 
 
         }
-    }
+
+        }
 }

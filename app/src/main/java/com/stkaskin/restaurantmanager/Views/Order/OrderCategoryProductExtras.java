@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
@@ -27,7 +28,6 @@ import com.stkaskin.restaurantmanager.Models.Product;
 import com.stkaskin.restaurantmanager.Models.detailOrder;
 import com.stkaskin.restaurantmanager.Perdruable.Data;
 import com.stkaskin.restaurantmanager.R;
-import com.stkaskin.restaurantmanager.Widgets.OrderWidget;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -51,7 +51,7 @@ public class OrderCategoryProductExtras extends AppCompatActivity {
         Data.product = product;
         models = new ArrayList<>();
         ArrayList<SpecialExtraModel> mList = new ArrayList<>();
-        ExtraModel mo = new ExtraModel();
+
 
         for (int i = 0; i < product.getExtras().size(); i++) {
             Extra ex = FirebaseService.Get(Extra.class, product.getExtras().get(i).getExtraId());
@@ -63,12 +63,13 @@ public class OrderCategoryProductExtras extends AppCompatActivity {
             mList.add(sM);
         }
         for (int d = 0; d < mList.size(); d++) {
+            ExtraModel mo = new ExtraModel();
             mo.setHeader("" + d);
             ArrayList<SpecialExtraModel> list = new ArrayList<>();
             list.add(mList.get(d));
             //0 . ile 0 haric karşılaştırma .... 1 den başlar
-            for (int i = d+1; i < mList.size(); i++) {
-                if (mList.get(d).getExtra().getType()==(mList.get(i).getExtra().getType())) {
+            for (int i = d + 1; i < mList.size(); i++) {
+                if (mList.get(d).getExtra().getType() == (mList.get(i).getExtra().getType())) {
                     list.add(mList.get(i));
                     mList.remove(i);
                     i--;
@@ -85,33 +86,8 @@ public class OrderCategoryProductExtras extends AppCompatActivity {
 
     }
 
-    /*
-    the command change product extra
-        public void aa(View view) {
-            ArrayList<ExtraDetail> updateDetails = new ArrayList<>();
-            for (ExtraModel model : models) {
-                for (ExtraAndDetailModel detail : model.getModels()) {
-                    for (Button bt : buttons) {
-                        ExtraAndDetailModel m = (ExtraAndDetailModel) bt.getTag();
-                        if (m.getDetail().getId().equals(detail.getDetail().getId()) && m.getDetail().getStatus() != detail.getDetail().getStatus()) {
-                            updateDetails.add(m.getDetail());
-                            break;
-                        }
-                    }
-                }
-            }
-            for (ExtraDetail detail:updateDetails           ) {
-                FirebaseService.UpdateData(detail);
-            }
-
-            Toast.makeText(this, obj, Toast.LENGTH_SHORT).show();
-
-        }
-    */
-    String obj = "1sadsa";
-
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void AddOrder() {
+    public void AddOrder(View view) {
         BigOrder order;
         Query q = FirebaseService.QueryCreate(BigOrder.class);
         q = q.whereEqualTo("tableId", Data.table.getId().trim());
@@ -176,18 +152,18 @@ public class OrderCategoryProductExtras extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_category_product_extras);
-        OrderWidget.setOrderLayout(this, findViewById(R.id.OrderHeader_Extra), findViewById(R.id.OrderFooter_Extra), view -> {
-            AddOrder();
-        });
-      layoutBack = findViewById(R.id.linearLayoutCategoryProductExtras);
+        //   OrderWidget.setOrderLayout(this, findViewById(R.id.OrderHeader_Extra), findViewById(R.id.OrderFooter_Extra), view -> {
+        //      AddOrder();
+        //     });
+        layoutBack = findViewById(R.id.linearLayoutCategoryProductExtras);
         productid = getIntent().getStringExtra("ProductId");
         add(productid);
         getExtras();
 
 
     }
-    public  void getExtras()
-    {
+
+    public void getExtras() {
         for (ExtraModel item : models) {
 
 
@@ -208,6 +184,7 @@ public class OrderCategoryProductExtras extends AppCompatActivity {
             for (int i = 0; i < item.getExtras().size(); i++) {
                 Button button = new Button(this);
                 //statü kontrolüne göre renk verilecek
+
                 button.setBackgroundColor(Color.TRANSPARENT);
                 button.setText(item.getExtras().get(i).getExtra().getName());
                 button.setTag(item.getExtras().get(i));
@@ -260,5 +237,7 @@ public class OrderCategoryProductExtras extends AppCompatActivity {
         }
     }
 
-
+    public void Back() {
+        finish();
+    }
 }

@@ -2,6 +2,7 @@ package com.stkaskin.restaurantmanager.Views.Order;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.storage.FirebaseStorage;
+import com.squareup.picasso.Picasso;
 import com.stkaskin.restaurantmanager.FireCloud.FirebaseService;
 import com.stkaskin.restaurantmanager.Models.Product;
 import com.stkaskin.restaurantmanager.R;
@@ -33,10 +37,8 @@ public class OrderCategoryProductsList extends AppCompatActivity {
         setContentView(R.layout.activity_order_category_products_list);
         LinearLayout layoutBack = findViewById(R.id.linearLayoutCategoryProducts);
         ScrollView sc = findViewById(R.id.linearLayoutCategoryProducts_scroll);
-        OrderWidget.setOrderLayout(this,findViewById(R.id.OrderHeader_Product),findViewById(R.id.OrderFooter_Product));
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
+       // OrderWidget.setOrderLayout(this,findViewById(R.id.OrderHeader_Product),findViewById(R.id.OrderFooter_Product));
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams)sc.getLayoutParams();
         layoutParams.setMargins(30, 20, 30, 0);
         sc.setLayoutParams(layoutParams);
         ArrayList<Product> products = new ArrayList<>();
@@ -50,16 +52,7 @@ public class OrderCategoryProductsList extends AppCompatActivity {
 
             LinearLayout rowT = new LinearLayout(this);
             rowT.setTag(pr);
-            /*
-     <soup.neumorphism.NeumorphFloatingActionButton
-            style="@style/Widget.Neumorph.FloatingActionButton"
-            android:layout_width="88dp"
-            android:layout_height="88dp"
-            android:layout_margin="24dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/plusbutton"
-     />
- */
+
             rowT.setOnClickListener(this::OnClick);
             rowT.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 200));
             LinearLayout row = new LinearLayout(this);
@@ -84,7 +77,11 @@ public class OrderCategoryProductsList extends AppCompatActivity {
             NeumorphImageView view = new NeumorphImageView(this);
             view.setImageResource(R.drawable.ana_yemek);
             view.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 200));
-
+            Task<Uri> t = FirebaseStorage.getInstance().getReference().child("images/"
+                    + pr.getId()).getDownloadUrl();
+            t.addOnSuccessListener(runnable ->
+            {    Picasso.get().load(t.getResult()).into(view);
+            });
             row.addView(view);
 
 
