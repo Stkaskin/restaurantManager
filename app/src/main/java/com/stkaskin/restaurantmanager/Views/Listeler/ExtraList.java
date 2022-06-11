@@ -9,10 +9,12 @@ import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.stkaskin.restaurantmanager.FireCloud.FirebaseService;
+import com.stkaskin.restaurantmanager.Models.Category;
 import com.stkaskin.restaurantmanager.Models.Extra;
 import com.stkaskin.restaurantmanager.R;
 import com.stkaskin.restaurantmanager.Views.Category.CategoryAdd;
 import com.stkaskin.restaurantmanager.Views.Extra.ExtraAdd;
+import com.stkaskin.restaurantmanager.Widgets.AlerDialogWidget;
 import com.stkaskin.restaurantmanager.Widgets.ListWidget;
 
 import java.util.ArrayList;
@@ -36,7 +38,16 @@ public class ExtraList extends AppCompatActivity {
 
     public void delete(View view) {
         Extra ct = (Extra) view.getTag();
-        Toast.makeText(this, ct.getId(), Toast.LENGTH_SHORT).show();
+
+        AlerDialogWidget.aa(this, (dialogInterface, i) ->
+                {
+                    FirebaseService.Delete(ct);
+                    Toast.makeText(this, "Silindi" + ct.getId(), Toast.LENGTH_SHORT).show();
+
+                }
+                , (dialogInterface, i) -> {
+                    dialogInterface.cancel();
+                });
     }
 
     public void edit(View view) {

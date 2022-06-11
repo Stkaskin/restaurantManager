@@ -1,5 +1,6 @@
 package com.stkaskin.restaurantmanager.Views.Listeler;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,11 +14,13 @@ import com.stkaskin.restaurantmanager.FireCloud.FirebaseService;
 import com.stkaskin.restaurantmanager.Models.Category;
 import com.stkaskin.restaurantmanager.R;
 import com.stkaskin.restaurantmanager.Views.Category.CategoryAdd;
+import com.stkaskin.restaurantmanager.Widgets.AlerDialogWidget;
 import com.stkaskin.restaurantmanager.Widgets.ListWidget;
 
 import java.util.ArrayList;
 
 public class CategoryList extends AppCompatActivity {
+    LinearLayout layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,10 +31,10 @@ public class CategoryList extends AppCompatActivity {
         reflesh();
 
     }
-    public void reflesh()
-    {
-    LinearLayout layout=    findViewById(R.id.categoryListLinear);
-    layout.removeAllViews();
+
+    public void reflesh() {
+        layout = findViewById(R.id.categoryListLinear);
+        layout.removeAllViews();
         ArrayList<Category> categories = FirebaseService.Get(Category.class);
         for (Category ct : categories)
             ListWidget.listWidget(
@@ -43,31 +46,54 @@ public class CategoryList extends AppCompatActivity {
     public void delete(View view) {
 
         Category ct = (Category) view.getTag();
-        FirebaseService.Delete(ct);
+        AlerDialogWidget.aa(this, (dialogInterface, i) ->
+                {
+                    FirebaseService.Delete(ct);
+                    Toast.makeText(this, "Silindi" + ct.getId(), Toast.LENGTH_SHORT).show();
 
-        Toast.makeText(this,"Silindi"+ ct.getId(), Toast.LENGTH_SHORT).show();
+                }
+                , (dialogInterface, i) -> {
+                    dialogInterface.cancel();
+                });
+
     }
 
     public void edit(View view) {
         Category ct = (Category) view.getTag();
-        Intent intent=new Intent(this, CategoryAdd.class);
-        intent.putExtra("operation",1);
-        intent.putExtra("categoryId",ct.getId());
+        Intent intent = new Intent(this, CategoryAdd.class);
+        intent.putExtra("operation", 1);
+        intent.putExtra("categoryId", ct.getId());
         startActivity(intent);
 
 
         Toast.makeText(this, "edit   " + ct.getId(), Toast.LENGTH_SHORT).show();
     }
-    public void back(View view)
-    {
+
+    public void back(View view) {
         finish();
     }
-    public void addNew(View view)
-    {
-        Intent intent=new Intent(this, CategoryAdd.class);
-        intent.putExtra("operation",0);
+
+    public void addNew(View view) {
+        Intent intent = new Intent(this, CategoryAdd.class);
+        intent.putExtra("operation", 0);
         startActivity(intent);
         reflesh();
 
+    }
+
+    public void onClickYes(DialogInterface dialog, int which) {
+        // Write your code here to execute after dialog
+
+        Toast.makeText(this,
+                "You clicked on YES", Toast.LENGTH_SHORT)
+                .show();
+    }
+
+    public void onClickNo(DialogInterface dialog, int which) {
+        // Write your code here to execute after dialog
+        Toast.makeText(this,
+                "You clicked on NO", Toast.LENGTH_SHORT)
+                .show();
+        dialog.cancel();
     }
 }

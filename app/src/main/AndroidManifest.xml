@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar">
         <activity
+            android:name=".Views.Extra.ExtraSelectPage"
+            android:exported="true" />
+        <activity
             android:name=".Views.Listeler.TableList_A"
             android:exported="true" />
         <activity
@@ -59,12 +62,6 @@
             android:exported="true" />
         <activity
             android:name=".Views.Product.Product_Add"
-            android:exported="true" />
-        <activity
-            android:name=".Views.Table.TableDelete"
-            android:exported="true" />
-        <activity
-            android:name=".Views.Table.TableUpdate"
             android:exported="true" />
         <activity
             android:name=".Views.Table.TableAdd"

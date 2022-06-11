@@ -40,7 +40,7 @@ public class OrderCategoryProductExtras extends AppCompatActivity {
     ArrayList<ExtraModel> models = new ArrayList<>();
     ArrayList<Button> buttons = new ArrayList<>();
     List<ExtraModel> orijinal = new ArrayList<>();
-
+    LinearLayout layoutBack;
     String productid;
     ArrayList<SpecialExtraModel> extras = new ArrayList<>();
 
@@ -179,9 +179,15 @@ public class OrderCategoryProductExtras extends AppCompatActivity {
         OrderWidget.setOrderLayout(this, findViewById(R.id.OrderHeader_Extra), findViewById(R.id.OrderFooter_Extra), view -> {
             AddOrder();
         });
-        LinearLayout layoutBack = findViewById(R.id.linearLayoutCategoryProductExtras);
+      layoutBack = findViewById(R.id.linearLayoutCategoryProductExtras);
         productid = getIntent().getStringExtra("ProductId");
         add(productid);
+        getExtras();
+
+
+    }
+    public  void getExtras()
+    {
         for (ExtraModel item : models) {
 
 
@@ -252,7 +258,6 @@ public class OrderCategoryProductExtras extends AppCompatActivity {
             layoutBack.addView(layoutFullRow);
             layoutBack.addView(rowBorder);
         }
-
     }
 
 

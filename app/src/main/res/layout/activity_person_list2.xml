@@ -10,16 +10,17 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="85dp"
         android:orientation="horizontal">
+
         <soup.neumorphism.NeumorphButton
-            android:gravity="center"
-            android:onClick="back"
             android:id="@+id/buttonbackpersonlist"
             android:layout_width="120dp"
             android:layout_height="match_parent"
             android:layout_weight="0"
-            android:text="Back" >
+            android:gravity="center"
+            android:onClick="back"
+            android:text="Back">
 
         </soup.neumorphism.NeumorphButton>
 
@@ -34,7 +35,7 @@
 
             android:scaleType="centerInside"
             android:src="@drawable/plusbutton" />
-   </LinearLayout>
+    </LinearLayout>
 
     <ScrollView
         android:id="@+id/personListLinearScroll"
