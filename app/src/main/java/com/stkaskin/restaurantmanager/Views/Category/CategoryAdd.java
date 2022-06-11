@@ -1,5 +1,6 @@
 package com.stkaskin.restaurantmanager.Views.Category;
 
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -7,10 +8,12 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.Task;
@@ -79,7 +82,6 @@ public class CategoryAdd extends AppCompatActivity {
 
         }
     }
-
     public void Add(View view) {
         EditText name = findViewById(R.id.txt_categoryadd_name);
         String name_temp = name.getText().toString();

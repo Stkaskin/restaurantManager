@@ -1,10 +1,12 @@
 package com.stkaskin.restaurantmanager.Views.Extra;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -42,6 +44,8 @@ public class ExtraAdd extends AppCompatActivity {
 
     }
 
+
+
     public void Add(View view) {
 
         EditText name = findViewById(R.id.txtExtraName);
@@ -60,6 +64,7 @@ public class ExtraAdd extends AppCompatActivity {
             FirebaseService.UpdateData(extra);
 
         }
+        finish();
 
 
     }

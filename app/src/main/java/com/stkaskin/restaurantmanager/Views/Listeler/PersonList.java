@@ -12,6 +12,7 @@ import com.stkaskin.restaurantmanager.FireCloud.FirebaseService;
 import com.stkaskin.restaurantmanager.Models.Person;
 import com.stkaskin.restaurantmanager.R;
 import com.stkaskin.restaurantmanager.Views.Person.PersonAdd;
+import com.stkaskin.restaurantmanager.Widgets.AlerDialogWidget;
 import com.stkaskin.restaurantmanager.Widgets.ListWidget;
 
 import java.util.ArrayList;
@@ -36,7 +37,15 @@ public class PersonList extends AppCompatActivity {
 
     public void delete(View view) {
         Person ct = (Person) view.getTag();
-        Toast.makeText(this, ct.getId(), Toast.LENGTH_SHORT).show();
+        AlerDialogWidget.aa(this, (dialogInterface, i) ->
+                {
+                    FirebaseService.Delete(ct);
+                    Toast.makeText(this, "Silindi" + ct.getId(), Toast.LENGTH_SHORT).show();
+
+                }
+                , (dialogInterface, i) -> {
+                    dialogInterface.cancel();
+                });
     }
 
     public void edit(View view) {

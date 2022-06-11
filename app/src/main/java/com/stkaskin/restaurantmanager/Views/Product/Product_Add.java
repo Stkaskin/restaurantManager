@@ -28,7 +28,9 @@ import com.squareup.picasso.Picasso;
 import com.stkaskin.restaurantmanager.FireCloud.FirebaseService;
 import com.stkaskin.restaurantmanager.Models.Category;
 import com.stkaskin.restaurantmanager.Models.Product;
+import com.stkaskin.restaurantmanager.Perdruable.Data;
 import com.stkaskin.restaurantmanager.R;
+import com.stkaskin.restaurantmanager.Views.Extra.ExtraSelectPage;
 
 import java.util.ArrayList;
 
@@ -65,7 +67,6 @@ public class Product_Add extends AppCompatActivity {
         spinnerCategory.setAdapter(adapterCategory);
 
 
-
         //galeriden foto alma
         launcher = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
             @Override
@@ -83,7 +84,7 @@ public class Product_Add extends AppCompatActivity {
             EditText text = findViewById(R.id.productaddprice);
             EditText name = findViewById(R.id.txt_productadd_name);
             spinnerCategory.setSelection(selectArrayItemFind());
-            text.setText(product.getPrice()+"");
+            text.setText(product.getPrice() + "");
             name.setText(product.getName());
             imageOp();
 
@@ -142,7 +143,8 @@ public class Product_Add extends AppCompatActivity {
     }
 
     public void DetailGo(View view) {
-
+        Intent intent = new Intent(this, ExtraSelectPage.class);
+        startActivity(intent);
     }
 
     public void Add(View view) {
@@ -157,10 +159,11 @@ public class Product_Add extends AppCompatActivity {
         product.setPrice(Integer.parseInt(price.getText().toString()));
 //        product.setStatus(spinnerDurum.getSelectedItemPosition());
         product.setCategoryId(categories.get(spinnerCategory.getSelectedItemPosition()).getId());
-
+        if (Data.selectedExtras.size() != 0)
+            product.setExtras(Data.selectedExtras);
         String id;
         if (getextra == 0) {
-         product.setDescription("***");
+            product.setDescription("***");
             id = FirebaseService.Add(product);
         } else {
             FirebaseService.UpdateData(product);
@@ -169,6 +172,7 @@ public class Product_Add extends AppCompatActivity {
         StorageReference ref = FirebaseStorage.getInstance().getReference().child("images/" + id);
         UploadTask t = ref.putFile(uri);
         Toast.makeText(this, "İşlem başarılı : " + id, Toast.LENGTH_SHORT).show();
+        Data.selectedExtras=new ArrayList<>();
         finish();
     }
 }

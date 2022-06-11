@@ -2,6 +2,8 @@ package com.stkaskin.restaurantmanager.Perdruable;
 
 import com.stkaskin.restaurantmanager.FireCloud.FirebaseService;
 import com.stkaskin.restaurantmanager.Models.Category;
+import com.stkaskin.restaurantmanager.Models.DefaultExtra;
+import com.stkaskin.restaurantmanager.Models.Extra;
 import com.stkaskin.restaurantmanager.Models.Product;
 import com.stkaskin.restaurantmanager.Models.Table;
 
@@ -12,6 +14,7 @@ public class Data {
     public  ArrayList<Table> tables = new ArrayList<>();
     public static Table table = new Table();
     public static Product product = new Product();
+    public static ArrayList<DefaultExtra>  selectedExtras = new ArrayList<>();
     public  void UpdateTables()
     {
        tables=  FirebaseService.Get(Table.class);
