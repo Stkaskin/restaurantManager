@@ -21,8 +21,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_productadd_name" />
 
-    <Spinner
-        android:id="@+id/spinnerDurumProduct"
+    <EditText
+        android:id="@+id/productaddprice"
         android:layout_width="283dp"
         android:layout_height="50dp"
         android:layout_marginStart="64dp"
@@ -31,13 +31,14 @@
         android:background="@drawable/edittext_background"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_productadd_detail" />
 
     <ImageView
         android:id="@+id/imageView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="415dp"
+        android:layout_height="67dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -80,7 +81,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <EditText
+    <Button
         android:id="@+id/txt_productadd_detail"
         android:layout_width="0dp"
         android:layout_height="50dp"
@@ -89,7 +90,8 @@
         android:layout_marginEnd="64dp"
         android:background="@drawable/edittext_background"
         android:ems="10"
-        android:hint="Detail"
+        android:onClick="DetailGo"
+        android:hint="Detay Seç"
         android:inputType="textPersonName"
         android:textAlignment="center"
         android:textStyle="bold|italic"
@@ -106,6 +108,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="128dp"
         android:background="@drawable/btn_background"
+        android:onClick="Add"
         android:text="Save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.511"
@@ -121,7 +124,7 @@
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerDurumProduct"
+        app:layout_constraintTop_toBottomOf="@+id/productaddprice"
         app:srcCompat="@drawable/foto_ekle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

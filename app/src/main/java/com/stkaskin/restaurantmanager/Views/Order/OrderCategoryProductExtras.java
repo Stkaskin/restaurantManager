@@ -68,7 +68,7 @@ public class OrderCategoryProductExtras extends AppCompatActivity {
             list.add(mList.get(d));
             //0 . ile 0 haric karşılaştırma .... 1 den başlar
             for (int i = d+1; i < mList.size(); i++) {
-                if (mList.get(d).getExtra().getType().equals(mList.get(i).getExtra().getType())) {
+                if (mList.get(d).getExtra().getType()==(mList.get(i).getExtra().getType())) {
                     list.add(mList.get(i));
                     mList.remove(i);
                     i--;

@@ -6,11 +6,17 @@ public class Person implements IFirebase {    String id;
     int displayRank;
     String imageid;
     String name;
-    int status;
-
+    String password;
     //spinner
-    String type;
+    int type;
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public String getId() {
         return id;
@@ -44,19 +50,13 @@ public class Person implements IFirebase {    String id;
         this.name = name;
     }
 
-    public int getStatus() {
-        return status;
-    }
 
-    public void setStatus(int status) {
-        this.status = status;
-    }
 
-    public String getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(int type) {
         this.type = type;
     }
 

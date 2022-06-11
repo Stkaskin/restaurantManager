@@ -14,17 +14,18 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="128dp"
         android:background="@drawable/btn_background"
+        android:onClick="Add"
         android:text="Save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerDurumExtra" />
+        app:layout_constraintTop_toBottomOf="@+id/editTypeNo" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Add Detail"
+        android:text="Add Extra"
         android:textSize="40dp"
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,8 +50,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-    <Spinner
-        android:id="@+id/spinnerDurumExtra"
+    <EditText
+        android:id="@+id/editTypeNo"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="64dp"
@@ -75,6 +76,7 @@
         android:id="@+id/imageView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="Add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -92,6 +94,7 @@
         android:hint="Display Rank"
         android:inputType="number"
         android:textAlignment="center"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtExtraName" />

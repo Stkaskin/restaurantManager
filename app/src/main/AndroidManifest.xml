@@ -10,6 +10,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar">
         <activity
+            android:name=".Views.Listeler.TableList_A"
+            android:exported="true" />
+        <activity
+            android:name=".Views.Listeler.ActiveOrders"
+            android:exported="true" />
+        <activity
+            android:name=".Views.Shared.AdminPage"
+            android:exported="true" />
+        <activity
+            android:name=".Views.Listeler.ProductList"
+            android:exported="true" />
+        <activity
+            android:name=".Views.Listeler.ExtraList"
+            android:exported="true" />
+        <activity
+            android:name=".Views.Listeler.CategoryList"
+            android:exported="true" />
+        <activity
+            android:name=".Views.Listeler.PersonList"
+            android:exported="true" />
+        <activity
             android:name=".Views.Order.OrderCategoryProductExtras"
             android:exported="true" />
         <activity
@@ -50,15 +71,6 @@
             android:exported="true" />
         <activity
             android:name=".Views.Table.TableList"
-            android:exported="true" />
-        <activity
-            android:name=".Views.Person.PersonList"
-            android:exported="true" />
-        <activity
-            android:name=".Views.Person.PersonUpdate"
-            android:exported="true" />
-        <activity
-            android:name=".Views.Person.PersonDelete"
             android:exported="true" />
         <activity
             android:name=".Views.Person.PersonAdd"

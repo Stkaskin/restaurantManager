@@ -1,12 +1,9 @@
 package com.stkaskin.restaurantmanager.Views.Person;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -16,40 +13,56 @@ import com.stkaskin.restaurantmanager.FireCloud.FirebaseService;
 import com.stkaskin.restaurantmanager.Models.Person;
 import com.stkaskin.restaurantmanager.R;
 
-public class PersonAdd extends AppCompatActivity  {
+public class PersonAdd extends AppCompatActivity {
 
     Spinner spinnerStatu;
     ArrayAdapter<String> adapterStatu;
-    String[] status = {"Select","Admin","Chef","Waiter"};
+    String[] status = {"Select", "Admin", "Chef", "Waiter"};
+    Person person;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person_add);
-        spinnerStatu = findViewById(R.id.spinnerStatu);
-        adapterStatu = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,status);
+        spinnerStatu = findViewById(R.id.spinnerPersonType);
+        adapterStatu = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, status);
         adapterStatu.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerStatu.setAdapter(adapterStatu);
+        int getextra = getIntent().getIntExtra("operation", 0);
+        if (getextra == 1) {
+            String id = getIntent().getStringExtra("personId");
+            person = FirebaseService.Get(Person.class, id);
+            EditText tx = findViewById(R.id.txt_personadd_name);
+            EditText tx2 = findViewById(R.id.txt_personadd_password);
+            spinnerStatu.setSelection(person.getType() + 1);
+            tx.setText(person.getName());
+            tx2.setText(person.getPassword());
 
+        }
     }
-    public void Add(View view)
-    {
+
+    public void Add(View view) {
+
 
         EditText name = findViewById(R.id.txt_personadd_name);
-
+        EditText tx2 = findViewById(R.id.txt_personadd_password);
         String name_temp = name.getText().toString();
-        Person person = new Person();
+        boolean new_ = false;
+        if (person == null) {
+            person = new Person();
+            new_ = true;
+        }
         person.setName(name_temp);
-        person.setDisplayRank(1);
-        person.setStatus(1);
-        //specialpersontypelist e gidilecek ve seçilenin typeid si çekilecek
-        person.setType("B5cIFcOFjonE0FQUidVx");
-        person.setImageid("");
-        String id = FirebaseService.Add(person);
-        Toast.makeText(this, "Eklendi : " + id, Toast.LENGTH_SHORT).show();
+        person.setPassword(tx2.getText().toString());
+        person.setDisplayRank(Integer.parseInt(((EditText) findViewById(R.id.txt_personadd_password)).getText().toString()));
+        person.setType(spinnerStatu.getSelectedItemPosition() - 1);
+        if (new_)
+            FirebaseService.Add(person);
+        else
+            FirebaseService.UpdateData(person);
+        finish();
+
     }
-
-
 
 
 }

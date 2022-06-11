@@ -1,10 +1,5 @@
 package com.stkaskin.restaurantmanager.Views.Category;
 
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -12,11 +7,19 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 import com.stkaskin.restaurantmanager.FireCloud.FirebaseService;
 import com.stkaskin.restaurantmanager.Models.Category;
-import com.stkaskin.restaurantmanager.Models.Person;
 import com.stkaskin.restaurantmanager.R;
 
 public class CategoryAdd extends AppCompatActivity {
@@ -25,6 +28,9 @@ public class CategoryAdd extends AppCompatActivity {
     ArrayAdapter<String> adapterCategoryDurum;
     String[] Durum = {"var", "yok"};
     Spinner spinnerCategoryDurum;
+    Uri uri = null;
+    Category category = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +42,7 @@ public class CategoryAdd extends AppCompatActivity {
             @Override
             public void onActivityResult(Uri result) {
                 imageView.setImageURI(result);
+                uri = result;
             }
         });
 
@@ -43,29 +50,62 @@ public class CategoryAdd extends AppCompatActivity {
         adapterCategoryDurum = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Durum);
         adapterCategoryDurum.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCategoryDurum.setAdapter(adapterCategoryDurum);
+        int getextra = getIntent().getIntExtra("operation", 0);
+        if (getextra == 1) {
+            String id = getIntent().getStringExtra("categoryId");
+            category = FirebaseService.Get(Category.class, id);
+            //    spinnerCategoryDurum.setSelection(category.getStatus());
+            EditText name = findViewById(R.id.txt_categoryadd_name);
+            name.setText(category.getName());
+            Task<Uri> t = FirebaseStorage.getInstance().getReference().child("images/"
+                    + category.getId()).getDownloadUrl();
+
+            for (int i = 0; i < 100; i++) {
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if (t.isComplete()) {
+
+                    if (t.isSuccessful()) {
+                        Picasso.get().load(t.getResult()).into(imageView);
+                        uri = t.getResult();
+                    }
+                    break;
+                }
+            }
 
 
-
+        }
     }
-    public void Add(View view)
-    {
 
+    public void Add(View view) {
         EditText name = findViewById(R.id.txt_categoryadd_name);
-        Category category =new Category();
         String name_temp = name.getText().toString();
+        String id;
+        if (category == null) {
+            category = new Category();
+            category.setName(name_temp);
+            id = FirebaseService.Add(category);
 
-        category.setName(name_temp);
-        category.setDisplayRank(1);
-        category.setStatus(1);
-        category.setImageid("");
-        String id = FirebaseService.Add(category);
-        Toast.makeText(this, "Eklendi : " + id, Toast.LENGTH_SHORT).show();
+        } else {
 
+            category.setName(name_temp);
+            id = category.getId();
+            FirebaseService.UpdateData(category);
+        }
+
+
+        StorageReference ref = FirebaseStorage.getInstance().getReference().child("images/" + id);
+        UploadTask t = ref.putFile(uri);
+        finish();
 
     }
+
     public void resimSecCategory(View view) {
 
-        imageView.setOnClickListener( view1 -> launcher.launch("image/*"));
+        imageView.setOnClickListener(view1 -> launcher.launch("image/*"));
     }
 
 }
