@@ -1,5 +1,6 @@
 package com.stkaskin.restaurantmanager.Views.Order;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -29,7 +30,10 @@ import com.stkaskin.restaurantmanager.Models.Product;
 import com.stkaskin.restaurantmanager.Models.Table;
 import com.stkaskin.restaurantmanager.Models.detailOrder;
 import com.stkaskin.restaurantmanager.Perdruable.Data;
+import com.stkaskin.restaurantmanager.Perdruable.Page;
+import com.stkaskin.restaurantmanager.Perdruable.UpdateData;
 import com.stkaskin.restaurantmanager.R;
+import com.stkaskin.restaurantmanager.SharedOperation;
 
 import java.util.ArrayList;
 
@@ -43,13 +47,17 @@ public class OrderProductsList extends AppCompatActivity {
     OrderProductListModel model = new OrderProductListModel();
     BigOrder order;
 
+    int lastStatu = 0;
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_products_list);
-        layoutBack = findViewById(R.id.linearLayoutProducts);
 
+
+        layoutBack = findViewById(R.id.linearLayoutProducts);
+        Page.addActivity(this);
 
         String id = getIntent().getStringExtra("idTable");
 
@@ -58,37 +66,40 @@ public class OrderProductsList extends AppCompatActivity {
         model.setTable(table);
         ArrayList<Order> orders = new ArrayList<Order>();
         lastStatu = table.getStatus();
+        UpdateData.tableProductUpdate = false;
         headerTextOp();
         OrderOp();
         // Rezerve("1");
         findViewById(R.id.textview_order_products_3).setOnClickListener(
                 view -> OrderOp()
         );
+        xt = this;
+
     }
 
 
+    Context xt;
+    int isz = 0;
 
-    int lastStatu = 0;
 
     public void headerTextOp() {
         table = FirebaseService.Get(Table.class, table.getId());
 
         TextView tx = findViewById(R.id.textview_order_products_1);
-        tx.setText("Masa Id    :" + table.getId() + "");
+        ArrayList<BigOrder> order = FirebaseService.Get(BigOrder.class,
+                FirebaseService.QueryCreate(BigOrder.class).whereEqualTo("tableId", table.getId()).whereEqualTo("status", 1));
+        if (order != null && order.size() > 0)
+            tx.setText("Tutar:" + order.get(0).getTotal());
+        else
+            tx.setText("Tutar:" + 0);
         model.setP1(tx);
 
         tx = findViewById(R.id.textview_order_products_2);
-        tx.setText("Masa Adı   :" + table.getName() + "");
+        tx.setText("Masa Adı   :" + table.getName() );
         model.setP2(tx);
         tx = findViewById(R.id.textview_order_products_3);
-        tx.setText("Masa Durum :" + table.getStatus() + "");
+        tx.setText("Masa Durum :" + table.getStatus() );
         model.setP3(tx);
-        if (lastStatu != table.getStatus()) {
-            OrderOp();
-            lastStatu = table.getStatus();
-        }
-
-
     }
 
     private void OrderOp() {
@@ -96,9 +107,20 @@ public class OrderProductsList extends AppCompatActivity {
 
             products = new ArrayList<>();
             Query q = FirebaseService.QueryCreate(BigOrder.class);
+
+           ArrayList<Integer> degerler=new ArrayList<>();
+           degerler.add(0);
+           degerler.add(1);
+           degerler.add(2);
             q = q.whereEqualTo("tableId", table.getId().trim());
             ArrayList<BigOrder> orders = FirebaseService.Get(BigOrder.class, q);
-            if (orders != null && orders.size() > 0 && orders.get(0).getStatus() == 0) {
+            for (int i = 0; i < orders.size(); i++) {
+                if (orders.get(i).getStatus() == 3) {
+                    orders.remove(i);
+                    i--;
+                }
+            }
+            if (orders != null && orders.size() > 0 && orders.get(0).getStatus() != 3) {
                 order = orders.get(0);
                 for (detailOrder detail : order.getOrders()) {
                     Product product_ = FirebaseService.Get(Product.class, detail.getProductId().trim());
@@ -130,10 +152,6 @@ public class OrderProductsList extends AppCompatActivity {
         return null;
     }
 
-    private void Rezerve(String id) {
-
-
-    }
 
 
     private LinearLayout GetTableDynamic(LinearLayout layoutBack, ArrayList<Product> items) {
@@ -242,71 +260,39 @@ public class OrderProductsList extends AppCompatActivity {
         Toast.makeText(this, product.getId(), Toast.LENGTH_SHORT).show();
     }
 
+    int LAUNCH_SECOND_ACTIVITY = 1;
+
     public void addNew(View view) {
         Intent intent = new Intent(this, OrderCategoryList.class);
         intent.putExtra("TableId", table.getId());
-        startActivity(intent);
+
+        startActivityForResult(intent, LAUNCH_SECOND_ACTIVITY);
+
+
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (UpdateData.tableProductUpdate) {
+            UpdateData.tableProductUpdate = false;
+            UpdateData.tableUpdate=true;
+            headerTextOp();
+            OrderOp();
+        }
+
+
+    } //onActivityResult
+
+    public void tableOperation(View view
+    ) {
+        SharedOperation.tableOperation(Data.table.getId());
+    }
+
+    public void Back(View view){finish();}
+    public void BackAll(View view){Page.CloseActivities();}
 
 }
 
 
-
-/*
-     <soup.neumorphism.NeumorphFloatingActionButton
-            style="@style/Widget.Neumorph.FloatingActionButton"
-            android:layout_width="88dp"
-            android:layout_height="88dp"
-            android:layout_margin="24dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/plusbutton"
-     />
- */
-    /*
-    Full ekran komutu
-    View decorView = getWindow().getDecorView();
-            int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_FULLSCREEN;
-            decorView.setSystemUiVisibility(uiOptions);
-
-    */
-// // String tableId = table.getId().trim();
-//   ArrayList<OrderDetail> details = new ArrayList<>();
-// Order order_ = OrdersGet(tableId);
-
-          /*  if (order_ != null) {
-
-                details = FirebaseService.Get(OrderDetail.class,
-                        FirebaseService.QueryCreate(OrderDetail.class).whereEqualTo("orderid", order_.getId())
-                );
-            }*/
-        /*    products = new ArrayList<>();
-            if (details != null && details.size() > 0)
-
-                if (products.size() > 0) {
-
-                    GetTableDynamic(layoutBack, products);
-                    model.setProducts(products);
-                }
-            //  products=FirebaseService.Get(Product.class);
-            // GetTableDynamic(layoutBack, products);
-        }
-         */
-
-  /*  Product product = new Product();
-        product.setId("1");
-        product.setName("sadas");
-        products.add(product);
-        product = new Product();
-        product.setId("2");
-        product.setName("sadas");
-        products.add(product);
-        product = new Product();
-        product.setId("3");
-        product.setName("sadas");
-        products.add(product);
-        product = new Product();
-        product.setId("4");
-        product.setName("sadas");
-        products.add(product);*/

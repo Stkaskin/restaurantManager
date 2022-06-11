@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements IIntent {
      //   FakeOperation.addBigOrder();
       //  FakeOperation.addProduct();
      //   FakeOperation.addProduct();
-
+//SharedOperation.tableListReset();
         Intent m = Page.IntentGet(new Intent(this, TableList.class));
         ///* for OrderproductList */m.putExtra("idTable", "6glWDzVu0uoxAYDIje9G");
         startActivity(m);
