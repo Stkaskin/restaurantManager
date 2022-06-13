@@ -38,7 +38,7 @@ public class Login extends AppCompatActivity {
         if (person != null && person.size() > 0) {
             if (person.get(0).getType() == 0) {
                 Data.giris = 0;
-                Intent intent1=new Intent(this, AdminPage.class);
+                Intent intent1=new Intent(this, TableList.class);
                 startActivity(intent1);
             }
             else if (person.get(0).getType() == 1)

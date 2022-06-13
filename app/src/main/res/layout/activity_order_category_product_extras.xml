@@ -36,7 +36,7 @@
     <ScrollView
         android:id="@+id/linearLayoutCategoryProductExtra_scroll"
         android:layout_width="match_parent"
-        android:layout_height="510dp"
+        android:layout_height="566dp"
         tools:ignore="SpeakableTextPresentCheck">
 
         <LinearLayout

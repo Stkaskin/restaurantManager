@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.stkaskin.restaurantmanager.FireCloud.FirebaseService;
 import com.stkaskin.restaurantmanager.Models.Category;
+import com.stkaskin.restaurantmanager.Perdruable.UpdateData;
 import com.stkaskin.restaurantmanager.R;
 import com.stkaskin.restaurantmanager.Views.Category.CategoryAdd;
 import com.stkaskin.restaurantmanager.Widgets.AlerDialogWidget;
@@ -49,6 +50,7 @@ public class CategoryList extends AppCompatActivity {
         AlerDialogWidget.aa(this, (dialogInterface, i) ->
                 {
                     FirebaseService.Delete(ct);
+                    reflesh();
                     Toast.makeText(this, "Silindi" + ct.getId(), Toast.LENGTH_SHORT).show();
 
                 }
@@ -63,10 +65,22 @@ public class CategoryList extends AppCompatActivity {
         Intent intent = new Intent(this, CategoryAdd.class);
         intent.putExtra("operation", 1);
         intent.putExtra("categoryId", ct.getId());
-        startActivity(intent);
+        startActivityForResult(intent,1);
 
 
         Toast.makeText(this, "edit   " + ct.getId(), Toast.LENGTH_SHORT).show();
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (UpdateData.tableProductUpdate) {
+            UpdateData.tableProductUpdate = false;
+            UpdateData.tableUpdate = true;
+            reflesh();
+        }
+
+
     }
 
     public void back(View view) {
@@ -76,7 +90,7 @@ public class CategoryList extends AppCompatActivity {
     public void addNew(View view) {
         Intent intent = new Intent(this, CategoryAdd.class);
         intent.putExtra("operation", 0);
-        startActivity(intent);
+        startActivityForResult(intent,1);
         reflesh();
 
     }

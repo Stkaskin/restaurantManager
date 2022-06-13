@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.stkaskin.restaurantmanager.FireCloud.FirebaseService;
 import com.stkaskin.restaurantmanager.Models.Person;
+import com.stkaskin.restaurantmanager.Perdruable.UpdateData;
 import com.stkaskin.restaurantmanager.R;
 import com.stkaskin.restaurantmanager.Views.Person.PersonAdd;
 import com.stkaskin.restaurantmanager.Widgets.AlerDialogWidget;
@@ -25,21 +27,26 @@ public class PersonList extends AppCompatActivity {
         setContentView(R.layout.activity_person_list2);
         ScrollView l = findViewById(R.id.personListLinearScroll);
         ListWidget.marginScrollView(l);
-        ArrayList<Person> people = FirebaseService.Get(Person.class);
-        for (Person ct : people)
-            ListWidget.listWidget(
-                    findViewById(R.id.personListLinear), ct.getId(), ct.getName(), ct,
-                    view -> edit(view), view -> delete(view));
+
 
     }
     public void add(View view) {
     }
-
+    private void reflesh()
+    {
+        LinearLayout layout=findViewById(R.id.personListLinear);
+        layout.removeAllViews();
+        ArrayList<Person> people = FirebaseService.Get(Person.class);
+        for (Person ct : people)
+            ListWidget.listWidget(
+                    findViewById(R.id.personListLinear), ct.getId(), ct.getName(), ct,
+                    view -> edit(view), view -> delete(view));}
     public void delete(View view) {
         Person ct = (Person) view.getTag();
         AlerDialogWidget.aa(this, (dialogInterface, i) ->
                 {
                     FirebaseService.Delete(ct);
+                    reflesh();
                     Toast.makeText(this, "Silindi" + ct.getId(), Toast.LENGTH_SHORT).show();
 
                 }
@@ -54,7 +61,17 @@ public class PersonList extends AppCompatActivity {
         Intent intent=new Intent(this, PersonAdd.class);
         intent.putExtra("operation",1);
         intent.putExtra("personId",ct.getId());
-        startActivity(intent);
+        startActivityForResult(intent,1);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+            reflesh();
+
+
+
     }
     public void back(View view)
     {
@@ -64,6 +81,6 @@ public class PersonList extends AppCompatActivity {
     {
         Intent intent=new Intent(this, PersonAdd.class);
         intent.putExtra("operation",0);
-        startActivity(intent);
+        startActivityForResult(intent,1);
     }
 }

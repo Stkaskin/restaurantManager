@@ -3,6 +3,7 @@ package com.stkaskin.restaurantmanager.Views.Listeler;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.stkaskin.restaurantmanager.FireCloud.FirebaseService;
 import com.stkaskin.restaurantmanager.Models.Product;
+import com.stkaskin.restaurantmanager.Perdruable.UpdateData;
 import com.stkaskin.restaurantmanager.R;
 import com.stkaskin.restaurantmanager.Views.Product.Product_Add;
 import com.stkaskin.restaurantmanager.Widgets.AlerDialogWidget;
@@ -25,13 +27,18 @@ public class ProductList extends AppCompatActivity {
         setContentView(R.layout.activity_product_list);
         ScrollView l = findViewById(R.id.productListLinearScroll);
         ListWidget.marginScrollView(l);
+
+    }
+    private void reflesh()
+    {
+        LinearLayout layout=findViewById(R.id.productListLinear);
+        layout.removeAllViews();
         ArrayList<Product> products = FirebaseService.Get(Product.class);
         for (Product ct : products)
             ListWidget.listWidget(
                     findViewById(R.id.productListLinear), ct.getId(), ct.getName(), ct,
                     view -> edit(view), view -> delete(view));
     }
-
     public void add(View view) {
     }
 
@@ -40,6 +47,7 @@ public class ProductList extends AppCompatActivity {
         AlerDialogWidget.aa(this, (dialogInterface, i) ->
                 {
                     FirebaseService.Delete(ct);
+                    reflesh();
                     Toast.makeText(this, "Silindi" + ct.getId(), Toast.LENGTH_SHORT).show();
 
                 }
@@ -55,7 +63,17 @@ public class ProductList extends AppCompatActivity {
         Intent intent=new Intent(this, Product_Add.class);
         intent.putExtra("operation",1);
         intent.putExtra("productId",ct.getId());
-        startActivity(intent);
+        startActivityForResult(intent,1);
+
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+            reflesh();
+
+
 
     }
 
@@ -66,6 +84,6 @@ public class ProductList extends AppCompatActivity {
     public void addNew(View view) {
         Intent intent=new Intent(this, Product_Add.class);
         intent.putExtra("operation",0);
-        startActivity(intent);
+        startActivityForResult(intent,1);
     }
 }
