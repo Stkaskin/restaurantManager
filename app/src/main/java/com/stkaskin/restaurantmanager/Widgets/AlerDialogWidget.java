@@ -10,6 +10,14 @@ import androidx.appcompat.app.AlertDialog;
 import com.stkaskin.restaurantmanager.R;
 
 public class AlerDialogWidget {
+    public static String title="Silmeyi Onaylayın.!.";
+    public static String default_title="Silmeyi Onaylayın.!.";
+    public static String description="Seçili Öğeyi Silmek İstediğinize Emin Misiniz?";
+    public static String default_description="Seçili Öğeyi Silmek İstediğinize Emin Misiniz?";
+    public  static String yes_="SİL";
+    public  static String no_="İPTAL";
+    public  static String default_yes="SİL";
+    public  static String default_no="Iptal";
 
     public  static  void aa(Context context, DialogInterface.OnClickListener yes, DialogInterface.OnClickListener no){
 
@@ -17,18 +25,18 @@ public class AlerDialogWidget {
                 context);
 
 // Setting Dialog Title
-        alertDialog2.setTitle("Confirm Delete...");
+        alertDialog2.setTitle(title);
 
 // Setting Dialog Message
-        alertDialog2.setMessage("Are you sure you want delete this item?");
+        alertDialog2.setMessage(description);
 
 // Setting Icon to Dialog
         alertDialog2.setIcon(R.drawable.minusbutton);
 
 // Setting Positive "Yes" Btn
-        alertDialog2.setPositiveButton("YES", yes);
+        alertDialog2.setPositiveButton(yes_, yes);
 // Setting Negative "NO" Btn
-        alertDialog2.setNegativeButton("NO",no
+        alertDialog2.setNegativeButton(no_,no
               );
 
 // Showing Alert Dialog

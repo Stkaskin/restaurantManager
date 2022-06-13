@@ -16,6 +16,7 @@ import com.stkaskin.restaurantmanager.R;
 import com.stkaskin.restaurantmanager.Views.Listeler.TableList_A;
 import com.stkaskin.restaurantmanager.Views.Person.PersonAdd;
 import com.stkaskin.restaurantmanager.Views.Table.TableList;
+import com.stkaskin.restaurantmanager.Widgets.AlerDialogWidget;
 
 public class AdminPage extends AppCompatActivity {
 
@@ -23,6 +24,10 @@ public class AdminPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_page);
+        AlerDialogWidget.title=AlerDialogWidget.default_title;
+        AlerDialogWidget.description=AlerDialogWidget.default_description;
+        AlerDialogWidget.yes_=AlerDialogWidget.default_yes;
+        AlerDialogWidget.no_=AlerDialogWidget.default_no;
     }
 
     public void categoryOpen(View view) {

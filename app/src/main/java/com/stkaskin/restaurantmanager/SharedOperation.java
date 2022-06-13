@@ -29,12 +29,11 @@ public class SharedOperation {
             tb.setStatus(0);
 
             FirebaseService.UpdateData(tb);
-            Query q = FirebaseService.QueryCreate(BigOrder.class).
-                    whereNotEqualTo("tableId", tableid);
-            ArrayList<BigOrder> orders = FirebaseService.Get(BigOrder.class, q);
+
+            ArrayList<BigOrder> orders = FirebaseService.Get(BigOrder.class, FirebaseService.QueryCreate(BigOrder.class).whereEqualTo("tableId",tb.getId()));
             for (BigOrder bigOrder : orders) {
                 bigOrder.setStatus(3);
-                bigOrder.setTableId(tableid);
+                bigOrder.setTableId("");
                 FirebaseService.UpdateData(bigOrder);
             }
         } else {
