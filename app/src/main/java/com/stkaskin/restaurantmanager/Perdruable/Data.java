@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class Data {
     public static ArrayList<Category> categories = new ArrayList<>();
     public  ArrayList<Table> tables = new ArrayList<>();
+    public static int giris=-1;
     public static Table table = new Table();
     public static Product product = new Product();
     public static ArrayList<DefaultExtra>  selectedExtras = new ArrayList<>();

@@ -34,6 +34,7 @@ import com.stkaskin.restaurantmanager.Perdruable.Page;
 import com.stkaskin.restaurantmanager.Perdruable.UpdateData;
 import com.stkaskin.restaurantmanager.R;
 import com.stkaskin.restaurantmanager.SharedOperation;
+import com.stkaskin.restaurantmanager.Widgets.AlerDialogWidget;
 
 import java.util.ArrayList;
 
@@ -95,10 +96,10 @@ public class OrderProductsList extends AppCompatActivity {
         model.setP1(tx);
 
         tx = findViewById(R.id.textview_order_products_2);
-        tx.setText("Masa Adı   :" + table.getName() );
+        tx.setText("Masa Adı   :" + table.getName());
         model.setP2(tx);
         tx = findViewById(R.id.textview_order_products_3);
-        tx.setText("Masa Durum :" + table.getStatus() );
+        tx.setText("Masa Durum :" + table.getStatus());
         model.setP3(tx);
     }
 
@@ -108,10 +109,10 @@ public class OrderProductsList extends AppCompatActivity {
             products = new ArrayList<>();
             Query q = FirebaseService.QueryCreate(BigOrder.class);
 
-           ArrayList<Integer> degerler=new ArrayList<>();
-           degerler.add(0);
-           degerler.add(1);
-           degerler.add(2);
+            ArrayList<Integer> degerler = new ArrayList<>();
+            degerler.add(0);
+            degerler.add(1);
+            degerler.add(2);
             q = q.whereEqualTo("tableId", table.getId().trim());
             ArrayList<BigOrder> orders = FirebaseService.Get(BigOrder.class, q);
             for (int i = 0; i < orders.size(); i++) {
@@ -151,7 +152,6 @@ public class OrderProductsList extends AppCompatActivity {
             return orders.get(0);
         return null;
     }
-
 
 
     private LinearLayout GetTableDynamic(LinearLayout layoutBack, ArrayList<Product> items) {
@@ -219,7 +219,7 @@ public class OrderProductsList extends AppCompatActivity {
 
         button.setTag(products.get(index));
         button.setLayoutParams(params1);
-        layoutButtons.addView(button);
+        // layoutButtons.addView(button);
 
         LinearLayout.LayoutParams tparams1 = new LinearLayout.LayoutParams(70, 120);
         EditText text = new EditText(this);
@@ -231,7 +231,7 @@ public class OrderProductsList extends AppCompatActivity {
 
         text.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         text.setText(order.getOrders().get(index).getCount() + "");
-        layoutButtons.addView(text);
+        //  layoutButtons.addView(text);
 
         button = new NeumorphFloatingActionButton(this);
         button.setTag(products.get(index));
@@ -251,13 +251,25 @@ public class OrderProductsList extends AppCompatActivity {
 
     public void ClickPlus(@NonNull View v) {
         Product product = (Product) v.getTag();
-        Toast.makeText(this, product.getId() + " Eklendi", Toast.LENGTH_SHORT).show();
+        //  Toast.makeText(this, product.getId() + " Eklendi", Toast.LENGTH_SHORT).show();
 
     }
 
     public void ClickMinus(@NonNull View v) {
         Product product = (Product) v.getTag();
         Toast.makeText(this, product.getId(), Toast.LENGTH_SHORT).show();
+        AlerDialogWidget.aa(layoutBack.getContext(), (dialogInterface, i) ->
+        {
+            BigOrder bigOrders = FirebaseService.Get(BigOrder.class,order.getId());
+            for (int x=0;x<bigOrders.getOrders().size();x++) {
+                if (bigOrders.getOrders().get(x).getProductId().equals(product.getId())) {
+                    bigOrders.getOrders().remove(x);
+                    FirebaseService.UpdateData(bigOrders);
+                    break;
+                }
+            }
+        }, (dialogInterface, i) -> {
+        });
     }
 
     int LAUNCH_SECOND_ACTIVITY = 1;
@@ -277,7 +289,7 @@ public class OrderProductsList extends AppCompatActivity {
 
         if (UpdateData.tableProductUpdate) {
             UpdateData.tableProductUpdate = false;
-            UpdateData.tableUpdate=true;
+            UpdateData.tableUpdate = true;
             headerTextOp();
             OrderOp();
         }
@@ -290,8 +302,13 @@ public class OrderProductsList extends AppCompatActivity {
         SharedOperation.tableOperation(Data.table.getId());
     }
 
-    public void Back(View view){finish();}
-    public void BackAll(View view){Page.CloseActivities();}
+    public void Back(View view) {
+        finish();
+    }
+
+    public void BackAll(View view) {
+        Page.CloseActivities();
+    }
 
 }
 

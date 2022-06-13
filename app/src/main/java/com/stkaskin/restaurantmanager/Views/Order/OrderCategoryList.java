@@ -50,7 +50,8 @@ public class OrderCategoryList extends AppCompatActivity {
             NeumorphImageButton view = new NeumorphImageButton(this, null, R.style.Widget_Neumorph_ImageButton);
             //      view.setImageResource(R.drawable.ana_yemek);
             view.setLayoutParams(params);
-            view.setScaleType(ImageView.ScaleType.FIT_XY);
+            view.setScaleType(ImageView.ScaleType.CENTER);
+
             view.setTag(categories.get(i));
             Task<Uri> t = FirebaseStorage.getInstance().getReference().child("images/"
                     + categories.get(i).getId()).getDownloadUrl();

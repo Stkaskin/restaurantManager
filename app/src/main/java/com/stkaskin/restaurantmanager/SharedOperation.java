@@ -34,7 +34,7 @@ public class SharedOperation {
             ArrayList<BigOrder> orders = FirebaseService.Get(BigOrder.class, q);
             for (BigOrder bigOrder : orders) {
                 bigOrder.setStatus(3);
-                bigOrder.setTableId(tableid);
+                bigOrder.setTableId("Old"+tableid);
                 FirebaseService.UpdateData(bigOrder);
             }
         } else {

@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,9 +16,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.stkaskin.restaurantmanager.FireCloud.FirebaseService;
 import com.stkaskin.restaurantmanager.Models.Table;
+import com.stkaskin.restaurantmanager.Perdruable.Data;
 import com.stkaskin.restaurantmanager.Perdruable.Page;
 import com.stkaskin.restaurantmanager.Perdruable.UpdateData;
 import com.stkaskin.restaurantmanager.R;
+import com.stkaskin.restaurantmanager.Views.Listeler.ActiveOrders;
+import com.stkaskin.restaurantmanager.Views.Login;
 import com.stkaskin.restaurantmanager.Views.Order.OrderProductsList;
 import com.stkaskin.restaurantmanager.Views.Shared.AdminPage;
 
@@ -67,24 +71,71 @@ public class TableList extends AppCompatActivity implements View.OnClickListener
         LinearLayout row = new LinearLayout(this);
         Button button = new Button(this);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                120,
+                ViewGroup.LayoutParams.MATCH_PARENT,
                 120
         );
-
-        params.setMargins(900, 20, 20, 20);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        params.setMargins(0, 20, 20, 20);
 
         button.setBackgroundResource(R.drawable.plusbutton);
         button.setOnClickListener(
                 view -> {
                     Intent i=new Intent(this, AdminPage.class);
+                    Data.giris=0;
+                    startActivity(i);
+                }
+        );
+        button.setLayoutParams(new ViewGroup.LayoutParams(200, ViewGroup.LayoutParams.MATCH_PARENT));
+
+        button.setText("ADMİN");
+        row.setLayoutParams(params);
+        row.addView(button);
+        button = new Button(this);
+
+
+        button.setBackgroundResource(R.drawable.plusbutton);
+        button.setOnClickListener(
+                view -> {
+                    Intent i=new Intent(this, AdminPage.class);
+                    Data.giris=2;
+                    startActivity(i);
+                }
+        );
+        button.setText("Waiter");
+        button.setLayoutParams(new ViewGroup.LayoutParams(200, ViewGroup.LayoutParams.MATCH_PARENT));
+
+        row.addView(button);
+        button = new Button(this);
+        button.setBackgroundResource(R.drawable.plusbutton);
+        button.setOnClickListener(
+                view -> {
+                    Intent i=new Intent(this, ActiveOrders.class);
+                    Data.giris=1;
                     startActivity(i);
                 }
         );
 
-        row.setLayoutParams(params);
+        button.setLayoutParams(new ViewGroup.LayoutParams(200, ViewGroup.LayoutParams.MATCH_PARENT));
+
         row.addView(button);
-button.setText("ADMİN PAGE");
+        button.setText("Cheff");
+
+        button = new Button(this);
+        button.setBackgroundResource(R.drawable.plusbutton);
+        button.setOnClickListener(
+                view -> {
+                    Intent i=new Intent(this, Login.class);
+                    Data.giris=-1;
+                    startActivity(i);
+                }
+        );
+
+        button.setLayoutParams(new ViewGroup.LayoutParams(200, ViewGroup.LayoutParams.MATCH_PARENT));
+        row.addView(button);
+        button.setText("Login");
+
         layoutBack.addView(row);
+
 
         return layoutBack;
 

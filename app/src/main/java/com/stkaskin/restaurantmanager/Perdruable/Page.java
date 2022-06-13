@@ -34,7 +34,8 @@ public class Page {
     }
     public static void CloseActivities()
     {
-        for (Activity activity:activities) {
+        for (int i=activities.size()-1;i>=0;i--) {
+            Activity activity=activities.get(i);
             activity.finish();
             activities.remove(activity);
         }
