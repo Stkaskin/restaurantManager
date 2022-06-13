@@ -94,7 +94,7 @@
     <ScrollView
         android:id="@+id/linearLayoutProducts_Scroll"
         android:layout_width="match_parent"
-        android:layout_height="462dp"
+        android:layout_height="534dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"

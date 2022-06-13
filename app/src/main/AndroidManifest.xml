@@ -66,7 +66,7 @@
             android:launchMode = "singleTop"
             android:exported="false" />
         <activity
-            android:name=".Views.Login"
+            android:name=".MainActivity"
             android:launchMode = "singleTop"
             android:exported="false" />
         <activity
@@ -94,7 +94,7 @@
             android:launchMode = "singleTop"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Views.Login"
             android:launchMode = "singleTop"
             android:exported="true">
             <intent-filter>

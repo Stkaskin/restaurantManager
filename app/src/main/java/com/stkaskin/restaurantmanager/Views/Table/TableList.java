@@ -54,12 +54,7 @@ public class TableList extends AppCompatActivity implements View.OnClickListener
         //yetkisi varsa
 
 
-
-
-
         GetTableDynamic(tables);
-
-
 
 
     }
@@ -77,8 +72,8 @@ public class TableList extends AppCompatActivity implements View.OnClickListener
         button.setBackgroundResource(R.drawable.plusbutton);
         button.setOnClickListener(
                 view -> {
-                    Intent i=new Intent(this, AdminPage.class);
-                    Data.giris=0;
+                    Intent i = new Intent(this, AdminPage.class);
+                    Data.giris = 0;
                     startActivityForResult(i, 1);
                 }
         );
@@ -93,8 +88,8 @@ public class TableList extends AppCompatActivity implements View.OnClickListener
         button.setBackgroundResource(R.drawable.plusbutton);
         button.setOnClickListener(
                 view -> {
-                    Intent i=new Intent(this, ActiveOrders.class);
-                    Data.giris=2;
+                    Intent i = new Intent(this, ActiveOrders.class);
+                    Data.giris = 2;
                     startActivityForResult(i, 1);
                 }
         );
@@ -106,8 +101,8 @@ public class TableList extends AppCompatActivity implements View.OnClickListener
         button.setBackgroundResource(R.drawable.plusbutton);
         button.setOnClickListener(
                 view -> {
-                    Intent i=new Intent(this, ActiveOrders.class);
-                    Data.giris=1;
+                    Intent i = new Intent(this, ActiveOrders.class);
+                    Data.giris = 1;
                     startActivityForResult(i, 1);
                 }
         );
@@ -121,14 +116,14 @@ public class TableList extends AppCompatActivity implements View.OnClickListener
         button.setBackgroundResource(R.drawable.plusbutton);
         button.setOnClickListener(
                 view -> {
-                    Intent i=new Intent(this, Login.class);
-                    Data.giris=-1;
+                    Intent i = new Intent(this, Login.class);
+                    Data.giris = -1;
                     startActivityForResult(i, 1);
                 }
         );
 
         button.setLayoutParams(new ViewGroup.LayoutParams(200, ViewGroup.LayoutParams.MATCH_PARENT));
-        row.addView(button);
+       // row.addView(button);
         button.setText("Login");
 
         layoutBack.addView(row);
@@ -146,7 +141,8 @@ public class TableList extends AppCompatActivity implements View.OnClickListener
         tables = Sort(table_temp);
 
         layoutBack.removeAllViews();
-        layoutBack = getAddButton(layoutBack);
+        if (Data.giris == 0)
+            layoutBack = getAddButton(layoutBack);
         NeumorphCardView button = new NeumorphCardView(this);
         LinearLayout row = new LinearLayout(this);
         for (int i = 0; i < tables.size(); i++) {

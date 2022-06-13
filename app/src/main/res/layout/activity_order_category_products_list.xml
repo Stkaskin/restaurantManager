@@ -29,7 +29,7 @@
         <ScrollView
             android:id="@+id/linearLayoutCategoryProducts_scroll"
             android:layout_width="match_parent"
-            android:layout_height="474dp"
+            android:layout_height="573dp"
             tools:ignore="SpeakableTextPresentCheck">
 
             <LinearLayout
@@ -42,7 +42,7 @@
         <LinearLayout
             android:id="@+id/OrderFooter_Product"
             android:layout_width="match_parent"
-            android:layout_height="123dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <soup.neumorphism.NeumorphButton
