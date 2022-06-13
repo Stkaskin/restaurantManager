@@ -57,12 +57,9 @@ public class TableList extends AppCompatActivity implements View.OnClickListener
 
 
 
-        // GetTableDynamic(tables);
-
-        ArrayList<Table> table_temp = FirebaseService.Get(Table.class);
-        //  ArrayList<Table> table_temp=new ArrayList<>();
-        tables = Sort(table_temp);
         GetTableDynamic(tables);
+
+
 
 
     }
@@ -82,7 +79,7 @@ public class TableList extends AppCompatActivity implements View.OnClickListener
                 view -> {
                     Intent i=new Intent(this, AdminPage.class);
                     Data.giris=0;
-                    startActivity(i);
+                    startActivityForResult(i, 1);
                 }
         );
         button.setLayoutParams(new ViewGroup.LayoutParams(200, ViewGroup.LayoutParams.MATCH_PARENT));
@@ -96,9 +93,9 @@ public class TableList extends AppCompatActivity implements View.OnClickListener
         button.setBackgroundResource(R.drawable.plusbutton);
         button.setOnClickListener(
                 view -> {
-                    Intent i=new Intent(this, AdminPage.class);
+                    Intent i=new Intent(this, ActiveOrders.class);
                     Data.giris=2;
-                    startActivity(i);
+                    startActivityForResult(i, 1);
                 }
         );
         button.setText("Waiter");
@@ -111,7 +108,7 @@ public class TableList extends AppCompatActivity implements View.OnClickListener
                 view -> {
                     Intent i=new Intent(this, ActiveOrders.class);
                     Data.giris=1;
-                    startActivity(i);
+                    startActivityForResult(i, 1);
                 }
         );
 
@@ -126,7 +123,7 @@ public class TableList extends AppCompatActivity implements View.OnClickListener
                 view -> {
                     Intent i=new Intent(this, Login.class);
                     Data.giris=-1;
-                    startActivity(i);
+                    startActivityForResult(i, 1);
                 }
         );
 
@@ -144,6 +141,9 @@ public class TableList extends AppCompatActivity implements View.OnClickListener
 
     private void GetTableDynamic(ArrayList<Table> tables) {
 
+        ArrayList<Table> table_temp = FirebaseService.Get(Table.class);
+        //  ArrayList<Table> table_temp=new ArrayList<>();
+        tables = Sort(table_temp);
 
         layoutBack.removeAllViews();
         layoutBack = getAddButton(layoutBack);
@@ -215,6 +215,7 @@ public class TableList extends AppCompatActivity implements View.OnClickListener
         Page.IntentGet(m);
         m.putExtra("operation", 1);
         m.putExtra("idTable", table.getId());
+
         startActivityForResult(m, 1);
 
 
@@ -225,13 +226,10 @@ public class TableList extends AppCompatActivity implements View.OnClickListener
         super.onActivityResult(requestCode, resultCode, data);
 
         if (UpdateData.tableUpdate) {
-            ArrayList<Table> table_temp = FirebaseService.Get(Table.class);
-            //  ArrayList<Table> table_temp=new ArrayList<>();
-            tables = Sort(table_temp);
             GetTableDynamic(tables);
             UpdateData.tableUpdate = false;
         }
-
+        Page.CloseActivities();
 
     }
 

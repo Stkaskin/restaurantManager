@@ -264,7 +264,10 @@ public class OrderProductsList extends AppCompatActivity {
             for (int x=0;x<bigOrders.getOrders().size();x++) {
                 if (bigOrders.getOrders().get(x).getProductId().equals(product.getId())) {
                     bigOrders.getOrders().remove(x);
+
                     FirebaseService.UpdateData(bigOrders);
+                    headerTextOp();
+                    OrderOp();
                     break;
                 }
             }

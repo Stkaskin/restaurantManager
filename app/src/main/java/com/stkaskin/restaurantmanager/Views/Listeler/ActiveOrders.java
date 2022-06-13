@@ -12,7 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.firestore.Query;
 import com.stkaskin.restaurantmanager.FireCloud.FirebaseService;
 import com.stkaskin.restaurantmanager.Models.BigOrder;
+import com.stkaskin.restaurantmanager.Models.Table;
 import com.stkaskin.restaurantmanager.Perdruable.Data;
+import com.stkaskin.restaurantmanager.Perdruable.UpdateData;
 import com.stkaskin.restaurantmanager.R;
 import com.stkaskin.restaurantmanager.Views.Table.TableAdd;
 import com.stkaskin.restaurantmanager.Widgets.AlerDialogWidget;
@@ -59,8 +61,9 @@ Query query=null;
             AlerDialogWidget.description="Siparişi Aldınız Mı?";
             AlerDialogWidget.yes_="Aldım";
             AlerDialogWidget.no_="İptal";
+            ListWidget.icon=ListWidget.update_;
             ListWidget.permissionedit = false;
-            ListWidget.permissiondelete = false;
+            ListWidget.permissiondelete = true;
             query=FirebaseService.QueryCreate(BigOrder.class).
                     whereEqualTo("status", 1);
 
@@ -93,14 +96,32 @@ Query query=null;
         BigOrder ct = (BigOrder) view.getTag();
         AlerDialogWidget.aa(this, (dialogInterface, i) ->
                 {
-                    if (s == 0) {
+                    if (Data.giris == 0) {
+                        UpdateData.tableUpdate = true;
                         ct.setStatus(3);
                         FirebaseService.Delete(ct);
+                        Table table=FirebaseService.Get(Table.class,ct.getTableId());
+                        table.setStatus(0);
+                        FirebaseService.UpdateData(table);
                         Toast.makeText(this, "Bitti" +
                                 ct.getId(), Toast.LENGTH_SHORT).show();
-                    } else if (s == 1) {
+                    } else if (Data.giris == 1) {
+                        UpdateData.tableUpdate = true;
                         ct.setStatus(1);
                         FirebaseService.UpdateData(ct);
+                        Table table=FirebaseService.Get(Table.class,ct.getTableId());
+                        table.setStatus(2);
+                        FirebaseService.UpdateData(table);
+                        find(query);
+                    }
+                    else
+                    {
+                        UpdateData.tableUpdate = true;
+                        ct.setStatus(2);
+                        FirebaseService.UpdateData(ct);
+                        Table table=FirebaseService.Get(Table.class,ct.getTableId());
+                        table.setStatus(1);
+                        FirebaseService.UpdateData(table);
                         find(query);
                     }
                 }

@@ -23,19 +23,28 @@ public class Page {
         return intent;
     }
 
+
     public static void addActivity(Activity activity) {
         boolean t = false;
+
         for (Activity v : activities) {
-            if (v.getIntent().getComponent().equals(activity.getIntent().getComponent()))
-                t = true;
+            if (v.getIntent().getComponent().equals(activity.getIntent().getComponent())) {
+                v.finish();
+                activities.remove(v);
+                break;
+            }
+
+
         }
-        if (!t)
-            activities.add(activity);
+
+        activities.add(activity);
+
+
     }
-    public static void CloseActivities()
-    {
-        for (int i=activities.size()-1;i>=0;i--) {
-            Activity activity=activities.get(i);
+
+    public static void CloseActivities() {
+        for (int i = activities.size() - 1; i >= 0; i--) {
+            Activity activity = activities.get(i);
             activity.finish();
             activities.remove(activity);
         }
