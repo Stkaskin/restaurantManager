@@ -49,7 +49,7 @@ public class OrderCategoryProductsList extends AppCompatActivity {
         ArrayList<Product> products = new ArrayList<>();
 
         products= FirebaseService.Get(
-                Product.class,FirebaseService.QueryCreate(Product.class).whereEqualTo("categoryId",getIntent().getStringExtra("CategoryId"))
+                Product.class,FirebaseService.QueryCreate(Product.class).whereEqualTo("categoryId",getIntent().getStringExtra("CategoryId")).whereEqualTo("status",1)
         );
 
         for (int i = 0; i <products.size(); i++) {

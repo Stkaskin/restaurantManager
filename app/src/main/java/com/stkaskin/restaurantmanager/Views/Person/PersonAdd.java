@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,6 +31,8 @@ public class PersonAdd extends AppCompatActivity {
         spinnerStatu.setAdapter(adapterStatu);
         int getextra = getIntent().getIntExtra("operation", 0);
         if (getextra == 1) {
+            TextView tx1 = findViewById(R.id.textView6);
+            tx1.setText("Edit Person");
             String id = getIntent().getStringExtra("personId");
             person = FirebaseService.Get(Person.class, id);
             EditText tx = findViewById(R.id.txt_personadd_name);

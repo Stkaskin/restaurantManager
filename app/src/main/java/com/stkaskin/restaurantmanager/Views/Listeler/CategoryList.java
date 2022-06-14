@@ -36,7 +36,7 @@ public class CategoryList extends AppCompatActivity {
     public void reflesh() {
         layout = findViewById(R.id.categoryListLinear);
         layout.removeAllViews();
-        ArrayList<Category> categories = FirebaseService.Get(Category.class);
+        ArrayList<Category> categories = FirebaseService.Get(Category.class,FirebaseService.QueryCreate(Category.class).whereEqualTo("status",1));
         for (Category ct : categories)
             ListWidget.listWidget(
                     layout, ct.getId(), ct.getName(), ct,
@@ -49,7 +49,8 @@ public class CategoryList extends AppCompatActivity {
         Category ct = (Category) view.getTag();
         AlerDialogWidget.aa(this, (dialogInterface, i) ->
                 {
-                    FirebaseService.Delete(ct);
+                    ct.setStatus(-1);
+                    FirebaseService.UpdateData(ct);
                     reflesh();
                     Toast.makeText(this, "Silindi" + ct.getId(), Toast.LENGTH_SHORT).show();
 

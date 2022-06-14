@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultCallback;
@@ -55,6 +56,8 @@ public class CategoryAdd extends AppCompatActivity {
         spinnerCategoryDurum.setAdapter(adapterCategoryDurum);
         int getextra = getIntent().getIntExtra("operation", 0);
         if (getextra == 1) {
+            TextView tx1 = findViewById(R.id.textView5);
+            tx1.setText("Edit Category");
             String id = getIntent().getStringExtra("categoryId");
             category = FirebaseService.Get(Category.class, id);
             //    spinnerCategoryDurum.setSelection(category.getStatus());

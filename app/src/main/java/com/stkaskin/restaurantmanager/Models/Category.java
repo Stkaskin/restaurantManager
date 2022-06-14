@@ -11,7 +11,7 @@ public class Category implements IFirebase
     int displayRank;
     String imageid;
     String name;
-    int status;
+    int status=1;
 
     public String getId() {
         return id;

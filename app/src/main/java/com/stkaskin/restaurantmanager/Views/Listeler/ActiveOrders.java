@@ -16,6 +16,7 @@ import com.stkaskin.restaurantmanager.Models.Table;
 import com.stkaskin.restaurantmanager.Perdruable.Data;
 import com.stkaskin.restaurantmanager.Perdruable.UpdateData;
 import com.stkaskin.restaurantmanager.R;
+import com.stkaskin.restaurantmanager.Views.Order.OrderShow;
 import com.stkaskin.restaurantmanager.Views.Table.TableAdd;
 import com.stkaskin.restaurantmanager.Widgets.AlerDialogWidget;
 import com.stkaskin.restaurantmanager.Widgets.ListWidget;
@@ -36,7 +37,7 @@ Query query=null;
         AlerDialogWidget.yes_=AlerDialogWidget.default_yes;
         AlerDialogWidget.no_=AlerDialogWidget.default_no;
         if (Data.giris == 0) {
-            ListWidget.permissionedit = false;
+            ListWidget.permissionedit = true;
             ListWidget.permissiondelete = true;
 
 
@@ -46,7 +47,7 @@ Query query=null;
             AlerDialogWidget.description="Siparişi Hazırladığınıza Emin Misiniz?";
             AlerDialogWidget.yes_="Onayla";
             AlerDialogWidget.no_="İptal";
-            ListWidget.permissionedit = false;
+            ListWidget.permissionedit = true;
             ListWidget.permissiondelete = true;
             ListWidget.icon=ListWidget.update_;
             query=FirebaseService.QueryCreate(BigOrder.class).
@@ -62,7 +63,7 @@ Query query=null;
             AlerDialogWidget.yes_="Aldım";
             AlerDialogWidget.no_="İptal";
             ListWidget.icon=ListWidget.update_;
-            ListWidget.permissionedit = false;
+            ListWidget.permissionedit = true;
             ListWidget.permissiondelete = true;
             query=FirebaseService.QueryCreate(BigOrder.class).
                     whereEqualTo("status", 1);
@@ -132,12 +133,10 @@ Query query=null;
 
     public void edit(View view) {
         BigOrder ct = (BigOrder) view.getTag();
-        Toast.makeText(this, "edit   " + ct.getId(), Toast.LENGTH_SHORT).show();
 
-        Intent intent = new Intent(this, TableAdd.class);
-        //intent.putExtra("operation", 1);
-       // intent.putExtra("tableId", ct.getId());
-    //    startActivity(intent);
+        Intent intent = new Intent(this, OrderShow.class);
+        intent.putExtra("orderShowId",ct.getId());
+       startActivity(intent);
 
     }
 

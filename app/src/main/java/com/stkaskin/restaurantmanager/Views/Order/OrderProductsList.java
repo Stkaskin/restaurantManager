@@ -65,7 +65,8 @@ public class OrderProductsList extends AppCompatActivity {
         table = FirebaseService.Get(Table.class, id);
         Data.table = table;
         model.setTable(table);
-        ArrayList<Order> orders = new ArrayList<Order>();
+        TextView tx = findViewById(R.id.textview_order_products_1);
+        tx.setText("Total: "+0);
         lastStatu = table.getStatus();
         UpdateData.tableProductUpdate = false;
         headerTextOp();
@@ -87,12 +88,8 @@ public class OrderProductsList extends AppCompatActivity {
         table = FirebaseService.Get(Table.class, table.getId());
 
         TextView tx = findViewById(R.id.textview_order_products_1);
-        ArrayList<BigOrder> order = FirebaseService.Get(BigOrder.class,
-                FirebaseService.QueryCreate(BigOrder.class).whereEqualTo("tableId", table.getId()).whereEqualTo("status", 1));
-        if (order != null && order.size() > 0)
-            tx.setText("Tutar:" + order.get(0).getTotal());
-        else
-            tx.setText("Tutar:" + 0);
+
+
         model.setP1(tx);
 
         tx = findViewById(R.id.textview_order_products_2);
@@ -104,7 +101,8 @@ public class OrderProductsList extends AppCompatActivity {
     }
 
     private void OrderOp() {
-        if (table.getStatus() == 1) {
+        if (table.getStatus() == 1 || table.getStatus() == 2) {
+
 
             products = new ArrayList<>();
             Query q = FirebaseService.QueryCreate(BigOrder.class);
@@ -123,13 +121,17 @@ public class OrderProductsList extends AppCompatActivity {
             }
             if (orders != null && orders.size() > 0 && orders.get(0).getStatus() != 3) {
                 order = orders.get(0);
+                TextView tx = findViewById(R.id.textview_order_products_1);
+                tx.setText("Total: "+order.getTotal());
                 for (detailOrder detail : order.getOrders()) {
                     Product product_ = FirebaseService.Get(Product.class, detail.getProductId().trim());
                     if (product_ != null)
                         products.add(product_);
                 }
-                if (products.size() > 0)
+                if (products.size() > 0){
                     GetTableDynamic(layoutBack, products);
+
+                }
             }
 
         } else if (table.getStatus() == 2) {
@@ -137,6 +139,7 @@ public class OrderProductsList extends AppCompatActivity {
         } else
             Toast.makeText(this, "Sipariş ALınmadı", Toast.LENGTH_SHORT).show();
         headerTextOp();
+
 
 
     }
@@ -157,6 +160,8 @@ public class OrderProductsList extends AppCompatActivity {
     private LinearLayout GetTableDynamic(LinearLayout layoutBack, ArrayList<Product> items) {
         TextView textView;
         LinearLayout row;
+        TextView tx = findViewById(R.id.textview_order_products_1);
+        tx.setText("Total : 0");
         layoutBack.removeAllViews();
         for (int i = 0; i < items.size(); i++) {
 
@@ -185,7 +190,12 @@ public class OrderProductsList extends AppCompatActivity {
             textView.setTag(items.get(i));
             textView.setLayoutParams(params);
             // textView.setOnClickListener(this::click);
-
+row.setOnClickListener(view ->
+{
+    Intent intent = new Intent(this, OrderShow.class);
+    intent.putExtra("orderShowId",order.getId());
+    startActivity(intent);
+});
             row.addView(textView);
             row.addView(getProductButtonsAndEditText(i));
 
@@ -258,6 +268,10 @@ public class OrderProductsList extends AppCompatActivity {
     public void ClickMinus(@NonNull View v) {
         Product product = (Product) v.getTag();
         Toast.makeText(this, product.getId(), Toast.LENGTH_SHORT).show();
+        AlerDialogWidget.no_=AlerDialogWidget.default_no;
+        AlerDialogWidget.yes_=AlerDialogWidget.default_yes;
+        AlerDialogWidget.description=AlerDialogWidget.default_description;
+        AlerDialogWidget.title=AlerDialogWidget.default_title;
         AlerDialogWidget.aa(layoutBack.getContext(), (dialogInterface, i) ->
         {
             BigOrder bigOrders = FirebaseService.Get(BigOrder.class,order.getId());
@@ -285,6 +299,7 @@ public class OrderProductsList extends AppCompatActivity {
 
 
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

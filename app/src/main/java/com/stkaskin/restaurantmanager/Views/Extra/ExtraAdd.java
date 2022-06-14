@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +33,8 @@ public class ExtraAdd extends AppCompatActivity {
         int getextra = getIntent().getIntExtra("operation", 0);
 
         if (getextra == 1) {
+            TextView tx1 = findViewById(R.id.textView3);
+            tx1.setText("Edit Extra");
             String id = getIntent().getStringExtra("extraId");
             extra = FirebaseService.Get(Extra.class, id);
             EditText typ = findViewById(R.id.editTypeNo);

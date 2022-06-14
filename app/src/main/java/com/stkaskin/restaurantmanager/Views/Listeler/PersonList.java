@@ -27,7 +27,7 @@ public class PersonList extends AppCompatActivity {
         setContentView(R.layout.activity_person_list2);
         ScrollView l = findViewById(R.id.personListLinearScroll);
         ListWidget.marginScrollView(l);
-
+        reflesh();
 
     }
     public void add(View view) {
@@ -36,6 +36,7 @@ public class PersonList extends AppCompatActivity {
     {
         LinearLayout layout=findViewById(R.id.personListLinear);
         layout.removeAllViews();
+
         ArrayList<Person> people = FirebaseService.Get(Person.class);
         for (Person ct : people)
             ListWidget.listWidget(

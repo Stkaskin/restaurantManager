@@ -34,7 +34,7 @@ public class OrderCategoryList extends AppCompatActivity {
         //  OrderWidget.setOrderLayout(this, findViewById(R.id.OrderHeader_Category), findViewById(R.id.OrderFooter_Category));
         Page.addActivity(this);
         ArrayList<Category> categories = new ArrayList<>();
-        categories = FirebaseService.Get(Category.class);
+        categories = FirebaseService.Get(Category.class,FirebaseService.QueryCreate(Category.class).whereEqualTo("status",1));
         LinearLayout layoutBack = findViewById(R.id.linearLayoutCategories);
         LinearLayout row = new LinearLayout(this);
         for (int i = 0; i < categories.size(); i++) {

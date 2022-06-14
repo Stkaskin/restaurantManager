@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.stkaskin.restaurantmanager.Interface.IIntent;
 
 import com.stkaskin.restaurantmanager.Perdruable.Page;

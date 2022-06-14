@@ -11,7 +11,7 @@ public class Product implements IFirebase {
     int displayRank = 999;
     String imageid;
     String name;
-    int status = 0;
+    int status = 1;
     int price = 0;
     ArrayList<DefaultExtra> extras = new ArrayList<>();
 
