@@ -29,6 +29,7 @@ public class ExtraList extends AppCompatActivity {
         setContentView(R.layout.activity_extra_list);
         ScrollView l = findViewById(R.id.extraListLinearScroll);
         ListWidget.marginScrollView(l);
+        reflesh();
 
     }
     public void add(View view) {
@@ -38,7 +39,9 @@ public class ExtraList extends AppCompatActivity {
         LinearLayout layout=findViewById(R.id.extraListLinear);
         layout.removeAllViews();
 
-        ArrayList<Extra> extras = FirebaseService.Get(Extra.class);
+        Extra s=new Extra();
+
+        ArrayList<Extra> extras = FirebaseService.Get(Extra.class,FirebaseService.QueryCreate(Extra.class).whereEqualTo("status",1));
         for (Extra ct : extras)
             ListWidget.listWidget(
                     findViewById(R.id.extraListLinear), ct.getId(), ct.getName(), ct,
@@ -49,7 +52,8 @@ public class ExtraList extends AppCompatActivity {
 
         AlerDialogWidget.aa(this, (dialogInterface, i) ->
                 {
-                    FirebaseService.Delete(ct);
+                    ct.setStatus(-1);
+                    FirebaseService.UpdateData(ct);
                     reflesh();
                     Toast.makeText(this, "Silindi" + ct.getId(), Toast.LENGTH_SHORT).show();
 

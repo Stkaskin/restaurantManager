@@ -21,7 +21,6 @@ import com.stkaskin.restaurantmanager.Perdruable.Page;
 import com.stkaskin.restaurantmanager.Perdruable.UpdateData;
 import com.stkaskin.restaurantmanager.R;
 import com.stkaskin.restaurantmanager.Views.Listeler.ActiveOrders;
-import com.stkaskin.restaurantmanager.Views.Login;
 import com.stkaskin.restaurantmanager.Views.Order.OrderProductsList;
 import com.stkaskin.restaurantmanager.Views.Shared.AdminPage;
 
@@ -36,12 +35,13 @@ public class TableList extends AppCompatActivity implements View.OnClickListener
     int opertation = 1;
     ArrayList<Table> tables;
     ProgressDialog dialog;
+    int gecici = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_table_list);
-
+        gecici=Data.giris;
         UpdateData.contextid = 1;
         UpdateData.tableUpdate = false;
         this.opertation = getIntent().getIntExtra("operation", 0);
@@ -61,71 +61,82 @@ public class TableList extends AppCompatActivity implements View.OnClickListener
 
     private LinearLayout getAddButton(LinearLayout layoutBack) {
         LinearLayout row = new LinearLayout(this);
-        Button button = new Button(this);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 120
         );
         row.setOrientation(LinearLayout.HORIZONTAL);
+        Button button = new Button(this);
         params.setMargins(0, 20, 20, 20);
 
+
+        if (Data.giris == 0) {
+            button.setBackgroundResource(R.drawable.plusbutton);
+            button.setOnClickListener(
+                    view -> {
+                        Intent i = new Intent(this, AdminPage.class);
+
+                            Data.giris = 0;
+                        startActivityForResult(i, 1);
+                    }
+            );
+            button.setLayoutParams(new ViewGroup.LayoutParams(200, ViewGroup.LayoutParams.MATCH_PARENT));
+
+            button.setText("ADMİN");
+            row.setLayoutParams(params);
+
+            row.addView(button);
+        }
+        if (Data.giris == 0 || Data.giris == 2) {
+            button = new Button(this);
+
+
+            button.setBackgroundResource(R.drawable.plusbutton);
+            button.setOnClickListener(
+                    view -> {
+                        Intent i = new Intent(this, ActiveOrders.class);
+
+                        Data.giris = 2;
+                        startActivityForResult(i, 1);
+                    }
+            );
+            button.setText("Waiter");
+            button.setLayoutParams(new ViewGroup.LayoutParams(200,120));
+
+            row.addView(button);
+        }
+        if (Data.giris == 0 || Data.giris == 1) {
+            button = new Button(this);
+            button.setBackgroundResource(R.drawable.plusbutton);
+            button.setOnClickListener(
+                    view -> {
+                        Intent i = new Intent(this, ActiveOrders.class);
+
+                        Data.giris =1;
+                        startActivityForResult(i, 1);
+                    }
+            );
+
+            button.setLayoutParams(new ViewGroup.LayoutParams(200, 120));
+
+            row.addView(button);
+            button.setText("Cheff");
+        }
+     /*   button = new Button(this);
         button.setBackgroundResource(R.drawable.plusbutton);
         button.setOnClickListener(
                 view -> {
-                    Intent i = new Intent(this, AdminPage.class);
-                    Data.giris = 0;
-                    startActivityForResult(i, 1);
-                }
-        );
-        button.setLayoutParams(new ViewGroup.LayoutParams(200, ViewGroup.LayoutParams.MATCH_PARENT));
-
-        button.setText("ADMİN");
-        row.setLayoutParams(params);
-        row.addView(button);
-        button = new Button(this);
-
-
-        button.setBackgroundResource(R.drawable.plusbutton);
-        button.setOnClickListener(
-                view -> {
-                    Intent i = new Intent(this, ActiveOrders.class);
-                    Data.giris = 2;
-                    startActivityForResult(i, 1);
-                }
-        );
-        button.setText("Waiter");
-        button.setLayoutParams(new ViewGroup.LayoutParams(200, ViewGroup.LayoutParams.MATCH_PARENT));
-
-        row.addView(button);
-        button = new Button(this);
-        button.setBackgroundResource(R.drawable.plusbutton);
-        button.setOnClickListener(
-                view -> {
-                    Intent i = new Intent(this, ActiveOrders.class);
+                    Intent i = new Intent(this, Login.class);
+                    gecici = Data.giris;
                     Data.giris = 1;
                     startActivityForResult(i, 1);
                 }
         );
 
         button.setLayoutParams(new ViewGroup.LayoutParams(200, ViewGroup.LayoutParams.MATCH_PARENT));
-
-        row.addView(button);
-        button.setText("Cheff");
-
-        button = new Button(this);
-        button.setBackgroundResource(R.drawable.plusbutton);
-        button.setOnClickListener(
-                view -> {
-                    Intent i = new Intent(this, Login.class);
-                    Data.giris = -1;
-                    startActivityForResult(i, 1);
-                }
-        );
-
-        button.setLayoutParams(new ViewGroup.LayoutParams(200, ViewGroup.LayoutParams.MATCH_PARENT));
-       // row.addView(button);
+        // row.addView(button);
         button.setText("Login");
-
+*/
         layoutBack.addView(row);
 
 
@@ -141,7 +152,7 @@ public class TableList extends AppCompatActivity implements View.OnClickListener
         tables = Sort(table_temp);
 
         layoutBack.removeAllViews();
-        if (Data.giris == 0)
+        if (Data.giris == 0 || Data.giris == 2)
             layoutBack = getAddButton(layoutBack);
         NeumorphCardView button = new NeumorphCardView(this);
         LinearLayout row = new LinearLayout(this);
@@ -220,10 +231,14 @@ public class TableList extends AppCompatActivity implements View.OnClickListener
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        Data.giris = gecici;
         if (UpdateData.tableUpdate) {
+
+
             GetTableDynamic(tables);
             UpdateData.tableUpdate = false;
+
+
         }
         Page.CloseActivities();
 

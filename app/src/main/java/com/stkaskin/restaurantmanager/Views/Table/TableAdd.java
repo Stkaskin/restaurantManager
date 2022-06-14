@@ -3,6 +3,7 @@ package com.stkaskin.restaurantmanager.Views.Table;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,8 +26,11 @@ public class TableAdd extends AppCompatActivity {
         //  adapterTableDurum = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Durum);
         //      adapterTableDurum.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //  spinnerTableDurum.setAdapter(adapterTableDurum);
+
         int getextra = getIntent().getIntExtra("operation", 0);
         if (getextra == 1) {
+            TextView tx = findViewById(R.id.textView8);
+            tx.setText("Edit Table");
             String id = getIntent().getStringExtra("tableId");
             table = FirebaseService.Get(Table.class, id);
             EditText text = findViewById(R.id.txtTableName);

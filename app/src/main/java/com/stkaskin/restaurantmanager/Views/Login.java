@@ -8,6 +8,7 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.stkaskin.restaurantmanager.FireCloud.FirebaseService;
+import com.stkaskin.restaurantmanager.Manager.FakeOperation;
 import com.stkaskin.restaurantmanager.Models.Person;
 import com.stkaskin.restaurantmanager.Perdruable.Data;
 import com.stkaskin.restaurantmanager.R;
@@ -25,6 +26,7 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+    //   FakeOperation.setStatusTable();
         Intent intent = new Intent(this, Splash.class);
         startActivity(intent);
 

@@ -57,29 +57,32 @@ public class OrderCategoryProductExtras extends AppCompatActivity {
 
 
         for (int i = 0; i < product.getExtras().size(); i++) {
+
             Extra ex = FirebaseService.Get(Extra.class, product.getExtras().get(i).getExtraId());
 
             SpecialExtraModel sM = new SpecialExtraModel();
             sM.setExtra(ex);
             sM.setValue(product.getExtras().get(i).isDefaultValue());
-
-            mList.add(sM);
+            if (ex.getStatus() != -1)
+                mList.add(sM);
         }
         for (int d = 0; d < mList.size(); d++) {
             ExtraModel mo = new ExtraModel();
             mo.setHeader("" + d);
+            String header = "";
             ArrayList<SpecialExtraModel> list = new ArrayList<>();
             list.add(mList.get(d));
             //0 . ile 0 haric karşılaştırma .... 1 den başlar
             for (int i = d + 1; i < mList.size(); i++) {
                 if (mList.get(d).getExtra().getType() == (mList.get(i).getExtra().getType())) {
                     list.add(mList.get(i));
+                    header = mList.get(i).getExtra().getType() + "";
                     mList.remove(i);
                     i--;
                 }
 
             }
-
+            mo.setHeader("Extra Type Code: " + header + "");
             mo.setExtras(list);
             models.add(mo);
             mList.remove(d);
@@ -92,16 +95,16 @@ public class OrderCategoryProductExtras extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void AddOrder(View view) {
-        BigOrder order=new BigOrder();
+        BigOrder order = new BigOrder();
         Query q = FirebaseService.QueryCreate(BigOrder.class);
         q = q.whereEqualTo("tableId", Data.table.getId().trim());
         boolean update = false;//add
         ArrayList<BigOrder> orders = FirebaseService.Get(BigOrder.class, q);
-        if (orders != null && orders.size() > 0 && Data.table.getStatus()!=0) {
+        if (orders != null && orders.size() > 0 && Data.table.getStatus() != 0) {
             for (int i = 0; i < orders.size(); i++) {
-                if (orders.get(i).getStatus()!=3) {
+                if (orders.get(i).getStatus() != 3) {
                     order = orders.get(i);
-                break;
+                    break;
                 }
             }
             update = true;//update
@@ -247,8 +250,13 @@ public class OrderCategoryProductExtras extends AppCompatActivity {
         }
     }
 
-    public void Back(View view){finish();}
-    public void BackAll(View view){Page.CloseActivities();}
+    public void Back(View view) {
+        finish();
+    }
+
+    public void BackAll(View view) {
+        Page.CloseActivities();
+    }
 
     public void tableOperation(View view
     ) {

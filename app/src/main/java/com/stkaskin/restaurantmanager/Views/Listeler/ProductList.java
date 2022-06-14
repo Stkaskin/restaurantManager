@@ -27,13 +27,14 @@ public class ProductList extends AppCompatActivity {
         setContentView(R.layout.activity_product_list);
         ScrollView l = findViewById(R.id.productListLinearScroll);
         ListWidget.marginScrollView(l);
+        reflesh();
 
     }
     private void reflesh()
     {
         LinearLayout layout=findViewById(R.id.productListLinear);
         layout.removeAllViews();
-        ArrayList<Product> products = FirebaseService.Get(Product.class);
+        ArrayList<Product> products = FirebaseService.Get(Product.class,FirebaseService.QueryCreate(Product.class).whereEqualTo("status",1));
         for (Product ct : products)
             ListWidget.listWidget(
                     findViewById(R.id.productListLinear), ct.getId(), ct.getName(), ct,
@@ -44,9 +45,14 @@ public class ProductList extends AppCompatActivity {
 
     public void delete(View view) {
         Product ct = (Product) view.getTag();
+        AlerDialogWidget.no_=AlerDialogWidget.default_no;
+        AlerDialogWidget.yes_=AlerDialogWidget.default_yes;
+        AlerDialogWidget.description=AlerDialogWidget.default_description;
+        AlerDialogWidget.title=AlerDialogWidget.default_title;
         AlerDialogWidget.aa(this, (dialogInterface, i) ->
                 {
-                    FirebaseService.Delete(ct);
+                    ct.setStatus(-1);
+                    FirebaseService.UpdateData(ct);
                     reflesh();
                     Toast.makeText(this, "Silindi" + ct.getId(), Toast.LENGTH_SHORT).show();
 

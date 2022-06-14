@@ -6,6 +6,16 @@ public class Extra implements IFirebase {
     String id;
     String name;
     int type;
+    int status=1;
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+
 
     public String getId() {
         return id;

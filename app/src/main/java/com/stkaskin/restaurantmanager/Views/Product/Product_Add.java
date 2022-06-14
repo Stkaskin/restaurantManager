@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultCallback;
@@ -79,6 +80,8 @@ public class Product_Add extends AppCompatActivity {
 
         getextra = getIntent().getIntExtra("operation", 0);
         if (getextra == 1) {
+            TextView tx = findViewById(R.id.textView);
+            tx.setText("Edit Product");
             String id = getIntent().getStringExtra("productId");
             product = FirebaseService.Get(Product.class, id);
             EditText text = findViewById(R.id.productaddprice);
@@ -95,7 +98,7 @@ public class Product_Add extends AppCompatActivity {
     public int selectArrayItemFind() {
         int index = 0;
         for (Category category : categories) {
-            if (category.getId().equals(product.getId()))
+            if (category.getId().equals(product.getCategoryId()))
                 return index;
             index++;
         }
