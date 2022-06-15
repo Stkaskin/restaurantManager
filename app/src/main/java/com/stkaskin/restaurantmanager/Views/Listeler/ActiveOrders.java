@@ -107,6 +107,7 @@ Query query=null;
                             FirebaseService.UpdateData(table);
                         }
                         FirebaseService.Delete(ct);
+                        find(query);
                         Toast.makeText(this, "Bitti" +
                                 ct.getId(), Toast.LENGTH_SHORT).show();
                     } else if (Data.giris == 1) {
