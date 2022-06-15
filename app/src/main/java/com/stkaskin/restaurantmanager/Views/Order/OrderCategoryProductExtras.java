@@ -120,7 +120,7 @@ public class OrderCategoryProductExtras extends AppCompatActivity {
         detailOrder detailOrder = new detailOrder();
         detailOrder.setProductId(productid);
         detailOrder.setPrice(new Random().nextInt(300));
-        detailOrder.setCount(new Random().nextInt(5));
+        detailOrder.setCount(1);
         detailOrderArrayList.add(detailOrder);
         order.setOrders(detailOrderArrayList);
         detailOrder.setExtras(extraProducts);

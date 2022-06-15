@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class detailOrder {
     String productId;
-    int count=0;
+    int count=1;
     int price=0;
     int sum=0;
     ArrayList<ExtraProduct> extras=new ArrayList<>();
