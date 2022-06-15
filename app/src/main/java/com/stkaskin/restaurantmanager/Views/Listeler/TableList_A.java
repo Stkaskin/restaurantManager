@@ -75,7 +75,7 @@ public class TableList_A extends AppCompatActivity {
 
     }
 
-    public void back(View view) {
+    public void Back(View view) {
         finish();
     }
 
