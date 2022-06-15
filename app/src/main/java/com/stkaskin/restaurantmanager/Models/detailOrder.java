@@ -23,7 +23,7 @@ public class detailOrder {
 
     public void setCount(int count) {
         this.count = count;
-        setSum(this.price*this.count);
+        setSum(this.price);
     }
 
     public int getPrice() {
@@ -32,7 +32,7 @@ public class detailOrder {
 
     public void setPrice(int price) {
         this.price = price;
-        setSum(this.price*this.count);
+        setSum(this.price);
     }
 
     public int getSum() {

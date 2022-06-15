@@ -162,7 +162,7 @@ public class FakeOperation {
         for (int d = 0; d < products.size() && d < 4; d++) {
             detailOrder detailOrder = new detailOrder();
             detailOrder.setExtras(new ArrayList<ExtraProduct>());
-            detailOrder.setCount(new Random().nextInt(5));
+            detailOrder.setCount(1);
             detailOrder.setPrice(new Random().nextInt(200));
 
 

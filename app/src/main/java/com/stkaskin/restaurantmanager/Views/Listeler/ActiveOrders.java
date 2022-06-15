@@ -98,12 +98,16 @@ Query query=null;
         AlerDialogWidget.aa(this, (dialogInterface, i) ->
                 {
                     if (Data.giris == 0) {
-                        UpdateData.tableUpdate = true;
-                        ct.setStatus(3);
+
+                        if (ct.getTableId()!=null && ct.getTableId().length()>0)
+                        {  UpdateData.tableUpdate = true;
+                            Table table=FirebaseService.Get(Table.class,ct.getTableId());
+
+                            table.setStatus(0);
+                            FirebaseService.UpdateData(table);
+                        }
                         FirebaseService.Delete(ct);
-                        Table table=FirebaseService.Get(Table.class,ct.getTableId());
-                        table.setStatus(0);
-                        FirebaseService.UpdateData(table);
+                        find(query);
                         Toast.makeText(this, "Bitti" +
                                 ct.getId(), Toast.LENGTH_SHORT).show();
                     } else if (Data.giris == 1) {
